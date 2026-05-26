@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+checkpoints/
+demo_outputs*/
+__pycache__/
+checkpoints/
+.DS_Store
