@@ -1,0 +1,18 @@
+Question:
+Is the buss behind the car ?
+
+Expected:
+YES
+
+Predicted:
+Failed to Verify
+
+Confidence:
+0.9
+
+Verified:
+True
+
+Observation:
+The system struggled with depth estimation due to perspective 
+ambiguity and noisy spatial geometry in the outdoor scene.

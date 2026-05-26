@@ -1,0 +1,19 @@
+Question:
+Is the woman below the bicycle?
+
+Expected:
+NO
+
+Predicted:
+NO
+
+Confidence:
+0.9
+
+Verified:
+True
+
+Observation:
+Correct detection and spatial reasoning.
+
+

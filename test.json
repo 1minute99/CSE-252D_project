@@ -1,0 +1,79 @@
+[
+  {
+    "image_path": "Left_Right/orignal_image.jpg",
+    "question": "Is the green cup left of the bottle?",
+    "answer": "yes",
+    "relation": "left_of"
+  },
+  {
+    "image_path": "Left_Right/orignal_image.jpg",
+    "question": "Is the green cup right of the bottle?",
+    "answer": "no",
+    "relation": "right_of"
+  },
+
+  {
+    "image_path": "Inside_Outside/orignal_image.jpg",
+    "question": "Is the apple inside the bowl?",
+    "answer": "yes",
+    "relation": "contains"
+  },
+  {
+    "image_path": "Inside_Outside/orignal_image.jpg",
+    "question": "Is the apple outside the bowl?",
+    "answer": "no",
+    "relation": "contains"
+  },
+
+  {
+    "image_path": "Above_Below/orignal_image.jpg",
+    "question": "Is the woman above the bicycle?",
+    "answer": "yes",
+    "relation": "above"
+  },
+  {
+    "image_path": "Above_Below/orignal_image.jpg",
+    "question": "Is the bicycle above the woman?",
+    "answer": "no",
+    "relation": "below"
+  },
+
+  {
+    "image_path": "ON/orignal_image.jpg",
+    "question": "Is the phone on the notebook?",
+    "answer": "yes",
+    "relation": "on"
+  },
+  {
+    "image_path": "ON/orignal_image.jpg",
+    "question": "Is the notebook on the phone?",
+    "answer": "no",
+    "relation": "on"
+  },
+
+  {
+    "image_path": "Near_Far/orignal_image.jpg",
+    "question": "Is the cup near the laptop?",
+    "answer": "yes",
+    "relation": "near"
+  },
+  {
+    "image_path": "Near_Far/orignal_image.jpg",
+    "question": "Is the mouse far from the laptop?",
+    "answer": "no",
+    "relation": "far"
+  },
+
+  {
+    "image_path": "Behind_Infront/orignal_image.jpg",
+    "question": "Is the bus behind the car?",
+    "answer": "ambiguous",
+    "relation": "behind"
+  },
+  {
+    "image_path": "Behind_Infront/orignal_image.jpg",
+    "question": "Is the car in front of the bus?",
+    "answer": "ambiguous",
+    "relation": "in_front"
+  }
+]

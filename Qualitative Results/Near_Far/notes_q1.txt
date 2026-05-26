@@ -1,0 +1,18 @@
+Question:
+Is the mouse near the laptop?
+
+Expected:
+YES
+
+Predicted:
+NO
+
+Confidence:
+0.9
+
+Verified:
+True
+
+Observation:
+System incorrectly classified the inverse containment relation. 
+Likely caused by partial object visibility and imperfect enclosure reasoning.

@@ -1,0 +1,19 @@
+Question:
+Is the notebook on the phone?
+
+Expected:
+NO
+
+Predicted:
+NO
+
+Confidence:
+0.9
+
+Verified:
+True
+
+Observation:
+Correct detection and spatial reasoning.
+
+

@@ -1,0 +1,19 @@
+Question:
+Is the car in front of the buss ?
+
+Expected:
+YES
+
+Predicted:
+YES
+
+Confidence:
+0.9
+
+Verified:
+True
+
+Observation:
+Correct detection and spatial reasoning.
+
+

@@ -1,0 +1,17 @@
+Question:
+Is the woman above the bicycle?
+
+Expected:
+YES
+
+Predicted:
+YES
+
+Confidence:
+0.9
+
+Verified:
+True
+
+Observation:
+Correct detection and spatial reasoning.

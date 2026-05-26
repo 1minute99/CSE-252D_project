@@ -1,0 +1,150 @@
+{
+  "summary": {
+    "dataset": "whatsup",
+    "n": 12,
+    "accuracy": 0.5833,
+    "selective_accuracy": 0.7,
+    "coverage": 0.8333,
+    "abstain_rate": 0.1667,
+    "verification_rate": 0.8333,
+    "avg_iterations": 1.3333,
+    "failure_modes": {
+      "depth_noise": 1,
+      "vlm_bias": 1
+    }
+  },
+  "results": [
+    {
+      "idx": 0,
+      "question": "Is the green cup left of the bottle?",
+      "gt": "yes",
+      "pred": "yes",
+      "correct": true,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 1,
+      "question": "Is the green cup right of the bottle?",
+      "gt": "no",
+      "pred": "no",
+      "correct": true,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 2,
+      "question": "Is the apple inside the bowl?",
+      "gt": "yes",
+      "pred": "yes",
+      "correct": true,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 3,
+      "question": "Is the apple outside the bowl?",
+      "gt": "no",
+      "pred": "yes",
+      "correct": false,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 4,
+      "question": "Is the woman above the bicycle?",
+      "gt": "yes",
+      "pred": "yes",
+      "correct": true,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 5,
+      "question": "Is the bicycle above the woman?",
+      "gt": "no",
+      "pred": "no",
+      "correct": true,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 6,
+      "question": "Is the phone on the notebook?",
+      "gt": "yes",
+      "pred": "no",
+      "correct": false,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 7,
+      "question": "Is the notebook on the phone?",
+      "gt": "no",
+      "pred": "no",
+      "correct": true,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 8,
+      "question": "Is the cup near the laptop?",
+      "gt": "yes",
+      "pred": "no",
+      "correct": false,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 9,
+      "question": "Is the mouse far from the laptop?",
+      "gt": "no",
+      "pred": "no",
+      "correct": true,
+      "abstain": false,
+      "verified": true,
+      "iterations": 1,
+      "failure_mode": ""
+    },
+    {
+      "idx": 10,
+      "question": "Is the bus behind the car?",
+      "gt": "ambiguous",
+      "pred": "abstain",
+      "correct": false,
+      "abstain": true,
+      "verified": false,
+      "iterations": 3,
+      "failure_mode": "depth_noise"
+    },
+    {
+      "idx": 11,
+      "question": "Is the car in front of the bus?",
+      "gt": "ambiguous",
+      "pred": "abstain",
+      "correct": false,
+      "abstain": true,
+      "verified": false,
+      "iterations": 3,
+      "failure_mode": "vlm_bias"
+    }
+  ]
+}

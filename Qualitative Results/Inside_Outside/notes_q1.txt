@@ -1,0 +1,17 @@
+Question:
+Is the apple inside the bowl?
+
+Expected:
+YES
+
+Predicted:
+YES
+
+Confidence:
+0.9
+
+Verified:
+True
+
+Observation:
+Correct detection and spatial reasoning.
