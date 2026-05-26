@@ -1,10 +1,15 @@
+# Secrets
 .env
 .env.*
 !.env.example
+
+# Python
 __pycache__/
 *.pyc
+
+# Model weights / runtime outputs
 checkpoints/
 demo_outputs*/
-__pycache__/
-checkpoints/
+
+# macOS
 .DS_Store

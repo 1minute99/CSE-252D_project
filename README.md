@@ -28,27 +28,26 @@ Supported relations: `left_of`, `right_of`, `above`, `below`, `behind`,
 pip install -r requirements.txt
 ```
 
-Create a local `.env` file in this directory for the OpenAI key:
+Create a local `.env` file in the project root for the OpenAI key:
 
 ```text
 OPENAI_API_KEY=sk-your-key-here
 ```
 
-The code checks `.env`, then your shell environment.
+The code checks `.env` (project root or `src/`), then your shell environment.
 Command-line `--openai_key` still works and takes precedence.
 
-For real Grounding-DINO runs, place these files in `checkpoints/` beside this
-README:
+For real Grounding-DINO runs, place these files in `src/checkpoints/`:
 
 ```text
-checkpoints/GroundingDINO_SwinT_OGC.py
-checkpoints/groundingdino_swint_ogc.pth
+src/checkpoints/GroundingDINO_SwinT_OGC.py
+src/checkpoints/groundingdino_swint_ogc.pth
 ```
 
 ## CLI
 
 ```bash
-python main.py ^
+python src/main.py ^
   --image path/to/image.jpg ^
   --question "Is the red cup to the left of the blue plate?" ^
   --backend openai ^
@@ -65,7 +64,7 @@ geometry-only answers.
 ## Evaluation
 
 ```bash
-python evaluate.py ^
+python src/evaluate.py ^
   --dataset whatsup ^
   --split data/whatsup_val.json ^
   --image_root data/images ^
@@ -89,15 +88,22 @@ Dataset format:
 ## Project Structure
 
 ```text
-state.py        Pydantic state and SpatialEvidenceGraph models
-parsing.py      robust JSON-object extraction fallback
-planner.py      LangChain structured Planner
-executor.py     LLaVA/OpenAI Executor
-critic.py       geometric verification engine
-detector.py     Grounding-DINO wrapper
-depth.py        Depth Anything V2 wrapper
-pipeline.py     LangGraph orchestration
-visualize.py    SEG printing, image annotation, JSON export
-main.py         CLI entry point
-evaluate.py     dataset evaluation harness
+src/                source code
+  state.py          Pydantic state and SpatialEvidenceGraph models
+  parsing.py        robust JSON-object extraction fallback
+  planner.py        LangChain structured Planner
+  executor.py       LLaVA/OpenAI Executor
+  critic.py         geometric verification engine
+  detector.py       Grounding-DINO wrapper
+  depth.py          Depth Anything V2 wrapper
+  pipeline.py       LangGraph orchestration
+  visualize.py      SEG printing, image annotation, JSON export
+  main.py           CLI entry point
+  evaluate.py       dataset evaluation harness
+  internet_inputs/  sample images and reference graphs
+docs/               proposal, design doc, mid-demo deck, architecture.png
+results/
+  qualitative/      per-relation sample runs (and test.json eval split)
+  quantitative_sample15/  aggregate eval.json on 15 samples
+requirements.txt
 ```
