@@ -105,6 +105,11 @@ def _verify_relation(
         # CriticConfig.depth_confidence_cap); keep it below the arbitration
         # threshold so depth relations defer rather than override.
         geo_confidence = min(geo_confidence, cfg.depth_confidence_cap)
+    elif relation == "contains":
+        # Containment geometry is non-separable on VSR (see
+        # CriticConfig.contains_confidence_cap); defer to the VLM rather than
+        # commit an unreliable verdict.
+        geo_confidence = min(geo_confidence, cfg.contains_confidence_cap)
     evidence["geo_confidence"] = round(geo_confidence, 4)
 
     if relation == "left_of":

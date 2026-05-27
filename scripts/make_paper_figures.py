@@ -84,23 +84,25 @@ def _save(fig, name):
 
 # ── Figure 1: improvement journey ────────────────────────────────────────────
 
-def fig_journey(baseline, old, arbitration, selective, full):
+def fig_journey(baseline, old, arbitration, old_selective, old_full, full):
     labels = [
         "Original\n(abstain on\ndisagree)",
         "+ Confidence\narbitration",
         "+ Depth\ndefers to VLM\n(selective)",
         "+ VLM fallback\n(full coverage)",
+        "+ Margin &\ncontains\nrecalibration",
     ]
     # accuracy at each stage (raw accuracy, comparable across all)
     accs = [
         summary(old)["accuracy"],            # 0.49
         summary(arbitration)["accuracy"],     # 0.655 (arbitration, no depth-cap)
-        summary(selective)["accuracy"],       # 0.69
-        summary(full)["accuracy"],            # 0.77
+        summary(old_selective)["accuracy"],   # 0.69
+        summary(old_full)["accuracy"],        # 0.77
+        summary(full)["accuracy"],            # 0.79 (recalibrated)
     ]
-    colors = [C_OLD, C_ACCENT, C_SELECTIVE, C_FULL]
+    colors = [C_OLD, C_ACCENT, C_SELECTIVE, "#34d399", C_FULL]
 
-    fig, ax = plt.subplots(figsize=(7.2, 4.2))
+    fig, ax = plt.subplots(figsize=(7.8, 4.2))
     bars = ax.bar(range(len(labels)), accs, color=colors, width=0.62)
     _annotate_bars(ax, bars)
     base = summary(baseline)["accuracy"]
@@ -196,7 +198,7 @@ def fig_risk_coverage(baseline, old, selective, full):
     ax.set_xlabel("Coverage (fraction of items answered)")
     ax.set_ylabel("Selective accuracy (accuracy on answered items)")
     ax.set_xlim(0.55, 1.05)
-    ax.set_ylim(0.70, 0.80)
+    ax.set_ylim(0.70, 0.82)
     ax.set_title("Accuracy vs. coverage operating points")
     ax.grid(True, alpha=0.25)
     _save(fig, "paper_fig4_accuracy_vs_coverage")
@@ -206,10 +208,12 @@ def main():
     baseline = load("ablation/executor_only.json")
     old = load("ablation/full_k2.json")
     arbitration = load("vsr200_arbitration_k2.json")
-    selective = load("vsr200_arbitration_depthcap_k2.json")
-    full = load("vsr200_fullcoverage_k2.json")
+    old_selective = load("vsr200_arbitration_depthcap_k2.json")
+    old_full = load("vsr200_fullcoverage_k2.json")
+    selective = load("vsr200_selective_recal_k2.json")
+    full = load("vsr200_fullcoverage_recal_k2.json")
 
-    fig_journey(baseline, old, arbitration, selective, full)
+    fig_journey(baseline, old, arbitration, old_selective, old_full, full)
     fig_with_without(baseline, selective, full)
     fig_answer_source(selective, full)
     fig_risk_coverage(baseline, old, selective, full)

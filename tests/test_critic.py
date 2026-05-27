@@ -262,6 +262,18 @@ def test_depth_relation_confidence_lower_than_position_for_same_detection():
     assert pos["geo_confidence"] > dep["geo_confidence"]
 
 
+def test_contains_confidence_capped_to_defer_to_vlm():
+    cfg = CriticConfig()
+    # Small fully inside big with perfect coverage: without the cap this would
+    # earn near-det confidence (~0.9), but contains geometry is non-separable
+    # on VSR, so it is capped below the arbitration threshold and defers.
+    big = _bc(0.10, 0.10, 0.90, 0.90, 0.9)
+    small = _bc(0.40, 0.40, 0.55, 0.55, 0.9)
+    _, ev = _verify_relation("contains", big, small, 0.5, 0.5, cfg)
+    assert ev["geo_confidence"] <= cfg.contains_confidence_cap
+    assert ev["geo_confidence"] < cfg.geo_confidence_arbitration
+
+
 # ── _compute_crop ────────────────────────────────────────────────────────────
 
 def test_compute_crop_pads_and_clamps_to_unit_square():

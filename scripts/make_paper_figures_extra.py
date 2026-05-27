@@ -219,7 +219,7 @@ def fig10_source_composition(risk):
 
 
 def main():
-    risk = load("vsr200_risk_k2.json")
+    risk = load("vsr200_fullcoverage_recal_k2.json")
     baseline = load("ablation/executor_only.json")
     relmap = relation_map()
 

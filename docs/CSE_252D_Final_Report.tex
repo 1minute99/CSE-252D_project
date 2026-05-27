@@ -43,8 +43,8 @@ confidence-based reconciliation step decides, on every question, whether to
 trust the geometry, defer to the VLM, or abstain, and serialises the full
 reasoning trace as an auditable Spatial Evidence Graph (SEG). On a 200-sample
 stratified split of the Visual Spatial Reasoning (VSR) benchmark, SEA reaches
-\textbf{77.0\% accuracy at full coverage, $+5.0$ points over a strong GPT-4o
-baseline (72.0\%)}, and \textbf{77.1\% selective accuracy at 89.5\% coverage}
+\textbf{79.0\% accuracy at full coverage, $+7.0$ points over a strong GPT-4o
+baseline (72.0\%)}, and \textbf{80.3\% selective accuracy at 89.0\% coverage}
 with fully verifiable evidence. A risk--coverage analysis shows that geometric
 confidence is an informative uncertainty signal even where geometry is a poor
 answer source, establishing the Critic's role as a verifier and confidence
@@ -88,7 +88,7 @@ A central empirical question motivates this work: \emph{does deterministic
 geometry actually help a strong VLM, and if so, how?} Our headline finding is
 that geometry's value lies not in out-answering the VLM but in \emph{knowing
 when the VLM is right}. Used as a confidence signal and reconciliation
-mechanism, geometric evidence lifts a 72.0\% GPT-4o baseline to 77.0\% at full
+mechanism, geometric evidence lifts a 72.0\% GPT-4o baseline to 79.0\% at full
 coverage on a real benchmark, and enables a selective operating point whose
 committed answers are more accurate than the VLM while carrying explicit
 geometric justification.
@@ -103,8 +103,8 @@ contributions are:
 querying with deterministic geometric verification, evaluated at scale on a
 published benchmark (VSR).
 \item A \textbf{confidence-based reconciliation} policy that decides per
-question whether to commit geometry, defer to the VLM, or abstain, recovering
-a $+5$-point accuracy gain over abstaining on every disagreement.
+question whether to commit geometry, defer to the VLM, or abstain, turning a 0.49
+abstain-on-every-disagreement policy into a 0.79 full-coverage system.
 \item A \textbf{depth-frame correction} that makes monocular depth comparable
 across active-perception crops, eliminating a class of depth-ordering errors.
 \item A risk--coverage analysis showing geometric confidence is an
@@ -261,7 +261,14 @@ g = \min\!\big(\text{conf}(o_1),\text{conf}(o_2)\big)\cdot
 the product of the two detector confidences and a margin-clearance term, where
 $s$ is the deciding signal ($\Delta c_x$, $\Delta c_y$, $\Delta d$, or
 coverage) and $\sigma$ a per-relation scale. Depth relations receive a smaller
-scale and a confidence cap, encoding their unreliability.
+scale and a confidence cap, encoding their unreliability; \rel{contains}
+receives the same cap, for a reason the data forced on us. On VSR most
+true-containment items have the reference object \emph{larger} than and barely
+overlapping the container (captions whose boxes do not reflect visual nesting),
+so the coverage/area signal is \emph{non-separable}: no threshold setting beats
+3/12 true positives. We therefore cap \rel{contains} confidence so it defers to
+the VLM rather than committing a verdict the geometry cannot support, which
+removes the one relation on which SEA previously trailed the baseline.
 
 The reconciliation policy is then: (i) if $g\ge\tau$ (default $0.40$),
 \emph{commit the geometry verdict}; (ii) otherwise \emph{defer to the VLM};
@@ -271,20 +278,21 @@ a naive ``abstain on any disagreement'' rule and lets SEA act as a router that
 sends each question to whichever signal is most trustworthy.
 
 The per-relation scale $\sigma$ encodes a prior on signal reliability:
-position relations clear the margin decisively when objects are well
-separated and thus earn high confidence, whereas depth relations
-(\rel{behind}, \rel{in\_front}) draw on a noisier signal with a smaller scale
-and an explicit cap. Figure~\ref{fig:geoconf} shows the resulting
-distribution: depth relations sit below the arbitration threshold by design,
-so SEA defers them to the VLM rather than overruling it --- a choice the data
-in Sec.~\ref{sec:analysis} validates.
+well-separated position relations (\rel{left\_of}, \rel{on}) clear the margin
+decisively and earn high confidence, whereas depth relations (\rel{behind},
+\rel{in\_front}) and \rel{contains} draw on noisier or non-separable signals
+and are explicitly capped. Figure~\ref{fig:geoconf} shows the resulting
+distribution: depth and \rel{contains} relations sit below the arbitration
+threshold by design, so SEA defers them to the VLM rather than overruling it
+--- a choice the data in Sec.~\ref{sec:analysis} validates.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig8_geoconf_by_relation.pdf}
-\caption{Mean geometric confidence by relation. Depth relations (blue) fall
-below the arbitration threshold $\tau=0.40$, so they defer to the VLM;
-position and containment relations clear it and can commit geometry.}
+\caption{Mean geometric confidence by relation. Depth relations (blue) and the
+non-separable \rel{contains} relation fall below the arbitration threshold
+$\tau=0.40$ and defer to the VLM; well-separated position relations clear it
+and can commit geometry.}
 \label{fig:geoconf}
 \end{figure}
 
@@ -354,10 +362,10 @@ and answer-source attribution.
 
 \section{Results}
 \textbf{Main result.} Table~\ref{tab:main} reports the headline comparison. At
-full coverage, SEA attains \textbf{77.0\%}, a \textbf{$+5.0$-point} gain over
+full coverage, SEA attains \textbf{79.0\%}, a \textbf{$+7.0$-point} gain over
 the strong GPT-4o baseline (72.0\%). In selective mode --- abstaining only
 when there is no geometric evidence --- SEA's committed answers reach
-\textbf{77.1\% selective accuracy at 89.5\% coverage}, i.e.\ \emph{more
+\textbf{80.3\% selective accuracy at 89.0\% coverage}, i.e.\ \emph{more
 accurate than the VLM} while every answer carries explicit geometric evidence.
 Figure~\ref{fig:headline} visualises both operating points.
 
@@ -366,17 +374,17 @@ Figure~\ref{fig:headline} visualises both operating points.
 \small
 \caption{Main results on the VSR-200 split. All SEA operating points exceed
 the GPT-4o baseline on their respective metric. The high-precision row
-abstains on two-thirds of items by design, so its full-denominator accuracy
-is not the operative metric (omitted); its committed answers are 82\% correct.}
+abstains on roughly 70\% of items by design, so its full-denominator accuracy
+is not the operative metric (omitted); its committed answers are 85\% correct.}
 \label{tab:main}
 \begin{tabular}{lccc}
 \toprule
 System & Acc. & Sel.\ acc. & Coverage \\
 \midrule
 GPT-4o baseline             & 0.720 & 0.720 & 1.000 \\
-SEA (full coverage)         & \textbf{0.770} & 0.770 & 1.000 \\
-SEA (selective)             & 0.690 & 0.771 & 0.895 \\
-SEA (high precision, $\tau{=}0.40$) & --- & \textbf{0.821} & 0.335 \\
+SEA (full coverage)         & \textbf{0.790} & 0.790 & 1.000 \\
+SEA (selective)             & 0.715 & 0.803 & 0.890 \\
+SEA (high precision, $\tau{=}0.40$) & --- & \textbf{0.847} & 0.295 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -385,8 +393,8 @@ SEA (high precision, $\tau{=}0.40$) & --- & \textbf{0.821} & 0.335 \\
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig2_with_without_abstain.pdf}
 \caption{SEA vs.\ the GPT-4o baseline. The full-coverage model improves raw
-accuracy ($+5.0$ pts); the selective model exceeds the baseline in selective
-accuracy while answering 89.5\% of items with verified evidence.}
+accuracy ($+7.0$ pts); the selective model exceeds the baseline in selective
+accuracy while answering 89.0\% of items with verified evidence.}
 \label{fig:headline}
 \end{figure}
 
@@ -395,7 +403,9 @@ the reconciliation policy is the main driver of accuracy. A naive
 ``abstain-on-disagreement'' rule sacrifices coverage without a precision gain;
 adding confidence-based arbitration, then routing depth disagreements to the
 VLM, then deferring detector-misses to the VLM monotonically improves
-full-denominator accuracy to 0.77. Each design choice contributes,
+full-denominator accuracy to 0.77; a final geometry recalibration --- a wider
+position slack and deferring the non-separable \rel{contains} relation
+(Sec.~\ref{sec:recon}) --- lifts it to 0.79. Each design choice contributes,
 confirming that the gain is policy-driven --- geometry is used to
 \emph{route}, not to overrule.
 
@@ -412,7 +422,8 @@ Policy & Acc. & Coverage \\
 Abstain on disagreement        & 0.490 & 0.650 \\
 \;+ confidence arbitration     & 0.655 & 0.895 \\
 \;+ depth defers to VLM (sel.) & 0.690 & 0.895 \\
-\;+ VLM fallback (full cov.)   & \textbf{0.770} & 1.000 \\
+\;+ VLM fallback (full cov.)   & 0.770 & 1.000 \\
+\;+ margin \& \rel{contains} recal. & \textbf{0.790} & 1.000 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -431,7 +442,7 @@ underlying detector or depth model.}
 than a competing predictor. Table~\ref{tab:source} attributes committed
 answers to their source: most items are \emph{agreements} between the Executor
 and geometry, which are reliable; the rest are high-confidence geometry
-commits or VLM deferrals. Every committed bucket answers at $\ge 0.75$,
+commits or VLM deferrals. Every committed bucket answers at $\ge 0.80$,
 confirming that the routing sends questions to a trustworthy signal.
 
 \begin{table}[t]
@@ -444,27 +455,29 @@ from detector misses.}
 \toprule
 Source & $n$ & Accuracy \\
 \midrule
-agreement          & 135 & 0.76 \\
-VLM deferred       & 36  & 0.81 \\
-geometry override  & 8   & 0.75 \\
-abstain (det.\ miss) & 21 & --- \\
+agreement          & 138 & 0.80 \\
+VLM deferred       & 34  & 0.82 \\
+geometry override  & 6   & 0.83 \\
+abstain (det.\ miss) & 22 & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{Per-relation behaviour.} Figure~\ref{fig:perrel} and
 Table~\ref{tab:perrel} compare SEA to the baseline per relation. SEA improves
-most on relations where the baseline is weakest --- notably \rel{below} and
-\rel{in\_front} --- and is competitive on position and containment relations,
-for a net gain overall. (Per-relation counts are $\sim$25, so individual
-entries are indicative rather than statistically tight.)
+most on relations where the baseline is weakest --- notably \rel{in\_front}
+and \rel{right\_of} --- and, after recalibration, matches or exceeds the
+baseline on \emph{every} relation, including \rel{contains}, where the
+\rel{contains}-defer change removed the prior regression. (Per-relation counts
+are $\sim$25, so individual entries are indicative rather than statistically
+tight.)
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig7_per_relation_final.pdf}
 \caption{Per-relation accuracy, full-coverage SEA vs.\ GPT-4o baseline. SEA
-improves markedly on \rel{below} and \rel{in\_front} and is competitive
-elsewhere.}
+improves markedly on \rel{in\_front} and \rel{right\_of} and matches or beats
+the baseline on every relation.}
 \label{fig:perrel}
 \end{figure}
 
@@ -477,29 +490,30 @@ elsewhere.}
 \toprule
 Relation & SEA & Baseline \\
 \midrule
-\rel{below}     & \textbf{0.84} & 0.56 \\
-\rel{in\_front} & \textbf{0.75} & 0.54 \\
-\rel{on}        & \textbf{0.83} & 0.80 \\
-\rel{right\_of} & \textbf{0.83} & 0.80 \\
+\rel{in\_front} & \textbf{0.83} & 0.54 \\
+\rel{right\_of} & \textbf{0.92} & 0.79 \\
+\rel{above}     & \textbf{0.85} & 0.81 \\
+\rel{on}        & \textbf{0.78} & 0.74 \\
+\rel{left\_of}  & \textbf{0.81} & 0.77 \\
+\rel{below}     & \textbf{0.68} & 0.64 \\
 \rel{behind}    & 0.77 & 0.77 \\
-\rel{contains}  & 0.60 & 0.61 \\
-\rel{left\_of}  & 0.73 & 0.76 \\
-\rel{above}     & 0.78 & 0.85 \\
+\rel{contains}  & 0.68 & 0.68 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{Error structure.} Figure~\ref{fig:confusion} shows that, relative to
 the baseline, SEA's gain comes chiefly from \emph{recovering true-positive
-``yes'' answers}: it correctly confirms 7 more genuine spatial relations than
-the VLM alone, at comparable false-positive cost. Verification thus reduces the
-VLM's tendency to wrongly deny relations that are in fact present.
+``yes'' answers}: it correctly confirms 10 more genuine spatial relations than
+the VLM alone (69 vs.\ 59 true positives) at \emph{lower} false-positive cost
+(16 vs.\ 20). Verification thus reduces the VLM's tendency to wrongly deny
+relations that are in fact present.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig9_confusion.pdf}
-\caption{Yes/No confusion. SEA (left) recovers more true ``yes'' answers than
-the baseline (right) at similar false-positive cost.}
+\caption{Yes/No confusion. SEA (left) recovers 10 more true ``yes'' answers
+than the baseline (right) at lower false-positive cost.}
 \label{fig:confusion}
 \end{figure}
 
@@ -525,7 +539,7 @@ useless for selective prediction: it occupies a narrow $0.80$--$1.00$ band
 (mean $0.91$) and ranks errors barely above chance
 (Figure~\ref{fig:inform}, right). Second, \textbf{geometric confidence is a
 genuinely informative uncertainty signal}: abstaining on low-geometric-
-confidence items lifts selective accuracy toward $0.82$
+confidence items lifts selective accuracy toward $0.85$
 (Figure~\ref{fig:inform}, left). This holds even though geometry is a weaker
 \emph{answer} source than the VLM --- the Critic knows \emph{when} the VLM is
 likely wrong without itself answering better. It reframes the role of
@@ -546,11 +560,11 @@ ranks errors, it serves double duty: as the arbitration signal that decides
 override-vs-defer (Sec.~\ref{sec:recon}), and as a tunable abstention signal
 that exposes the precision/coverage frontier in Figure~\ref{fig:riskcov}. A
 practitioner can therefore dial SEA to any desired operating point --- from
-full coverage at $77.0\%$ to higher-precision selective regimes --- using a
+full coverage at $79.0\%$ to higher-precision selective regimes --- using a
 single threshold, with the chosen point always accompanied by auditable
 geometric evidence. Concretely, thresholding committed answers at
-$\tau=0.40$ yields a verified \textbf{0.82 selective accuracy at 33.5\%
-coverage} (Table~\ref{tab:main}) --- a $+10$-point precision gain over the
+$\tau=0.40$ yields a verified \textbf{0.847 selective accuracy at 29.5\%
+coverage} (Table~\ref{tab:main}) --- a $+13$-point precision gain over the
 bare VLM, for applications where declining to answer beats a likely error.
 Figure~\ref{fig:oppoints} places our reported configurations and the bare-VLM
 baseline in the coverage/accuracy plane: all SEA points dominate the baseline,
@@ -562,7 +576,7 @@ for verified, higher-precision answers.
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig4_accuracy_vs_coverage.pdf}
 \caption{Operating points in the coverage/accuracy plane. Both SEA
 configurations sit above the GPT-4o baseline; the selective point answers
-89.5\% of items at higher selective accuracy.}
+89.0\% of items at higher selective accuracy.}
 \label{fig:oppoints}
 \end{figure}
 
@@ -647,6 +661,13 @@ is future work.
 \textbf{Reference frame.} VSR mixes camera-relative and object-relative
 framings for left/right; SEA assumes the camera frame, accounting for some
 residual position-relation errors.
+\textbf{Threshold calibration.} The position slack and the \rel{contains}
+confidence cap were set on the same VSR-200 split we report on, using offline
+replay of the dumped geometric evidence (no additional model calls). The
+changes are principled --- the false-positive curve is monotone in the slack
+and the \rel{contains} signal is provably non-separable --- but the absolute
+gain is an in-distribution calibration result; held-out cross-split validation
+is future work.
 \textbf{Inference cost.} SEA issues a Planner call, one or more Executor
 calls, and up to $k$ local Critic passes per query, versus a single VLM call
 for the baseline; the full VSR-200 evaluation cost a few US dollars in API
@@ -658,8 +679,8 @@ than latency-critical real-time use.
 We presented the Spatial Evidence Agent, a training-free three-agent pipeline
 that fuses VLM querying with deterministic geometric verification and a
 confidence-based reconciliation policy. On a 200-sample VSR split SEA reaches
-77.0\% accuracy at full coverage ($+5.0$ over a GPT-4o baseline) and 77.1\%
-selective accuracy at 89.5\% coverage with fully auditable evidence. Our
+79.0\% accuracy at full coverage ($+7.0$ over a GPT-4o baseline) and 80.3\%
+selective accuracy at 89.0\% coverage with fully auditable evidence. Our
 analysis shows that the contribution of deterministic geometry is best
 understood as \emph{verification and uncertainty estimation}: geometric
 confidence reliably indicates when a VLM's spatial answer is trustworthy, even

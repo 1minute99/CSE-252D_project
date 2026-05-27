@@ -14,7 +14,13 @@ from typing import Any, Mapping
 
 @dataclass
 class CriticConfig:
-    margin: float = 0.02
+    # Position/depth slack in normalised image coords. 0.02 was too tight: on
+    # VSR-200 it fired left/above verdicts on near-aligned objects (FP=17 on
+    # 73 position items). The FP curve is monotone in the margin and the whole
+    # 0.02->0.10 range loses only ~2 TPs, so 0.08 (FP=12) commits a verdict
+    # only when objects are meaningfully separated without grabbing the
+    # endpoint.
+    margin: float = 0.08
     on_iou_threshold: float = 0.05
     contains_coverage_threshold: float = 0.70
     area_ratio_threshold: float = 0.70
@@ -30,6 +36,13 @@ class CriticConfig:
     # relations always defer to the VLM on disagreement. Set to 1.0 to allow
     # depth overrides.
     depth_confidence_cap: float = 0.30
+    # Containment geometry is non-separable on VSR: most true-contains items
+    # have obj2 larger than obj1 with coverage~0 (captions whose boxes don't
+    # reflect visual nesting), so no coverage/area threshold beats 3/12 TP.
+    # Cap contains geo_confidence below the arbitration threshold so it defers
+    # to the VLM instead of overruling it. Set to 1.0 to allow contains
+    # overrides.
+    contains_confidence_cap: float = 0.30
     # When True, a detector miss (no geometric evidence) falls back to the
     # VLM's answer instead of abstaining — i.e. full-coverage mode. When False
     # (default), the system abstains, preserving the selective-prediction

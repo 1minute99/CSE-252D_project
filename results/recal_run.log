@@ -1,0 +1,2105 @@
+INFO eval | Evaluating 200 items from whatsup
+INFO planner | [Planner] Question: Is the person behind the couch?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='couch', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'couch']
+INFO critic | [Critic] iter=0 | query: 'person . couch'
+/home/wonmin-kim/workstation-home/26 spring/CSE 252D/CSE-252D_project/.venv/lib/python3.13/site-packages/timm/models/layers/__init__.py:49: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+INFO detector | [GroundingDINO] Loading model on cuda
+/home/wonmin-kim/workstation-home/26 spring/CSE 252D/CSE-252D_project/.venv/lib/python3.13/site-packages/torch/functional.py:505: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /pytorch/aten/src/ATen/native/TensorShape.cpp:4382.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+final text_encoder_type: bert-base-uncased
+INFO detector | [GroundingDINO] Model loaded
+/home/wonmin-kim/workstation-home/26 spring/CSE 252D/CSE-252D_project/.venv/lib/python3.13/site-packages/transformers/modeling_utils.py:1621: FutureWarning: The `device` argument is deprecated and will be removed in v5 of Transformers.
+  warnings.warn(
+/home/wonmin-kim/workstation-home/26 spring/CSE 252D/CSE-252D_project/.venv/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py:1298: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. Starting in PyTorch 2.9, calling checkpoint without use_reentrant will raise an exception. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  return fn(*args, **kwargs)
+/home/wonmin-kim/workstation-home/26 spring/CSE 252D/CSE-252D_project/.venv/lib/python3.13/site-packages/torch/utils/checkpoint.py:238: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  check_backward_validity(args)
+/home/wonmin-kim/workstation-home/26 spring/CSE 252D/CSE-252D_project/.venv/lib/python3.13/site-packages/groundingdino/models/GroundingDINO/transformer.py:862: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+INFO depth | [DepthAnything] Loading Depth Anything V2
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Device set to use cuda:0
+INFO depth | [DepthAnything] Model loaded
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.361 > 0.08 | b1=(0.48,0.22) b2=(0.50,0.62) d1=0.149 d2=0.510
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the person at the right side of the microwave?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='microwave', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'microwave']
+INFO critic | [Critic] iter=0 | query: 'person . microwave'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.397 > 0.08 | b1=(0.33,0.62) b2=(0.73,0.57) d1=0.627 d2=0.667
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the pizza above the dining table?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='pizza', obj2='dining table', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['pizza', 'dining table']
+INFO critic | [Critic] iter=0 | query: 'pizza . dining table'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.125 < -0.08 | b1=(0.51,0.59) b2=(0.50,0.71) d1=0.663 d2=0.698
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the banana at the left side of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='banana', obj2='cat', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['banana bunch', 'cat']
+INFO critic | [Critic] iter=0 | query: 'banana bunch . cat'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.078 < -0.08 | b1=(0.51,0.41) b2=(0.44,0.75) d1=0.502 d2=0.631
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'banana bunch' and 'cat'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'banana bunch' and 'cat'"
+INFO executor | [Executor] answer=True, claims=['banana cluster', 'cat']
+INFO critic | [Critic] iter=1 | query: 'banana cluster . cat'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.079 < -0.08 | b1=(0.52,0.41) b2=(0.44,0.75) d1=0.502 d2=0.631
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.140, threshold=0.4)
+INFO planner | [Planner] Question: Is the tv at the left side of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='tv', obj2='cat', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['tv', 'cat']
+INFO critic | [Critic] iter=0 | query: 'tv . cat'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.291 < -0.08 | b1=(0.15,0.52) b2=(0.44,0.52) d1=0.776 d2=0.188
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the bus behind the teddy bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bus', obj2='teddy bear', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['teddy bear', 'bus']
+INFO critic | [Critic] iter=0 | query: 'teddy bear . bus'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=0.365 > 0.08 | b1=(0.54,0.60) b2=(0.55,0.36) d1=0.800 d2=0.435
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the car above the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='car', obj2='cat', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['car', 'cat']
+INFO critic | [Critic] iter=0 | query: 'car . cat'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.225 < -0.08 | b1=(0.50,0.50) b2=(0.39,0.27) d1=0.427 d2=0.243
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the umbrella in front of the potted plant?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='potted plant', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['umbrella', 'potted plant']
+INFO critic | [Critic] iter=0 | query: 'umbrella . potted plant'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.212 < -0.08 | b1=(0.08,0.74) b2=(0.15,0.28) d1=0.537 d2=0.325
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the oven behind the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='oven', obj2='person', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['oven', 'person']
+INFO critic | [Critic] iter=0 | query: 'oven . person'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'oven'"
+INFO executor | [Executor] answer=False, claims=['oven', 'person']
+INFO critic | [Critic] iter=1 | query: 'oven . person'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the cup at the right side of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cup', obj2='cat', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cup', 'cat']
+INFO critic | [Critic] iter=0 | query: 'cup . cat'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.387 > 0.08 | b1=(0.89,0.34) b2=(0.50,0.50) d1=0.396 d2=0.561
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [10/200] selective_acc=0.900 abstain=0
+INFO planner | [Planner] Question: Is the cat in front of the bicycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='bicycle', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'bicycle']
+INFO critic | [Critic] iter=0 | query: 'cat . bicycle'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.514 < -0.08 | b1=(0.60,0.74) b2=(0.50,0.35) d1=0.686 d2=0.173
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cat' and 'bicycle'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cat' and 'bicycle'"
+INFO executor | [Executor] answer=True, claims=['cat', 'bicycle']
+INFO critic | [Critic] iter=1 | query: 'cat . bicycle'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.514 < -0.08 | b1=(0.60,0.74) b2=(0.50,0.35) d1=0.686 d2=0.173
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the dog on the couch?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='couch', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dog', 'couch']
+INFO critic | [Critic] iter=0 | query: 'dog . couch'
+You seem to be using the pipelines sequentially on GPU. In order to maximize efficiency please use a dataset
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.352<-0.08 AND IoU=0.060>0.05 | b1=(0.49,0.33) b2=(0.50,0.68) d1=0.310 d2=0.639
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the orange behind the apple?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='orange', obj2='apple', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['orange', 'apple']
+INFO critic | [Critic] iter=0 | query: 'orange . apple'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.047 > 0.08 | b1=(0.16,0.90) b2=(0.65,0.81) d1=0.702 d2=0.655
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the dog in front of the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='bed', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dog', 'bed']
+INFO critic | [Critic] iter=0 | query: 'dog . bed'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.024 < -0.08 | b1=(0.50,0.51) b2=(0.50,0.50) d1=0.620 d2=0.596
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'dog' and 'bed'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'dog' and 'bed'"
+INFO executor | [Executor] answer=False, claims=['dog', 'bed']
+INFO critic | [Critic] iter=1 | query: 'dog . bed'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.024 < -0.08 | b1=(0.50,0.51) b2=(0.50,0.50) d1=0.620 d2=0.596
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the dining table in front of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dining table', obj2='cat', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dining table', 'cat']
+INFO critic | [Critic] iter=0 | query: 'dining table . cat'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.192 < -0.08 | b1=(0.50,0.77) b2=(0.55,0.48) d1=0.651 d2=0.459
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the umbrella at the right side of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='cat', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=0 | query: 'umbrella . cat'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.202 > 0.08 | b1=(0.55,0.55) b2=(0.35,0.69) d1=0.435 d2=0.447
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the elephant ahead of the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='elephant', obj2='car', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['elephant', 'car']
+INFO critic | [Critic] iter=0 | query: 'elephant . car'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.455 < -0.08 | b1=(0.73,0.48) b2=(0.44,0.23) d1=0.812 d2=0.357
+INFO critic | [Critic] Scheduled crop: x1=0.22936354279518129 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'elephant' and 'car'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.22936354279518129 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'elephant' and 'car'"
+INFO executor | [Executor] answer=True, claims=['elephant', 'car']
+INFO critic | [Critic] iter=1 | query: 'elephant . car'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.455 < -0.08 | b1=(0.73,0.48) b2=(0.44,0.22) d1=0.812 d2=0.357
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the car in the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='car', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dog', 'car']
+INFO critic | [Critic] iter=0 | query: 'dog . car'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.053>0.7 AND area(b2)/area(b1)=18.98<0.7 | b1=(0.62,0.63) b2=(0.44,0.55) d1=0.353 d2=0.490
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the umbrella above the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='person', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['umbrella', 'person']
+INFO critic | [Critic] iter=0 | query: 'umbrella . person'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.137 < -0.08 | b1=(0.50,0.40) b2=(0.48,0.53) d1=0.537 d2=0.596
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the bed above the backpack?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bed', obj2='backpack', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['bed', 'backpack']
+INFO critic | [Critic] iter=0 | query: 'bed . backpack'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.102 < -0.08 | b1=(0.62,0.78) b2=(0.91,0.88) d1=0.718 d2=0.776
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [20/200] selective_acc=0.850 abstain=0
+INFO planner | [Planner] Question: Is the chair beneath the horse?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='horse', obj2='chair', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['horse', 'chair']
+INFO critic | [Critic] iter=0 | query: 'horse . chair'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.050 > 0.08 | b1=(0.42,0.51) b2=(0.93,0.56) d1=0.451 d2=0.141
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the microwave beneath the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='microwave', obj2='cat', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['microwave', 'cat']
+INFO critic | [Critic] iter=0 | query: 'microwave . cat'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.003 > 0.08 | b1=(0.50,0.49) b2=(0.46,0.49) d1=0.792 d2=0.376
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the car contains the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='car', obj2='dog', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['car', 'dog']
+INFO critic | [Critic] iter=0 | query: 'car . dog'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.629>0.7 AND area(b2)/area(b1)=0.78<0.7 | b1=(0.42,0.57) b2=(0.69,0.66) d1=0.435 d2=0.765
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat on the bench?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='bench', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'bench']
+INFO critic | [Critic] iter=0 | query: 'cat . bench'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.243<-0.08 AND IoU=0.000>0.05 | b1=(0.26,0.61) b2=(0.80,0.37) d1=0.498 d2=0.169
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the keyboard at the right side of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='keyboard', obj2='person', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['keyboard', 'person']
+INFO critic | [Critic] iter=0 | query: 'keyboard . person'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.373 > 0.08 | b1=(0.88,0.36) b2=(0.51,0.59) d1=0.165 d2=0.341
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.12779633402824403 x2=1.0 y2=1.0 reason="Disputed region around 'keyboard' and 'person'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.12779633402824403 x2=1.0 y2=1.0 reason="Disputed region around 'keyboard' and 'person'"
+INFO executor | [Executor] answer=False, claims=['keyboard', 'person']
+INFO critic | [Critic] iter=1 | query: 'keyboard . person'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.677 > 0.08 | b1=(0.88,0.36) b2=(0.21,0.68) d1=0.165 d2=0.435
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.305, threshold=0.4)
+INFO planner | [Planner] Question: Is the boat in front of the dining table?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='boat', obj2='dining table', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['boat', 'dining table']
+INFO critic | [Critic] iter=0 | query: 'boat . dining table'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.271 < -0.08 | b1=(0.63,0.69) b2=(0.19,0.57) d1=0.541 d2=0.271
+INFO critic | [Critic] Scheduled crop: x1=0.039243791997432706 y1=0.44839868396520616 x2=0.9519523859024048 y2=0.8715102553367615 reason="Disputed region around 'boat' and 'dining table'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.039243791997432706 y1=0.44839868396520616 x2=0.9519523859024048 y2=0.8715102553367615 reason="Disputed region around 'boat' and 'dining table'"
+INFO executor | [Executor] answer=True, claims=['boat', 'dining table']
+INFO critic | [Critic] iter=1 | query: 'boat . dining table'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.278 < -0.08 | b1=(0.63,0.69) b2=(0.21,0.55) d1=0.549 d2=0.271
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the sandwich at the right side of the bowl?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='sandwich', obj2='bowl', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['sandwich', 'bowl']
+INFO critic | [Critic] iter=0 | query: 'sandwich . bowl'
+WARNING critic | [Critic] Detector missed: 'sandwich'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'sandwich'"
+INFO executor | [Executor] answer=False, claims=['sandwich', 'bowl']
+INFO critic | [Critic] iter=1 | query: 'sandwich . bowl'
+WARNING critic | [Critic] Detector missed: 'sandwich'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the bench above the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bench', obj2='cat', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['bench', 'cat']
+INFO critic | [Critic] iter=0 | query: 'bench . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.277 < -0.08 | b1=(0.52,0.37) b2=(0.57,0.65) d1=0.322 d2=0.502
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the truck behind the oven?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='truck', obj2='oven', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['truck', 'oven']
+INFO critic | [Critic] iter=0 | query: 'truck . oven'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.627 > 0.08 | b1=(0.34,0.12) b2=(0.47,0.50) d1=0.153 d2=0.780
+INFO critic | [Critic] Scheduled crop: x1=0.08569112122058868 y1=0.0 x2=0.7006823748350144 y2=1.0 reason="Disputed region around 'truck' and 'oven'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.08569112122058868 y1=0.0 x2=0.7006823748350144 y2=1.0 reason="Disputed region around 'truck' and 'oven'"
+INFO executor | [Executor] answer=True, claims=['truck', 'oven']
+INFO critic | [Critic] iter=1 | query: 'truck . oven'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.627 > 0.08 | b1=(0.35,0.13) b2=(0.47,0.50) d1=0.153 d2=0.780
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the teddy bear over the bench?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bench', obj2='teddy bear', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bench', 'teddy bear']
+INFO critic | [Critic] iter=0 | query: 'bench . teddy bear'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.295 < -0.08 | b1=(0.50,0.80) b2=(0.55,0.51) d1=0.765 d2=0.769
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO eval | [30/200] selective_acc=0.867 abstain=0
+INFO planner | [Planner] Question: Is the truck in the cow?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cow', obj2='truck', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cow', 'truck']
+INFO critic | [Critic] iter=0 | query: 'cow . truck'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.000>0.7 AND area(b2)/area(b1)=0.06<0.7 | b1=(0.67,0.51) b2=(0.02,0.36) d1=0.604 d2=0.239
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the motorcycle in front of the truck?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='motorcycle', obj2='truck', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['motorcycle', 'truck']
+INFO critic | [Critic] iter=0 | query: 'motorcycle . truck'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.380 < -0.08 | b1=(0.38,0.37) b2=(0.82,0.37) d1=0.459 d2=0.078
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.04037065505981445 x2=1.0 y2=0.704242217540741 reason="Disputed region around 'motorcycle' and 'truck'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.04037065505981445 x2=1.0 y2=0.704242217540741 reason="Disputed region around 'motorcycle' and 'truck'"
+INFO executor | [Executor] answer=False, claims=['motorcycle', 'truck']
+INFO critic | [Critic] iter=1 | query: 'motorcycle . truck'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.380 < -0.08 | b1=(0.38,0.38) b2=(0.82,0.37) d1=0.459 d2=0.078
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the banana at the left side of the donut?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='banana', obj2='donut', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['banana', 'donut']
+INFO critic | [Critic] iter=0 | query: 'banana . donut'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.080 < -0.08 | b1=(0.35,0.51) b2=(0.43,0.59) d1=0.675 d2=0.706
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the suitcase inside the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='suitcase', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.352>0.7 AND area(b2)/area(b1)=2.84<0.7 | b1=(0.39,0.40) b2=(0.50,0.50) d1=0.404 d2=0.545
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the microwave behind the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='microwave', obj2='person', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['microwave', 'person']
+INFO critic | [Critic] iter=0 | query: 'microwave . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.008 > 0.08 | b1=(0.72,0.42) b2=(0.32,0.50) d1=0.424 d2=0.431
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bear on the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bear', obj2='cake', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bear', 'cake']
+INFO critic | [Critic] iter=0 | query: 'bear . cake'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.377<-0.08 AND IoU=0.162>0.05 | b1=(0.57,0.38) b2=(0.44,0.76) d1=0.431 d2=0.482
+INFO critic | [Critic] Scheduled crop: x1=0.06862394213676452 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'bear' and 'cake'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.06862394213676452 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'bear' and 'cake'"
+INFO executor | [Executor] answer=True, claims=['bear', 'cake']
+INFO critic | [Critic] iter=1 | query: 'bear . cake'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.377<-0.08 AND IoU=0.161>0.05 | b1=(0.57,0.38) b2=(0.44,0.76) d1=0.431 d2=0.482
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the bowl in the cup?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cup', obj2='bowl', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cup', 'bowl']
+INFO critic | [Critic] iter=0 | query: 'cup . bowl'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=1.000>0.7 AND area(b2)/area(b1)=1.00<0.7 | b1=(0.24,0.34) b2=(0.24,0.34) d1=0.663 d2=0.663
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the couch above the hot dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='hot dog', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['hot dog', 'couch']
+INFO critic | [Critic] iter=0 | query: 'hot dog . couch'
+WARNING critic | [Critic] Detector missed: 'couch'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'couch'"
+INFO executor | [Executor] answer=True, claims=['couch', 'hot dog']
+INFO critic | [Critic] iter=1 | query: 'couch . hot dog'
+WARNING critic | [Critic] Detector missed: 'couch'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> yes
+INFO planner | [Planner] Question: Is the dining table in front of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dining table', obj2='cat', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dining table', 'cat']
+INFO critic | [Critic] iter=0 | query: 'dining table . cat'
+WARNING critic | [Critic] Detector missed: 'dining table'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'dining table'"
+INFO executor | [Executor] answer=False, claims=['dining table', 'cat']
+INFO critic | [Critic] iter=1 | query: 'dining table . cat'
+WARNING critic | [Critic] Detector missed: 'dining table'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the microwave behind the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='microwave', obj2='person', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['microwave', 'person']
+INFO critic | [Critic] iter=0 | query: 'microwave . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.118 > 0.08 | b1=(0.68,0.40) b2=(0.47,0.54) d1=0.153 d2=0.271
+INFO critic | [Critic] Scheduled crop: x1=0.22529239654541017 y1=0.035284233093261716 x2=0.7807084314525128 y2=1.0 reason="Disputed region around 'microwave' and 'person'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.22529239654541017 y1=0.035284233093261716 x2=0.7807084314525128 y2=1.0 reason="Disputed region around 'microwave' and 'person'"
+INFO executor | [Executor] answer=True, claims=['microwave', 'person']
+INFO critic | [Critic] iter=1 | query: 'microwave . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.114 > 0.08 | b1=(0.68,0.40) b2=(0.47,0.54) d1=0.153 d2=0.267
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO eval | [40/200] selective_acc=0.825 abstain=0
+INFO planner | [Planner] Question: Is the suitcase in the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='suitcase', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.387>0.7 AND area(b2)/area(b1)=2.59<0.7 | b1=(0.58,0.50) b2=(0.50,0.50) d1=0.412 d2=0.427
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the dog in front of the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='bed', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dog', 'bed']
+INFO critic | [Critic] iter=0 | query: 'dog . bed'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.078 < -0.08 | b1=(0.29,0.57) b2=(0.50,0.82) d1=0.761 d2=0.682
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.08536834716796875 x2=1.0 y2=1.0 reason="Disputed region around 'dog' and 'bed'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.08536834716796875 x2=1.0 y2=1.0 reason="Disputed region around 'dog' and 'bed'"
+INFO executor | [Executor] answer=True, claims=['dog', 'bed']
+INFO critic | [Critic] iter=1 | query: 'dog . bed'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.078 < -0.08 | b1=(0.29,0.57) b2=(0.50,0.82) d1=0.761 d2=0.682
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.224, threshold=0.4)
+INFO planner | [Planner] Question: Is the oven beneath the sandwich?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='sandwich', obj2='oven', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['sandwich', 'oven']
+INFO critic | [Critic] iter=0 | query: 'sandwich . oven'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'oven'"
+INFO executor | [Executor] answer=False, claims=['sandwich', 'oven']
+INFO critic | [Critic] iter=1 | query: 'sandwich . oven'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the suitcase under the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='suitcase', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.165 < -0.08 | b1=(0.46,0.40) b2=(0.49,0.56) d1=0.553 d2=0.596
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the umbrella at the left side of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='cat', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=0 | query: 'umbrella . cat'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.065 < -0.08 | b1=(0.50,0.25) b2=(0.57,0.74) d1=0.275 d2=0.722
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the laptop in front of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='laptop', obj2='cat', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['laptop', 'cat']
+INFO critic | [Critic] iter=0 | query: 'laptop . cat'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.031 < -0.08 | b1=(0.32,0.69) b2=(0.78,0.52) d1=0.635 d2=0.604
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'laptop' and 'cat'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'laptop' and 'cat'"
+INFO executor | [Executor] answer=True, claims=['laptop', 'cat']
+INFO critic | [Critic] iter=1 | query: 'laptop . cat'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.031 < -0.08 | b1=(0.32,0.69) b2=(0.78,0.52) d1=0.635 d2=0.604
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.065, threshold=0.4)
+INFO planner | [Planner] Question: Is the apple on top of the orange?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='apple', obj2='orange', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['green apple', 'orange']
+INFO critic | [Critic] iter=0 | query: 'green apple . orange'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.489 < -0.08 | b1=(0.50,0.28) b2=(0.55,0.77) d1=0.675 d2=0.690
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the cat on top of the laptop?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='laptop', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'laptop']
+INFO critic | [Critic] iter=0 | query: 'cat . laptop'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.060<-0.08 AND IoU=0.181>0.05 | b1=(0.64,0.64) b2=(0.28,0.58) d1=0.710 d2=0.631
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the dining table at the left side of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dining table', obj2='person', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dining table', 'person']
+INFO critic | [Critic] iter=0 | query: 'dining table . person'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.056 < -0.08 | b1=(0.50,0.83) b2=(0.55,0.50) d1=0.529 d2=0.302
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat at the left side of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='person', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', "person's hand"]
+INFO critic | [Critic] iter=0 | query: "cat . person's hand"
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.327 < -0.08 | b1=(0.56,0.41) b2=(0.89,0.79) d1=0.553 d2=0.773
+INFO critic | [Critic] Scheduled crop: x1=0.09733666181564331 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cat' and 'person hand'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.09733666181564331 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cat' and 'person hand'"
+INFO executor | [Executor] answer=True, claims=['cat', 'person']
+INFO critic | [Critic] iter=1 | query: 'cat . person'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.325 < -0.08 | b1=(0.56,0.41) b2=(0.89,0.80) d1=0.557 d2=0.773
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [50/200] selective_acc=0.780 abstain=0
+INFO planner | [Planner] Question: Is the potted plant right of the bench?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='potted plant', obj2='bench', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['potted plant', 'bench']
+INFO critic | [Critic] iter=0 | query: 'potted plant . bench'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.438 > 0.08 | b1=(0.79,0.49) b2=(0.36,0.64) d1=0.518 d2=0.341
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the motorcycle behind the parking meter?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='motorcycle', obj2='parking meter', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['motorcycle', 'parking meter']
+INFO critic | [Critic] iter=0 | query: 'motorcycle . parking meter'
+WARNING critic | [Critic] Detector missed: 'parking meter'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'parking meter'"
+INFO executor | [Executor] answer=False, claims=['motorcycle', 'parking meter']
+INFO critic | [Critic] iter=1 | query: 'motorcycle . parking meter'
+WARNING critic | [Critic] Detector missed: 'parking meter'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the person on the bench?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bench', obj2='person', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bench', 'person']
+INFO critic | [Critic] iter=0 | query: 'bench . person'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.147<-0.08 AND IoU=0.395>0.05 | b1=(0.50,0.72) b2=(0.53,0.57) d1=0.349 d2=0.325
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the truck inside the elephant?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='elephant', obj2='truck', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['elephant', 'truck']
+INFO critic | [Critic] iter=0 | query: 'elephant . truck'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.087>0.7 AND area(b2)/area(b1)=0.05<0.7 | b1=(0.51,0.48) b2=(0.08,0.53) d1=0.576 d2=0.235
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the clock at the left side of the bird?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='clock', obj2='bird', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['clock', 'bird']
+INFO critic | [Critic] iter=0 | query: 'clock . bird'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.064 < -0.08 | b1=(0.73,0.63) b2=(0.67,0.32) d1=0.608 d2=0.580
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the teddy bear in front of the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='teddy bear', obj2='car', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['teddy bear', 'car']
+INFO critic | [Critic] iter=0 | query: 'teddy bear . car'
+WARNING critic | [Critic] Detector missed: 'car'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'car'"
+INFO executor | [Executor] answer=False, claims=['teddy bear', 'car']
+INFO critic | [Critic] iter=1 | query: 'teddy bear . car'
+WARNING critic | [Critic] Detector missed: 'car'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the suitcase on the book?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='suitcase', obj2='book', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['suitcase', 'book']
+INFO critic | [Critic] iter=0 | query: 'suitcase . book'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.359<-0.08 AND IoU=0.194>0.05 | b1=(0.50,0.37) b2=(0.67,0.73) d1=0.431 d2=0.439
+INFO critic | [Critic] Scheduled crop: x1=0.07171599268913269 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'suitcase' and 'book'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.07171599268913269 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'suitcase' and 'book'"
+INFO executor | [Executor] answer=True, claims=['suitcase', 'book']
+INFO critic | [Critic] iter=1 | query: 'suitcase . book'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.358<-0.08 AND IoU=0.195>0.05 | b1=(0.50,0.37) b2=(0.67,0.73) d1=0.431 d2=0.439
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the dining table below the truck?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dining table', obj2='truck', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dining table', 'truck']
+INFO critic | [Critic] iter=0 | query: 'dining table . truck'
+WARNING critic | [Critic] Detector missed: 'truck'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'truck'"
+INFO executor | [Executor] answer=False, claims=['dining table', 'truck']
+INFO critic | [Critic] iter=1 | query: 'dining table . truck'
+WARNING critic | [Critic] Detector missed: 'truck'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the umbrella above the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='cat', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=0 | query: 'umbrella . cat'
+WARNING critic | [Critic] Detector missed: 'umbrella'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'umbrella'"
+INFO executor | [Executor] answer=False, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=1 | query: 'umbrella . cat'
+WARNING critic | [Critic] Detector missed: 'umbrella'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the cat on top of the dining table?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='dining table', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'dining table']
+INFO critic | [Critic] iter=0 | query: 'cat . dining table'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.246<-0.08 AND IoU=0.296>0.05 | b1=(0.68,0.33) b2=(0.50,0.57) d1=0.576 d2=0.631
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [60/200] selective_acc=0.817 abstain=0
+INFO planner | [Planner] Question: Is the teddy bear on the bench?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='teddy bear', obj2='bench', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['teddy bear', 'bench']
+INFO critic | [Critic] iter=0 | query: 'teddy bear . bench'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.316<-0.08 AND IoU=0.195>0.05 | b1=(0.38,0.49) b2=(0.50,0.81) d1=0.702 d2=0.796
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the suitcase contains the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='suitcase', obj2='cat', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['suitcase', 'cat']
+INFO critic | [Critic] iter=0 | query: 'suitcase . cat'
+INFO critic | [Critic] relation_true=True | rule=coverage(obj2 in obj1)=1.000>0.7 AND area(b2)/area(b1)=0.20<0.7 | b1=(0.50,0.54) b2=(0.48,0.49) d1=0.498 d2=0.451
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the vase at the right side of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='vase', obj2='cat', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'green vase']
+INFO critic | [Critic] iter=0 | query: 'cat . green vase'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.021 > 0.08 | b1=(0.52,0.37) b2=(0.50,0.70) d1=0.757 d2=0.875
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the parking meter at the left side of the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='parking meter', obj2='car', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['parking meter', 'car']
+INFO critic | [Critic] iter=0 | query: 'parking meter . car'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.436 < -0.08 | b1=(0.63,0.53) b2=(0.19,0.33) d1=0.776 d2=0.129
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.015222203731536862 x2=0.9379623413085938 y2=1.0 reason="Disputed region around 'parking meter' and 'car'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.015222203731536862 x2=0.9379623413085938 y2=1.0 reason="Disputed region around 'parking meter' and 'car'"
+INFO executor | [Executor] answer=False, claims=['parking meter', 'car']
+INFO critic | [Critic] iter=1 | query: 'parking meter . car'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.436 < -0.08 | b1=(0.63,0.53) b2=(0.19,0.33) d1=0.776 d2=0.129
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bowl contains the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bowl', obj2='cat', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bowl', 'cat']
+INFO critic | [Critic] iter=0 | query: 'bowl . cat'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.249>0.7 AND area(b2)/area(b1)=3.07<0.7 | b1=(0.57,0.67) b2=(0.71,0.41) d1=0.545 d2=0.745
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bed under the suitcase?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='suitcase', obj2='bed', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['suitcase', 'bed']
+INFO critic | [Critic] iter=0 | query: 'suitcase . bed'
+WARNING critic | [Critic] Detector missed: 'bed'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'bed'"
+INFO executor | [Executor] answer=False, claims=['suitcase', 'bed']
+INFO critic | [Critic] iter=1 | query: 'suitcase . bed'
+WARNING critic | [Critic] Detector missed: 'bed'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the sink in the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='sink', obj2='cat', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['sink', 'cat']
+INFO critic | [Critic] iter=0 | query: 'sink . cat'
+INFO critic | [Critic] relation_true=True | rule=coverage(obj2 in obj1)=1.000>0.7 AND area(b2)/area(b1)=0.47<0.7 | b1=(0.47,0.79) b2=(0.45,0.84) d1=0.282 d2=0.345
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the umbrella behind the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='cat', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=0 | query: 'umbrella . cat'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.063 > 0.08 | b1=(0.47,0.50) b2=(0.58,0.59) d1=0.439 d2=0.376
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the laptop right of the couch?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='laptop', obj2='couch', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['laptop', 'couch']
+INFO critic | [Critic] iter=0 | query: 'laptop . couch'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.359 > 0.08 | b1=(0.52,0.68) b2=(0.16,0.67) d1=0.659 d2=0.439
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.28797314763069154 x2=0.8242024660110474 y2=1.0 reason="Disputed region around 'laptop' and 'couch'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.28797314763069154 x2=0.8242024660110474 y2=1.0 reason="Disputed region around 'laptop' and 'couch'"
+INFO executor | [Executor] answer=False, claims=['laptop', 'couch']
+INFO critic | [Critic] iter=1 | query: 'laptop . couch'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.359 > 0.08 | b1=(0.52,0.68) b2=(0.16,0.67) d1=0.659 d2=0.439
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.353, threshold=0.4)
+INFO planner | [Planner] Question: Is the truck under the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='truck', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dog', 'truck']
+INFO critic | [Critic] iter=0 | query: 'dog . truck'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.344 < -0.08 | b1=(0.47,0.41) b2=(0.64,0.75) d1=0.184 d2=0.604
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [70/200] selective_acc=0.814 abstain=0
+INFO planner | [Planner] Question: Is the skateboard behind the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='skateboard', obj2='bed', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['skateboard', 'bed']
+INFO critic | [Critic] iter=0 | query: 'skateboard . bed'
+WARNING critic | [Critic] Detector missed: 'bed'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'bed'"
+INFO executor | [Executor] answer=False, claims=['skateboard', 'bed']
+INFO critic | [Critic] iter=1 | query: 'skateboard . bed'
+WARNING critic | [Critic] Detector missed: 'bed'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the airplane behind the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='airplane', obj2='car', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['airplane', 'car']
+INFO critic | [Critic] iter=0 | query: 'airplane . car'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.314 > 0.08 | b1=(0.35,0.56) b2=(0.42,0.80) d1=0.063 d2=0.376
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.44161487072706224 x2=0.8863369405269623 y2=1.0 reason="Disputed region around 'airplane' and 'car'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.44161487072706224 x2=0.8863369405269623 y2=1.0 reason="Disputed region around 'airplane' and 'car'"
+INFO executor | [Executor] answer=True, claims=['airplane', 'car']
+INFO critic | [Critic] iter=1 | query: 'airplane . car'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.314 > 0.08 | b1=(0.34,0.56) b2=(0.42,0.81) d1=0.063 d2=0.376
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the person at the right side of the laptop?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='laptop', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['person', 'laptop']
+INFO critic | [Critic] iter=0 | query: 'person . laptop'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.427 > 0.08 | b1=(0.63,0.53) b2=(0.20,0.46) d1=0.204 d2=0.208
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the couch below the bird?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='bird', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['couch', 'bird']
+INFO critic | [Critic] iter=0 | query: 'couch . bird'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.336 > 0.08 | b1=(0.84,0.23) b2=(0.67,0.56) d1=0.098 d2=0.592
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the pizza behind the sandwich?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='pizza', obj2='sandwich', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['pizza', 'sandwich']
+INFO critic | [Critic] iter=0 | query: 'pizza . sandwich'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.153 > 0.08 | b1=(0.61,0.43) b2=(0.16,0.74) d1=0.627 d2=0.780
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bench over the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bench', obj2='cat', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bench', 'cat']
+INFO critic | [Critic] iter=0 | query: 'bench . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.083 < -0.08 | b1=(0.42,0.52) b2=(0.50,0.60) d1=0.506 d2=0.729
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.8814003646373749 y2=1.0 reason="Disputed region around 'bench' and 'cat'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.8814003646373749 y2=1.0 reason="Disputed region around 'bench' and 'cat'"
+INFO executor | [Executor] answer=False, claims=['bench', 'cat']
+INFO critic | [Critic] iter=1 | query: 'bench . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.083 < -0.08 | b1=(0.42,0.52) b2=(0.50,0.60) d1=0.498 d2=0.729
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.197, threshold=0.4)
+INFO planner | [Planner] Question: Is the couch in front of the suitcase?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='suitcase', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['couch', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'couch . suitcase'
+WARNING critic | [Critic] Detector missed: 'suitcase'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'suitcase'"
+INFO executor | [Executor] answer=False, claims=['couch', 'suitcase']
+INFO critic | [Critic] iter=1 | query: 'couch . suitcase'
+WARNING critic | [Critic] Detector missed: 'suitcase'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the dog on the chair?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='chair', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dog', 'chair']
+INFO critic | [Critic] iter=0 | query: 'dog . chair'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.434<-0.08 AND IoU=0.000>0.05 | b1=(0.48,0.59) b2=(0.41,0.15) d1=0.416 d2=0.047
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bed in the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='bed', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'bed']
+INFO critic | [Critic] iter=0 | query: 'person . bed'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.000>0.7 AND area(b2)/area(b1)=52.88<0.7 | b1=(0.96,0.94) b2=(0.42,0.66) d1=0.796 d2=0.404
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat on top of the tv?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='tv', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'tv']
+INFO critic | [Critic] iter=0 | query: 'cat . tv'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.333<-0.08 AND IoU=0.125>0.05 | b1=(0.56,0.34) b2=(0.48,0.67) d1=0.533 d2=0.612
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [80/200] selective_acc=0.825 abstain=0
+INFO planner | [Planner] Question: Is the tv above the bicycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='tv', obj2='bicycle', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['tv', 'bicycle']
+INFO critic | [Critic] iter=0 | query: 'tv . bicycle'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.322 < -0.08 | b1=(0.18,0.15) b2=(0.57,0.47) d1=0.188 d2=0.341
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.9047622859477997 y2=0.9854532659053803 reason="Disputed region around 'tv' and 'bicycle'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.9047622859477997 y2=0.9854532659053803 reason="Disputed region around 'tv' and 'bicycle'"
+INFO executor | [Executor] answer=False, claims=['tv', 'bicycle']
+INFO critic | [Critic] iter=1 | query: 'tv . bicycle'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.322 < -0.08 | b1=(0.18,0.15) b2=(0.57,0.47) d1=0.188 d2=0.341
+INFO pipeline | [Arbitrate] geometry_override -> yes (geo_confidence=0.462, threshold=0.4)
+INFO planner | [Planner] Question: Is the person at the right side of the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='cake', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['person', 'cake']
+INFO critic | [Critic] iter=0 | query: 'person . cake'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.417 > 0.08 | b1=(0.42,0.42) b2=(0.84,0.86) d1=0.267 d2=0.498
+INFO critic | [Critic] Scheduled crop: x1=0.058897477388381955 y1=0.09428266882896423 x2=0.9634538173675538 y2=0.965092658251524 reason="Disputed region around 'person' and 'cake'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.058897477388381955 y1=0.09428266882896423 x2=0.9634538173675538 y2=0.965092658251524 reason="Disputed region around 'person' and 'cake'"
+INFO executor | [Executor] answer=True, claims=['person', 'cake']
+INFO critic | [Critic] iter=1 | query: 'person . cake'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.417 > 0.08 | b1=(0.42,0.42) b2=(0.84,0.86) d1=0.267 d2=0.498
+INFO pipeline | [Arbitrate] geometry_override -> no (geo_confidence=0.480, threshold=0.4)
+INFO planner | [Planner] Question: Is the truck beneath the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='truck', obj2='cat', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['truck', 'cat']
+INFO critic | [Critic] iter=0 | query: 'truck . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.289 > 0.08 | b1=(0.49,0.79) b2=(0.53,0.50) d1=0.820 d2=0.357
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the bird at the back of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='bird', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['parrot', 'person']
+INFO critic | [Critic] iter=0 | query: 'parrot . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.184 > 0.08 | b1=(0.28,0.59) b2=(0.78,0.78) d1=0.569 d2=0.753
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.12646592855453492 x2=1.0 y2=1.0 reason="Disputed region around 'parrot' and 'person'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.12646592855453492 x2=1.0 y2=1.0 reason="Disputed region around 'parrot' and 'person'"
+INFO executor | [Executor] answer=True, claims=['person', 'bird']
+INFO critic | [Critic] iter=1 | query: 'person . bird'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=0.149 > 0.08 | b1=(0.76,0.75) b2=(0.28,0.59) d1=0.718 d2=0.569
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the backpack contains the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='backpack', obj2='cat', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['backpack', 'cat']
+INFO critic | [Critic] iter=0 | query: 'backpack . cat'
+INFO critic | [Critic] relation_true=True | rule=coverage(obj2 in obj1)=1.000>0.7 AND area(b2)/area(b1)=0.37<0.7 | b1=(0.50,0.50) b2=(0.50,0.53) d1=0.655 d2=0.529
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the handbag contains the teddy bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='handbag', obj2='teddy bear', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['handbag', 'teddy bear']
+INFO critic | [Critic] iter=0 | query: 'handbag . teddy bear'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.000>0.7 AND area(b2)/area(b1)=23.20<0.7 | b1=(0.20,0.91) b2=(0.65,0.50) d1=0.643 d2=0.847
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat at the left side of the teddy bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='teddy bear', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'teddy bear']
+INFO critic | [Critic] iter=0 | query: 'cat . teddy bear'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.326 < -0.08 | b1=(0.62,0.54) b2=(0.29,0.50) d1=0.529 d2=0.490
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the person under the banana?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='banana', obj2='person', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['banana', 'person']
+INFO critic | [Critic] iter=0 | query: 'banana . person'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.000>0.7 AND area(b2)/area(b1)=3.03<0.7 | b1=(0.41,0.19) b2=(0.78,0.85) d1=0.133 d2=0.733
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the skateboard behind the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='skateboard', obj2='bed', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['skateboard', 'bed']
+INFO critic | [Critic] iter=0 | query: 'skateboard . bed'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.596 > 0.08 | b1=(0.83,0.24) b2=(0.50,0.70) d1=0.082 d2=0.678
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.011960786581039426 x2=1.0 y2=1.0 reason="Disputed region around 'skateboard' and 'bed'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.011960786581039426 x2=1.0 y2=1.0 reason="Disputed region around 'skateboard' and 'bed'"
+INFO executor | [Executor] answer=True, claims=['skateboard', 'bed']
+INFO critic | [Critic] iter=1 | query: 'skateboard . bed'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.596 > 0.08 | b1=(0.83,0.24) b2=(0.50,0.70) d1=0.082 d2=0.678
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the dining table above the hot dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dining table', obj2='hot dog', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dining table', 'hot dog']
+INFO critic | [Critic] iter=0 | query: 'dining table . hot dog'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.255 < -0.08 | b1=(0.50,0.50) b2=(0.32,0.75) d1=0.486 d2=0.765
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'dining table' and 'hot dog'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'dining table' and 'hot dog'"
+INFO executor | [Executor] answer=False, claims=['dining table', 'hot dog']
+INFO critic | [Critic] iter=1 | query: 'dining table . hot dog'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.255 < -0.08 | b1=(0.50,0.50) b2=(0.32,0.75) d1=0.486 d2=0.765
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.395, threshold=0.4)
+INFO eval | [90/200] selective_acc=0.833 abstain=0
+INFO planner | [Planner] Question: Is the dog under the chair?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='chair', obj2='dog', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['chair', 'dog']
+INFO critic | [Critic] iter=0 | query: 'chair . dog'
+INFO critic | [Critic] relation_true=True | rule=coverage(obj2 in obj1)=0.862>0.7 AND area(b2)/area(b1)=0.56<0.7 | b1=(0.64,0.50) b2=(0.51,0.47) d1=0.494 d2=0.482
+INFO critic | [Critic] Scheduled crop: x1=0.1302968978881836 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'chair' and 'dog'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.1302968978881836 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'chair' and 'dog'"
+INFO executor | [Executor] answer=True, claims=['chair', 'dog']
+INFO critic | [Critic] iter=1 | query: 'chair . dog'
+INFO critic | [Critic] relation_true=True | rule=coverage(obj2 in obj1)=0.858>0.7 AND area(b2)/area(b1)=0.56<0.7 | b1=(0.64,0.50) b2=(0.51,0.47) d1=0.494 d2=0.482
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the tv in front of the teddy bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='tv', obj2='teddy bear', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['tv', 'teddy bear']
+INFO critic | [Critic] iter=0 | query: 'tv . teddy bear'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.102 < -0.08 | b1=(0.60,0.50) b2=(0.07,0.60) d1=0.510 d2=0.408
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.08984513282775879 x2=0.9104695498943329 y2=0.9122565269470215 reason="Disputed region around 'tv' and 'teddy bear'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.08984513282775879 x2=0.9104695498943329 y2=0.9122565269470215 reason="Disputed region around 'tv' and 'teddy bear'"
+INFO executor | [Executor] answer=False, claims=['tv', 'teddy bear']
+INFO critic | [Critic] iter=1 | query: 'tv . teddy bear'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.102 < -0.08 | b1=(0.61,0.50) b2=(0.07,0.60) d1=0.510 d2=0.408
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the person in front of the parking meter?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='parking meter', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'parking meter']
+INFO critic | [Critic] iter=0 | query: 'person . parking meter'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=-0.745 < -0.08 | b1=(0.48,0.44) b2=(0.78,0.50) d1=0.086 d2=0.831
+INFO critic | [Critic] Scheduled crop: x1=0.4173847192898393 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'person' and 'parking meter'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.4173847192898393 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'person' and 'parking meter'"
+INFO executor | [Executor] answer=False, claims=['person', 'parking meter']
+INFO critic | [Critic] iter=1 | query: 'person . parking meter'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=-0.745 < -0.08 | b1=(0.48,0.44) b2=(0.78,0.50) d1=0.086 d2=0.831
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the person at the left side of the umbrella?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='person', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['umbrella', 'person']
+INFO critic | [Critic] iter=0 | query: 'umbrella . person'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.332 > 0.08 | b1=(0.74,0.43) b2=(0.40,0.60) d1=0.310 d2=0.176
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the person at the left side of the pizza?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='pizza', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'pizza']
+INFO critic | [Critic] iter=0 | query: 'person . pizza'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.133 < -0.08 | b1=(0.35,0.08) b2=(0.48,0.51) d1=0.396 d2=0.624
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.9773650348186493 y2=0.9685871779918671 reason="Disputed region around 'person' and 'pizza'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.9773650348186493 y2=0.9685871779918671 reason="Disputed region around 'person' and 'pizza'"
+INFO executor | [Executor] answer=False, claims=['person', 'pizza']
+INFO critic | [Critic] iter=1 | query: 'person . pizza'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.133 < -0.08 | b1=(0.35,0.08) b2=(0.48,0.50) d1=0.396 d2=0.620
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.171, threshold=0.4)
+INFO planner | [Planner] Question: Is the laptop at the left side of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='laptop', obj2='person', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['laptop', 'person']
+INFO critic | [Critic] iter=0 | query: 'laptop . person'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.049 < -0.08 | b1=(0.71,0.53) b2=(0.76,0.62) d1=0.569 d2=0.580
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cow left of the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cow', obj2='car', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cow', 'car']
+INFO critic | [Critic] iter=0 | query: 'cow . car'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.563 < -0.08 | b1=(0.17,0.28) b2=(0.73,0.45) d1=0.235 d2=0.533
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the book on the teddy bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='book', obj2='teddy bear', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['book', 'teddy bear']
+INFO critic | [Critic] iter=0 | query: 'book . teddy bear'
+WARNING critic | [Critic] Detector missed: 'book'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'book'"
+INFO executor | [Executor] answer=True, claims=['book', 'teddy bear']
+INFO critic | [Critic] iter=1 | query: 'book . teddy bear'
+WARNING critic | [Critic] Detector missed: 'book'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> yes
+INFO planner | [Planner] Question: Is the dog on top of the motorcycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='motorcycle', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dog', 'motorcycle']
+INFO critic | [Critic] iter=0 | query: 'dog . motorcycle'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.321<-0.08 AND IoU=0.219>0.05 | b1=(0.41,0.37) b2=(0.60,0.69) d1=0.463 d2=0.545
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the toilet in front of the truck?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='truck', obj2='toilet', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['truck', 'toilet']
+INFO critic | [Critic] iter=0 | query: 'truck . toilet'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=-0.361 < -0.08 | b1=(0.37,0.24) b2=(0.39,0.80) d1=0.180 d2=0.541
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [100/200] selective_acc=0.830 abstain=0
+INFO planner | [Planner] Question: Is the umbrella over the cup?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='cup', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['umbrella', 'cup']
+INFO critic | [Critic] iter=0 | query: 'umbrella . cup'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.636 < -0.08 | b1=(0.50,0.18) b2=(0.66,0.82) d1=0.573 d2=0.553
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the bicycle behind the chair?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bicycle', obj2='chair', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bicycle wheel', 'chair']
+INFO critic | [Critic] iter=0 | query: 'bicycle wheel . chair'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.055 > 0.08 | b1=(0.35,0.76) b2=(0.65,0.74) d1=0.392 d2=0.447
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the donut at the right side of the bowl?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='donut', obj2='bowl', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['croissant sandwich', 'bowl of fruit']
+INFO critic | [Critic] iter=0 | query: 'croissant sandwich . bowl of fruit'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.080 > 0.08 | b1=(0.48,0.70) b2=(0.40,0.35) d1=0.835 d2=0.455
+INFO critic | [Critic] Scheduled crop: x1=0.17521314024925233 y1=0.1746464714407921 x2=0.7778874218463898 y2=1.0 reason="Disputed region around 'croissant sandwich' and 'bowl'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.17521314024925233 y1=0.1746464714407921 x2=0.7778874218463898 y2=1.0 reason="Disputed region around 'croissant sandwich' and 'bowl'"
+INFO executor | [Executor] answer=False, claims=['croissant sandwich', 'bowl of fruit']
+INFO critic | [Critic] iter=1 | query: 'croissant sandwich . bowl of fruit'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.080 > 0.08 | b1=(0.48,0.70) b2=(0.40,0.35) d1=0.835 d2=0.455
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the couch under the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='couch', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['person', 'couch']
+INFO critic | [Critic] iter=0 | query: 'person . couch'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.081 < -0.08 | b1=(0.35,0.51) b2=(0.50,0.59) d1=0.459 d2=0.314
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the tv behind the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='tv', obj2='person', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['tv', 'person']
+INFO critic | [Critic] iter=0 | query: 'tv . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.196 > 0.08 | b1=(0.37,0.28) b2=(0.74,0.65) d1=0.478 d2=0.675
+INFO critic | [Critic] Scheduled crop: x1=0.05615149140357971 y1=0.0 x2=0.976690548658371 y2=1.0 reason="Disputed region around 'tv' and 'person'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.05615149140357971 y1=0.0 x2=0.976690548658371 y2=1.0 reason="Disputed region around 'tv' and 'person'"
+INFO executor | [Executor] answer=True, claims=['tv', 'person']
+INFO critic | [Critic] iter=1 | query: 'tv . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.196 > 0.08 | b1=(0.37,0.28) b2=(0.74,0.65) d1=0.478 d2=0.675
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the vase behind the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='vase', obj2='cat', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['vase', 'cat']
+INFO critic | [Critic] iter=0 | query: 'vase . cat'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=0.435 > 0.08 | b1=(0.49,0.65) b2=(0.44,0.17) d1=0.800 d2=0.365
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.9832453906536103 y2=1.0 reason="Disputed region around 'vase' and 'cat'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.9832453906536103 y2=1.0 reason="Disputed region around 'vase' and 'cat'"
+INFO executor | [Executor] answer=False, claims=['vase', 'cat']
+INFO critic | [Critic] iter=1 | query: 'vase . cat'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=0.431 > 0.08 | b1=(0.49,0.65) b2=(0.45,0.17) d1=0.796 d2=0.365
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the dog in front of the motorcycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='motorcycle', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dog', 'motorcycle']
+INFO critic | [Critic] iter=0 | query: 'dog . motorcycle'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=-0.153 < -0.08 | b1=(0.13,0.29) b2=(0.73,0.51) d1=0.588 d2=0.741
+INFO critic | [Critic] Scheduled crop: x1=0.04697643294930458 y1=0.09258855581283569 x2=1.0 y2=0.9212705969810486 reason="Disputed region around 'dog' and 'motorcycle'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.04697643294930458 y1=0.09258855581283569 x2=1.0 y2=0.9212705969810486 reason="Disputed region around 'dog' and 'motorcycle'"
+INFO executor | [Executor] answer=False, claims=['dog', 'motorcycle']
+INFO critic | [Critic] iter=1 | query: 'dog . motorcycle'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=-0.153 < -0.08 | b1=(0.13,0.29) b2=(0.72,0.51) d1=0.588 d2=0.741
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the oven contains the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='oven', obj2='cake', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['oven', 'cake']
+INFO critic | [Critic] iter=0 | query: 'oven . cake'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=1.000>0.7 AND area(b2)/area(b1)=0.82<0.7 | b1=(0.50,0.50) b2=(0.53,0.53) d1=0.525 d2=0.541
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the apple above the banana?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='apple', obj2='banana', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['apple', 'banana']
+INFO critic | [Critic] iter=0 | query: 'apple . banana'
+WARNING critic | [Critic] Detector missed: 'apple'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'apple'"
+INFO executor | [Executor] answer=False, claims=['apple', 'banana']
+INFO critic | [Critic] iter=1 | query: 'apple . banana'
+WARNING critic | [Critic] Detector missed: 'apple'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the cat on top of the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='car', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'car']
+INFO critic | [Critic] iter=0 | query: 'cat . car'
+INFO critic | [Critic] relation_true=False | rule=cy diff=-0.262<-0.08 AND IoU=0.015>0.05 | b1=(0.54,0.34) b2=(0.49,0.61) d1=0.682 d2=0.620
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.1610838294029236 x2=0.9820542812347413 y2=1.0 reason="Disputed region around 'cat' and 'car'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.1610838294029236 x2=0.9820542812347413 y2=1.0 reason="Disputed region around 'cat' and 'car'"
+INFO executor | [Executor] answer=True, claims=['cat', 'car']
+INFO critic | [Critic] iter=1 | query: 'cat . car'
+INFO critic | [Critic] relation_true=False | rule=cy diff=-0.262<-0.08 AND IoU=0.015>0.05 | b1=(0.54,0.34) b2=(0.49,0.61) d1=0.682 d2=0.616
+INFO pipeline | [Arbitrate] geometry_override -> no (geo_confidence=0.829, threshold=0.4)
+INFO eval | [110/200] selective_acc=0.818 abstain=0
+INFO planner | [Planner] Question: Is the wine glass at the right side of the sandwich?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='wine glass', obj2='sandwich', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['wine glass', 'sandwich']
+INFO critic | [Critic] iter=0 | query: 'wine glass . sandwich'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.449 > 0.08 | b1=(0.93,0.41) b2=(0.48,0.48) d1=0.153 d2=0.486
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the dog inside the truck?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='truck', obj2='dog', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['truck', 'dog']
+INFO critic | [Critic] iter=0 | query: 'truck . dog'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.000>0.7 AND area(b2)/area(b1)=35.64<0.7 | b1=(0.96,0.44) b2=(0.36,0.65) d1=0.125 d2=0.722
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the wine glass at the left side of the pizza?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='wine glass', obj2='pizza', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['wine glass', 'pizza']
+INFO critic | [Critic] iter=0 | query: 'wine glass . pizza'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.305 < -0.08 | b1=(0.80,0.73) b2=(0.50,0.52) d1=0.722 d2=0.510
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the couch at the right side of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='person', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['couch', 'person']
+INFO critic | [Critic] iter=0 | query: 'couch . person'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.180 > 0.08 | b1=(0.57,0.51) b2=(0.75,0.51) d1=0.290 d2=0.263
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the person at the right side of the pizza?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='pizza', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['person', 'pizza']
+INFO critic | [Critic] iter=0 | query: 'person . pizza'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.255 > 0.08 | b1=(0.70,0.33) b2=(0.45,0.71) d1=0.286 d2=0.584
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the truck contains the cow?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='truck', obj2='cow', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['truck', 'cow illustration']
+INFO critic | [Critic] iter=0 | query: 'truck . cow illustration'
+INFO critic | [Critic] relation_true=True | rule=coverage(obj2 in obj1)=1.000>0.7 AND area(b2)/area(b1)=0.01<0.7 | b1=(0.48,0.49) b2=(0.86,0.59) d1=0.816 d2=0.886
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the boat behind the bicycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='boat', obj2='bicycle', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['boat', 'bicycle']
+INFO critic | [Critic] iter=0 | query: 'boat . bicycle'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=0.341 > 0.08 | b1=(0.39,0.89) b2=(0.34,0.54) d1=0.894 d2=0.553
+INFO critic | [Critic] Scheduled crop: x1=0.08614019751548767 y1=0.39415639340877534 x2=0.6872571289539338 y2=1.0 reason="Disputed region around 'boat' and 'bicycle'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.08614019751548767 y1=0.39415639340877534 x2=0.6872571289539338 y2=1.0 reason="Disputed region around 'boat' and 'bicycle'"
+INFO executor | [Executor] answer=True, claims=['boat', 'bicycle']
+INFO critic | [Critic] iter=1 | query: 'boat . bicycle'
+INFO critic | [Critic] relation_true=True | rule=depth(obj1)-depth(obj2)=0.337 > 0.08 | b1=(0.39,0.89) b2=(0.36,0.54) d1=0.890 d2=0.553
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the bench right of the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bench', obj2='bed', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['bench', 'bed']
+INFO critic | [Critic] iter=0 | query: 'bench . bed'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.368 > 0.08 | b1=(0.50,0.60) b2=(0.13,0.45) d1=0.416 d2=0.314
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the person at the right side of the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='cake', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['person', 'cake']
+INFO critic | [Critic] iter=0 | query: 'person . cake'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.373 > 0.08 | b1=(0.77,0.50) b2=(0.40,0.84) d1=0.694 d2=0.765
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the person above the pizza?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='pizza', obj2='person', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['pizza', 'person']
+INFO critic | [Critic] iter=0 | query: 'pizza . person'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.168 > 0.08 | b1=(0.51,0.66) b2=(0.52,0.50) d1=0.584 d2=0.631
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO eval | [120/200] selective_acc=0.817 abstain=0
+INFO planner | [Planner] Question: Is the pizza above the oven?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='pizza', obj2='oven', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['pizza', 'oven']
+INFO critic | [Critic] iter=0 | query: 'pizza . oven'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.172 < -0.08 | b1=(0.60,0.38) b2=(0.50,0.56) d1=0.722 d2=0.722
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.06361834406852722 x2=1.0 y2=1.0 reason="Disputed region around 'pizza' and 'oven'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.06361834406852722 x2=1.0 y2=1.0 reason="Disputed region around 'pizza' and 'oven'"
+INFO executor | [Executor] answer=False, claims=['pizza', 'oven']
+INFO critic | [Critic] iter=1 | query: 'pizza . oven'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.172 < -0.08 | b1=(0.60,0.38) b2=(0.50,0.56) d1=0.725 d2=0.722
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.281, threshold=0.4)
+INFO planner | [Planner] Question: Is the person at the right side of the dining table?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='dining table', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'dining table']
+INFO critic | [Critic] iter=0 | query: 'person . dining table'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.079 > 0.08 | b1=(0.42,0.42) b2=(0.50,0.87) d1=0.318 d2=0.784
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the couch at the right side of the umbrella?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='umbrella', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['couch', 'umbrella']
+INFO critic | [Critic] iter=0 | query: 'couch . umbrella'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.198 > 0.08 | b1=(0.29,0.73) b2=(0.49,0.49) d1=0.478 d2=0.380
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the suitcase inside the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='suitcase', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.381>0.7 AND area(b2)/area(b1)=2.63<0.7 | b1=(0.52,0.60) b2=(0.50,0.63) d1=0.706 d2=0.698
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the chair beneath the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='chair', obj2='cat', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['chair', 'cat']
+INFO critic | [Critic] iter=0 | query: 'chair . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.243 > 0.08 | b1=(0.36,0.50) b2=(0.37,0.26) d1=0.678 d2=0.690
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.7618331491947175 y2=1.0 reason="Disputed region around 'chair' and 'cat'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.7618331491947175 y2=1.0 reason="Disputed region around 'chair' and 'cat'"
+INFO executor | [Executor] answer=True, claims=['chair', 'cat']
+INFO critic | [Critic] iter=1 | query: 'chair . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.320 > 0.08 | b1=(0.36,0.58) b2=(0.37,0.26) d1=0.714 d2=0.686
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the cake in front of the oven?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cake', obj2='oven', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cake', 'oven']
+INFO critic | [Critic] iter=0 | query: 'cake . oven'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'oven'"
+INFO executor | [Executor] answer=False, claims=['cake', 'oven']
+INFO critic | [Critic] iter=1 | query: 'cake . oven'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the backpack in the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='backpack', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'backpack']
+INFO critic | [Critic] iter=0 | query: 'cat . backpack'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.276>0.7 AND area(b2)/area(b1)=3.62<0.7 | b1=(0.44,0.50) b2=(0.57,0.50) d1=0.584 d2=0.447
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the laptop behind the sandwich?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='laptop', obj2='sandwich', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['laptop', 'sandwich']
+INFO critic | [Critic] iter=0 | query: 'laptop . sandwich'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.298 > 0.08 | b1=(0.61,0.42) b2=(0.30,0.79) d1=0.580 d2=0.878
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the horse on the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cake', obj2='horse', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cake', 'horse']
+INFO critic | [Critic] iter=0 | query: 'cake . horse'
+WARNING critic | [Critic] Detector missed: 'horse'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'horse'"
+INFO executor | [Executor] answer=True, claims=['cake', 'horse']
+INFO critic | [Critic] iter=1 | query: 'cake . horse'
+WARNING critic | [Critic] Detector missed: 'horse'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> yes
+INFO planner | [Planner] Question: Is the couch on top of the truck?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='truck', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['couch', 'truck']
+INFO critic | [Critic] iter=0 | query: 'couch . truck'
+WARNING critic | [Critic] Detector missed: 'truck'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'truck'"
+INFO executor | [Executor] answer=False, claims=['couch', 'truck']
+INFO critic | [Critic] iter=1 | query: 'couch . truck'
+WARNING critic | [Critic] Detector missed: 'truck'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO eval | [130/200] selective_acc=0.808 abstain=0
+INFO planner | [Planner] Question: Is the bench below the umbrella?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bench', obj2='umbrella', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bench', 'umbrella']
+INFO critic | [Critic] iter=0 | query: 'bench . umbrella'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.463 > 0.08 | b1=(0.26,0.64) b2=(0.57,0.18) d1=0.647 d2=0.216
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.7706678539514542 y2=1.0 reason="Disputed region around 'bench' and 'umbrella'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.7706678539514542 y2=1.0 reason="Disputed region around 'bench' and 'umbrella'"
+INFO executor | [Executor] answer=False, claims=['bench', 'umbrella']
+INFO critic | [Critic] iter=1 | query: 'bench . umbrella'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.465 > 0.08 | b1=(0.26,0.64) b2=(0.57,0.18) d1=0.647 d2=0.220
+INFO pipeline | [Arbitrate] geometry_override -> yes (geo_confidence=0.415, threshold=0.4)
+INFO planner | [Planner] Question: Is the cat on top of the chair?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='chair', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'chair']
+INFO critic | [Critic] iter=0 | query: 'cat . chair'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.016<-0.08 AND IoU=0.236>0.05 | b1=(0.39,0.57) b2=(0.37,0.55) d1=0.573 d2=0.251
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.05282278060913086 x2=0.7826794862747193 y2=1.0 reason="Disputed region around 'cat' and 'chair'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.05282278060913086 x2=0.7826794862747193 y2=1.0 reason="Disputed region around 'cat' and 'chair'"
+INFO executor | [Executor] answer=True, claims=['cat', 'chair']
+INFO critic | [Critic] iter=1 | query: 'cat . chair'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.015<-0.08 AND IoU=0.235>0.05 | b1=(0.39,0.57) b2=(0.37,0.55) d1=0.573 d2=0.251
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.046, threshold=0.4)
+INFO planner | [Planner] Question: Is the vase inside the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='vase', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'vase']
+INFO critic | [Critic] iter=0 | query: 'cat . vase'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.018>0.7 AND area(b2)/area(b1)=5.47<0.7 | b1=(0.44,0.17) b2=(0.49,0.65) d1=0.365 d2=0.800
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the refrigerator behind the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='refrigerator', obj2='dog', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['refrigerator', 'dog']
+INFO critic | [Critic] iter=0 | query: 'refrigerator . dog'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.373 > 0.08 | b1=(0.14,0.37) b2=(0.64,0.78) d1=0.153 d2=0.525
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.814012411236763 y2=1.0 reason="Disputed region around 'refrigerator' and 'dog'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.814012411236763 y2=1.0 reason="Disputed region around 'refrigerator' and 'dog'"
+INFO executor | [Executor] answer=True, claims=['refrigerator', 'dog']
+INFO critic | [Critic] iter=1 | query: 'refrigerator . dog'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.373 > 0.08 | b1=(0.14,0.37) b2=(0.64,0.78) d1=0.153 d2=0.525
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the cat below the bowl?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bowl', obj2='cat', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bowl', 'cat']
+INFO critic | [Critic] iter=0 | query: 'bowl . cat'
+WARNING critic | [Critic] Detector missed: 'bowl'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'bowl'"
+INFO executor | [Executor] answer=False, claims=['bowl', 'cat']
+INFO critic | [Critic] iter=1 | query: 'bowl . cat'
+WARNING critic | [Critic] Detector missed: 'bowl'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the cake above the oven?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cake', obj2='oven', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cake', 'oven']
+INFO critic | [Critic] iter=0 | query: 'cake . oven'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'oven'"
+INFO executor | [Executor] answer=False, claims=['birthday cake', 'oven']
+INFO critic | [Critic] iter=1 | query: 'birthday cake . oven'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the laptop at the left side of the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='laptop', obj2='cake', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['laptop', 'cake']
+INFO critic | [Critic] iter=0 | query: 'laptop . cake'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.365 < -0.08 | b1=(0.87,0.10) b2=(0.50,0.49) d1=0.110 d2=0.545
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the pizza at the left side of the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='pizza', obj2='dog', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['pizza', 'dog']
+INFO critic | [Critic] iter=0 | query: 'pizza . dog'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.285 < -0.08 | b1=(0.21,0.45) b2=(0.49,0.50) d1=0.682 d2=0.290
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the person behind the bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='bear', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['person', 'bear']
+INFO critic | [Critic] iter=0 | query: 'person . bear'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.278 > 0.08 | b1=(0.57,0.37) b2=(0.37,0.65) d1=0.322 d2=0.600
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.14323477149009706 x2=0.7857881665229798 y2=0.8720686316490174 reason="Disputed region around 'person' and 'bear'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.14323477149009706 x2=0.7857881665229798 y2=0.8720686316490174 reason="Disputed region around 'person' and 'bear'"
+INFO executor | [Executor] answer=True, claims=['person', 'bear']
+INFO critic | [Critic] iter=1 | query: 'person . bear'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.282 > 0.08 | b1=(0.57,0.37) b2=(0.37,0.65) d1=0.322 d2=0.604
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the bus in front of the motorcycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bus', obj2='motorcycle', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['bus', 'motorcycle']
+INFO critic | [Critic] iter=0 | query: 'bus . motorcycle'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.427 < -0.08 | b1=(0.52,0.66) b2=(0.97,0.87) d1=0.761 d2=0.333
+INFO critic | [Critic] Scheduled crop: x1=0.127239328622818 y1=0.29654733538627626 x2=1.0 y2=1.0 reason="Disputed region around 'bus' and 'motorcycle'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.127239328622818 y1=0.29654733538627626 x2=1.0 y2=1.0 reason="Disputed region around 'bus' and 'motorcycle'"
+INFO executor | [Executor] answer=True, claims=['SBS Transit bus', 'motorcycle']
+INFO critic | [Critic] iter=1 | query: 'SBS Transit bus . motorcycle'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.424 < -0.08 | b1=(0.52,0.66) b2=(0.97,0.87) d1=0.761 d2=0.337
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO eval | [140/200] selective_acc=0.800 abstain=0
+INFO planner | [Planner] Question: Is the bowl in the hot dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bowl', obj2='hot dog', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['bowl', 'hot dog']
+INFO critic | [Critic] iter=0 | query: 'bowl . hot dog'
+INFO critic | [Critic] relation_true=True | rule=coverage(obj2 in obj1)=1.000>0.7 AND area(b2)/area(b1)=0.33<0.7 | b1=(0.51,0.48) b2=(0.50,0.56) d1=0.600 d2=0.816
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the keyboard above the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='keyboard', obj2='dog', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['keyboard', 'dog']
+INFO critic | [Critic] iter=0 | query: 'keyboard . dog'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.489 < -0.08 | b1=(0.83,0.07) b2=(0.57,0.56) d1=0.149 d2=0.388
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the oven above the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='oven', obj2='cake', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['oven rack', 'cake']
+INFO critic | [Critic] iter=0 | query: 'oven rack . cake'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.075 < -0.08 | b1=(0.50,0.50) b2=(0.49,0.57) d1=0.471 d2=0.675
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'oven rack' and 'cake'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'oven rack' and 'cake'"
+INFO executor | [Executor] answer=False, claims=['oven', 'cake']
+INFO critic | [Critic] iter=1 | query: 'oven . cake'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.075 < -0.08 | b1=(0.50,0.50) b2=(0.49,0.58) d1=0.471 d2=0.675
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the suitcase above the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='suitcase', obj2='bed', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['suitcase', 'bed']
+INFO critic | [Critic] iter=0 | query: 'suitcase . bed'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.025 < -0.08 | b1=(0.06,0.74) b2=(0.48,0.71) d1=0.165 d2=0.486
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the parking meter at the left side of the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='parking meter', obj2='car', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['parking meter', 'car']
+INFO critic | [Critic] iter=0 | query: 'parking meter . car'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.251 < -0.08 | b1=(0.75,0.50) b2=(0.50,0.50) d1=0.878 d2=0.392
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the teddy bear at the left side of the book?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='teddy bear', obj2='book', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['teddy bear', 'book']
+INFO critic | [Critic] iter=0 | query: 'teddy bear . book'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.099 < -0.08 | b1=(0.35,0.32) b2=(0.45,0.68) d1=0.675 d2=0.741
+INFO critic | [Critic] Scheduled crop: x1=0.13204557895660402 y1=0.0 x2=0.7716750979423523 y2=1.0 reason="Disputed region around 'teddy bear' and 'book'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.13204557895660402 y1=0.0 x2=0.7716750979423523 y2=1.0 reason="Disputed region around 'teddy bear' and 'book'"
+INFO executor | [Executor] answer=False, claims=['teddy bear', 'book']
+INFO critic | [Critic] iter=1 | query: 'teddy bear . book'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.100 < -0.08 | b1=(0.35,0.32) b2=(0.45,0.68) d1=0.675 d2=0.741
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.317, threshold=0.4)
+INFO planner | [Planner] Question: Is the car left of the parking meter?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='car', obj2='parking meter', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['car', 'parking meter']
+INFO critic | [Critic] iter=0 | query: 'car . parking meter'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.417 < -0.08 | b1=(0.24,0.71) b2=(0.66,0.51) d1=0.557 d2=0.867
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the couch in front of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='person', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['couch', 'person']
+INFO critic | [Critic] iter=0 | query: 'couch . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.031 < -0.08 | b1=(0.34,0.72) b2=(0.39,0.52) d1=0.651 d2=0.620
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat on top of the laptop?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='laptop', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'laptop']
+INFO critic | [Critic] iter=0 | query: 'cat . laptop'
+INFO critic | [Critic] relation_true=True | rule=cy diff=-0.231<-0.08 AND IoU=0.400>0.05 | b1=(0.42,0.57) b2=(0.50,0.80) d1=0.741 d2=0.725
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the person at the left side of the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='bed', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'bed']
+INFO critic | [Critic] iter=0 | query: 'person . bed'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.011 < -0.08 | b1=(0.49,0.63) b2=(0.50,0.55) d1=0.541 d2=0.463
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO eval | [150/200] selective_acc=0.813 abstain=0
+INFO planner | [Planner] Question: Is the bowl below the bird?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bowl', obj2='bird', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bowl', 'bird']
+INFO critic | [Critic] iter=0 | query: 'bowl . bird'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.141 > 0.08 | b1=(0.07,0.68) b2=(0.36,0.54) d1=0.141 d2=0.671
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.07058112025260925 x2=0.7372069239616394 y2=1.0 reason="Disputed region around 'bowl' and 'bird'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.07058112025260925 x2=0.7372069239616394 y2=1.0 reason="Disputed region around 'bowl' and 'bird'"
+INFO executor | [Executor] answer=False, claims=['bowl', 'bird']
+INFO critic | [Critic] iter=1 | query: 'bowl . bird'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=0.141 > 0.08 | b1=(0.07,0.68) b2=(0.36,0.54) d1=0.141 d2=0.667
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.254, threshold=0.4)
+INFO planner | [Planner] Question: Is the suitcase in the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='suitcase', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dog', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'dog . suitcase'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.256>0.7 AND area(b2)/area(b1)=3.91<0.7 | b1=(0.49,0.28) b2=(0.50,0.46) d1=0.525 d2=0.565
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=0.9333873569965363 reason="Disputed region around 'dog' and 'suitcase'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=0.9333873569965363 reason="Disputed region around 'dog' and 'suitcase'"
+INFO executor | [Executor] answer=True, claims=['dog', 'suitcase']
+INFO critic | [Critic] iter=1 | query: 'dog . suitcase'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.256>0.7 AND area(b2)/area(b1)=3.91<0.7 | b1=(0.49,0.28) b2=(0.50,0.46) d1=0.525 d2=0.565
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.198, threshold=0.4)
+INFO planner | [Planner] Question: Is the cake under the truck?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='truck', obj2='cake', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['truck', 'cake']
+INFO critic | [Critic] iter=0 | query: 'truck . cake'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.205 > 0.08 | b1=(0.56,0.33) b2=(0.51,0.53) d1=0.545 d2=0.608
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the oven right of the cake?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='oven', obj2='cake', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['oven', 'cake']
+INFO critic | [Critic] iter=0 | query: 'oven . cake'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'oven'"
+INFO executor | [Executor] answer=True, claims=['oven', 'cake under glass dome']
+INFO critic | [Critic] iter=1 | query: 'oven . cake under glass dome'
+WARNING critic | [Critic] Detector missed: 'oven'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> yes
+INFO planner | [Planner] Question: Is the couch under the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='couch', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'couch']
+INFO critic | [Critic] iter=0 | query: 'person . couch'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.016 < -0.08 | b1=(0.48,0.52) b2=(0.50,0.54) d1=0.557 d2=0.569
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bicycle left of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bicycle', obj2='person', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bicycle', 'person']
+INFO critic | [Critic] iter=0 | query: 'bicycle . person'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.002 < -0.08 | b1=(0.53,0.69) b2=(0.53,0.50) d1=0.451 d2=0.451
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bench above the banana?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bench', obj2='banana', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['bench', 'banana']
+INFO critic | [Critic] iter=0 | query: 'bench . banana'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.379 < -0.08 | b1=(0.64,0.21) b2=(0.46,0.59) d1=0.573 d2=0.204
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the truck behind the motorcycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='truck', obj2='motorcycle', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['truck', 'motorcycle']
+INFO critic | [Critic] iter=0 | query: 'truck . motorcycle'
+WARNING critic | [Critic] Detector missed: 'truck'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'truck'"
+INFO executor | [Executor] answer=False, claims=['truck', 'motorcycle']
+INFO critic | [Critic] iter=1 | query: 'truck . motorcycle'
+WARNING critic | [Critic] Detector missed: 'truck'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> no
+INFO planner | [Planner] Question: Is the apple above the orange?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='apple', obj2='orange', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['apple', 'orange']
+INFO critic | [Critic] iter=0 | query: 'apple . orange'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.360 < -0.08 | b1=(0.70,0.34) b2=(0.49,0.70) d1=0.463 d2=0.769
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the cat below the motorcycle?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='motorcycle', obj2='cat', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['motorcycle', 'cat']
+INFO critic | [Critic] iter=0 | query: 'motorcycle . cat'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.332 > 0.08 | b1=(0.50,0.36) b2=(0.50,0.69) d1=0.616 d2=0.153
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO eval | [160/200] selective_acc=0.794 abstain=0
+INFO planner | [Planner] Question: Is the laptop at the left side of the teddy bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='laptop', obj2='teddy bear', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['laptop', 'teddy bear']
+INFO critic | [Critic] iter=0 | query: 'laptop . teddy bear'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.594 < -0.08 | b1=(0.26,0.46) b2=(0.86,0.71) d1=0.353 d2=0.471
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the cow in the tv?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='tv', obj2='cow', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['TV', 'cow']
+INFO critic | [Critic] iter=0 | query: 'TV . cow'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.149>0.7 AND area(b2)/area(b1)=6.69<0.7 | b1=(0.56,0.34) b2=(0.51,0.49) d1=0.733 d2=0.596
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bicycle under the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='bicycle', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'bicycle']
+INFO critic | [Critic] iter=0 | query: 'cat . bicycle'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.075 < -0.08 | b1=(0.36,0.42) b2=(0.50,0.50) d1=0.176 d2=0.216
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the skateboard at the left side of the dog?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='skateboard', obj2='dog', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['skateboard', 'dog']
+INFO critic | [Critic] iter=0 | query: 'skateboard . dog'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.254 < -0.08 | b1=(0.40,0.91) b2=(0.65,0.51) d1=0.580 d2=0.267
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.011275094747543332 x2=0.962756770849228 y2=1.0 reason="Disputed region around 'skateboard' and 'dog'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.011275094747543332 x2=0.962756770849228 y2=1.0 reason="Disputed region around 'skateboard' and 'dog'"
+INFO executor | [Executor] answer=False, claims=['skateboard', 'dog']
+INFO critic | [Critic] iter=1 | query: 'skateboard . dog'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.248 < -0.08 | b1=(0.40,0.91) b2=(0.64,0.51) d1=0.580 d2=0.263
+INFO pipeline | [Arbitrate] geometry_override -> yes (geo_confidence=0.720, threshold=0.4)
+INFO planner | [Planner] Question: Is the cup in front of the cow?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cup', obj2='cow', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cup', 'cow']
+INFO critic | [Critic] iter=0 | query: 'cup . cow'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.376 < -0.08 | b1=(0.53,0.59) b2=(0.50,0.40) d1=0.584 d2=0.208
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=0.8137211084365845 reason="Disputed region around 'cup' and 'cow'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=0.8137211084365845 reason="Disputed region around 'cup' and 'cow'"
+INFO executor | [Executor] answer=True, claims=['cup', 'cow']
+INFO critic | [Critic] iter=1 | query: 'cup . cow'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.376 < -0.08 | b1=(0.52,0.59) b2=(0.50,0.40) d1=0.584 d2=0.208
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the hot dog above the chair?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='hot dog', obj2='chair', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['hot dog', 'chair']
+INFO critic | [Critic] iter=0 | query: 'hot dog . chair'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.374 < -0.08 | b1=(0.53,0.48) b2=(0.57,0.10) d1=0.592 d2=0.035
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the chair behind the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='chair', obj2='person', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['chair', 'person']
+INFO critic | [Critic] iter=0 | query: 'chair . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.055 > 0.08 | b1=(0.45,0.65) b2=(0.36,0.53) d1=0.784 d2=0.839
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.01663352251052856 x2=0.9404620110988617 y2=1.0 reason="Disputed region around 'chair' and 'person'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.01663352251052856 x2=0.9404620110988617 y2=1.0 reason="Disputed region around 'chair' and 'person'"
+INFO executor | [Executor] answer=True, claims=['chair', 'person']
+INFO critic | [Critic] iter=1 | query: 'chair . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.055 > 0.08 | b1=(0.45,0.65) b2=(0.36,0.53) d1=0.784 d2=0.839
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.177, threshold=0.4)
+INFO planner | [Planner] Question: Is the cake on top of the keyboard?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cake', obj2='keyboard', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cake', 'keyboard']
+INFO critic | [Critic] iter=0 | query: 'cake . keyboard'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.400 < -0.08 | b1=(0.53,0.72) b2=(0.75,0.32) d1=0.733 d2=0.094
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the suitcase inside the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='suitcase', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.272>0.7 AND area(b2)/area(b1)=0.36<0.7 | b1=(0.64,0.51) b2=(0.30,0.25) d1=0.294 d2=0.251
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the couch above the umbrella?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='couch', obj2='umbrella', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['couch', 'umbrella']
+INFO critic | [Critic] iter=0 | query: 'couch . umbrella'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.259 < -0.08 | b1=(0.77,0.61) b2=(0.76,0.36) d1=0.224 d2=0.020
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO eval | [170/200] selective_acc=0.794 abstain=0
+INFO planner | [Planner] Question: Is the cake in front of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cake', obj2='person', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cake', 'person']
+INFO critic | [Critic] iter=0 | query: 'cake . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.431 < -0.08 | b1=(0.44,0.73) b2=(0.50,0.51) d1=0.753 d2=0.322
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cake' and 'person'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cake' and 'person'"
+INFO executor | [Executor] answer=True, claims=['cake', 'person']
+INFO critic | [Critic] iter=1 | query: 'cake . person'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.431 < -0.08 | b1=(0.44,0.73) b2=(0.50,0.51) d1=0.753 d2=0.322
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the car contains the teddy bear?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='car', obj2='teddy bear', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['car', 'teddy bear']
+INFO critic | [Critic] iter=0 | query: 'car . teddy bear'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.088>0.7 AND area(b2)/area(b1)=3.72<0.7 | b1=(0.16,0.65) b2=(0.52,0.59) d1=0.212 d2=0.561
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat above the bench?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='bench', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'bench']
+INFO critic | [Critic] iter=0 | query: 'cat . bench'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.324 < -0.08 | b1=(0.39,0.70) b2=(0.66,0.37) d1=0.635 d2=0.200
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the laptop behind the potted plant?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='laptop', obj2='potted plant', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['laptop', 'potted plant']
+INFO critic | [Critic] iter=0 | query: 'laptop . potted plant'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.325 > 0.08 | b1=(0.65,0.10) b2=(0.73,0.53) d1=0.090 d2=0.416
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the pizza below the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='pizza', obj2='person', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['pizza', 'person']
+INFO critic | [Critic] iter=0 | query: 'pizza . person'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=-0.250 > 0.08 | b1=(0.54,0.25) b2=(0.50,0.50) d1=0.365 d2=0.592
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the bed under the umbrella?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='bed', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['umbrella', 'bed']
+INFO critic | [Critic] iter=0 | query: 'umbrella . bed'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.000>0.7 AND area(b2)/area(b1)=3.87<0.7 | b1=(0.16,0.26) b2=(0.35,0.89) d1=0.412 d2=0.788
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat on top of the suitcase?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='suitcase', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.090<-0.08 AND IoU=0.459>0.05 | b1=(0.47,0.59) b2=(0.50,0.50) d1=0.384 d2=0.267
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cat' and 'suitcase'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'cat' and 'suitcase'"
+INFO executor | [Executor] answer=True, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=1 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.090<-0.08 AND IoU=0.459>0.05 | b1=(0.47,0.59) b2=(0.50,0.50) d1=0.384 d2=0.267
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.185, threshold=0.4)
+INFO planner | [Planner] Question: Is the person at the left side of the couch?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='couch', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'couch']
+INFO critic | [Critic] iter=0 | query: 'person . couch'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.169 < -0.08 | b1=(0.56,0.48) b2=(0.72,0.70) d1=0.188 d2=0.353
+INFO critic | [Critic] Scheduled crop: x1=0.327146914601326 y1=0.11385331749916076 x2=1.0 y2=1.0 reason="Disputed region around 'person' and 'couch'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.327146914601326 y1=0.11385331749916076 x2=1.0 y2=1.0 reason="Disputed region around 'person' and 'couch'"
+INFO executor | [Executor] answer=True, claims=['person', 'couch']
+INFO critic | [Critic] iter=1 | query: 'person . couch'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.169 < -0.08 | b1=(0.56,0.48) b2=(0.72,0.70) d1=0.188 d2=0.353
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the orange at the right side of the bird?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='orange', obj2='bird', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['orange', 'bird']
+INFO critic | [Critic] iter=0 | query: 'orange . bird'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.210 > 0.08 | b1=(0.50,0.63) b2=(0.29,0.36) d1=0.710 d2=0.494
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.024265211820602414 x2=0.8001416355371476 y2=0.9026233434677124 reason="Disputed region around 'orange' and 'bird'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.024265211820602414 x2=0.8001416355371476 y2=0.9026233434677124 reason="Disputed region around 'orange' and 'bird'"
+INFO executor | [Executor] answer=True, claims=['orange', 'bird']
+INFO critic | [Critic] iter=1 | query: 'orange . bird'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.210 > 0.08 | b1=(0.50,0.63) b2=(0.29,0.36) d1=0.710 d2=0.494
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the dog at the left side of the car?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='car', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['dog', 'car']
+INFO critic | [Critic] iter=0 | query: 'dog . car'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.052 < -0.08 | b1=(0.69,0.57) b2=(0.64,0.68) d1=0.788 d2=0.714
+INFO critic | [Critic] Scheduled crop: x1=0.22559834718704225 y1=0.3187673807144165 x2=1.0 y2=1.0 reason="Disputed region around 'dog' and 'car'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.22559834718704225 y1=0.3187673807144165 x2=1.0 y2=1.0 reason="Disputed region around 'dog' and 'car'"
+INFO executor | [Executor] answer=False, claims=['dog', 'car']
+INFO critic | [Critic] iter=1 | query: 'dog . car'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=0.052 < -0.08 | b1=(0.69,0.57) b2=(0.64,0.68) d1=0.788 d2=0.714
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO eval | [180/200] selective_acc=0.783 abstain=0
+INFO planner | [Planner] Question: Is the motorcycle beneath the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='motorcycle', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'motorcycle']
+INFO critic | [Critic] iter=0 | query: 'person . motorcycle'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.202 < -0.08 | b1=(0.73,0.59) b2=(0.35,0.39) d1=0.788 d2=0.498
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cake at the left side of the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cake', obj2='person', rel='left_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cake', 'person']
+INFO critic | [Critic] iter=0 | query: 'cake . person'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=-0.311 < -0.08 | b1=(0.17,0.71) b2=(0.48,0.50) d1=0.553 d2=0.439
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the truck in the elephant?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='elephant', obj2='truck', rel='contains'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['elephant', 'truck']
+INFO critic | [Critic] iter=0 | query: 'elephant . truck'
+INFO critic | [Critic] relation_true=False | rule=coverage(obj2 in obj1)=0.000>0.7 AND area(b2)/area(b1)=0.03<0.7 | b1=(0.74,0.63) b2=(0.11,0.49) d1=0.631 d2=0.102
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the person in front of the refrigerator?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='refrigerator', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'refrigerator']
+INFO critic | [Critic] iter=0 | query: 'person . refrigerator'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.035 < -0.08 | b1=(0.43,0.56) b2=(0.17,0.53) d1=0.282 d2=0.318
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the couch under the person?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='person', obj2='couch', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['person', 'couch']
+INFO critic | [Critic] iter=0 | query: 'person . couch'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.113 < -0.08 | b1=(0.36,0.58) b2=(0.47,0.69) d1=0.443 d2=0.659
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.10580108761787414 x2=0.8699554085731507 y2=1.0 reason="Disputed region around 'person' and 'couch'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.10580108761787414 x2=0.8699554085731507 y2=1.0 reason="Disputed region around 'person' and 'couch'"
+INFO executor | [Executor] answer=False, claims=['person', 'couch']
+INFO critic | [Critic] iter=1 | query: 'person . couch'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.116 < -0.08 | b1=(0.36,0.58) b2=(0.44,0.69) d1=0.447 d2=0.576
+INFO pipeline | [Arbitrate] vlm_deferred -> no (geo_confidence=0.212, threshold=0.4)
+INFO planner | [Planner] Question: Is the cake at the right side of the apple?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cake', obj2='apple', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cake', 'apple']
+INFO critic | [Critic] iter=0 | query: 'cake . apple'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.229 > 0.08 | b1=(0.53,0.57) b2=(0.76,0.13) d1=0.863 d2=0.725
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cup in front of the pizza?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='pizza', obj2='cup', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['pizza', 'cup']
+INFO critic | [Critic] iter=0 | query: 'pizza . cup'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.471 < -0.08 | b1=(0.46,0.67) b2=(0.80,0.17) d1=0.651 d2=0.180
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the train above the bus?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='train', obj2='bus', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['train', 'bus']
+INFO critic | [Critic] iter=0 | query: 'train . bus'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.288 < -0.08 | b1=(0.39,0.50) b2=(0.57,0.78) d1=0.227 d2=0.667
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the cow behind the sheep?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cow', obj2='sheep', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cow', 'sheep']
+INFO critic | [Critic] iter=0 | query: 'cow . sheep'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.012 > 0.08 | b1=(0.36,0.62) b2=(0.94,0.80) d1=0.302 d2=0.290
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the umbrella at the right side of the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='cat', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=0 | query: 'umbrella . cat'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.349 > 0.08 | b1=(0.20,0.64) b2=(0.55,0.50) d1=0.706 d2=0.600
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO eval | [190/200] selective_acc=0.789 abstain=0
+INFO planner | [Planner] Question: Is the suitcase on the bed?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='suitcase', obj2='bed', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['suitcase', 'bed']
+INFO critic | [Critic] iter=0 | query: 'suitcase . bed'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.117<-0.08 AND IoU=0.117>0.05 | b1=(0.65,0.66) b2=(0.50,0.54) d1=0.804 d2=0.612
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the banana behind the orange?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='banana', obj2='orange', rel='behind'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['banana', 'orange']
+INFO critic | [Critic] iter=0 | query: 'banana . orange'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.525 > 0.08 | b1=(0.45,0.25) b2=(0.64,0.71) d1=0.365 d2=0.890
+INFO critic | [Critic] Scheduled crop: x1=0.16414782106876374 y1=0.0 x2=0.8886430889368058 y2=1.0 reason="Disputed region around 'banana' and 'orange'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.16414782106876374 y1=0.0 x2=0.8886430889368058 y2=1.0 reason="Disputed region around 'banana' and 'orange'"
+INFO executor | [Executor] answer=True, claims=['banana', 'orange']
+INFO critic | [Critic] iter=1 | query: 'banana . orange'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=-0.525 > 0.08 | b1=(0.45,0.25) b2=(0.64,0.71) d1=0.365 d2=0.890
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.300, threshold=0.4)
+INFO planner | [Planner] Question: Is the umbrella above the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='umbrella', obj2='cat', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=0 | query: 'umbrella . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.184 < -0.08 | b1=(0.50,0.50) b2=(0.73,0.68) d1=0.553 d2=0.643
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'umbrella' and 'cat'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Disputed region around 'umbrella' and 'cat'"
+INFO executor | [Executor] answer=False, claims=['umbrella', 'cat']
+INFO critic | [Critic] iter=1 | query: 'umbrella . cat'
+INFO critic | [Critic] relation_true=True | rule=cy(obj1)-cy(obj2)=-0.184 < -0.08 | b1=(0.50,0.50) b2=(0.73,0.68) d1=0.553 d2=0.643
+INFO pipeline | [Arbitrate] geometry_override -> yes (geo_confidence=0.589, threshold=0.4)
+INFO planner | [Planner] Question: Is the train right of the bus?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='train', obj2='bus', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['train', 'bus']
+INFO critic | [Critic] iter=0 | query: 'train . bus'
+INFO critic | [Critic] relation_true=True | rule=cx(obj1)-cx(obj2)=0.467 > 0.08 | b1=(0.80,0.71) b2=(0.34,0.61) d1=0.361 d2=0.875
+INFO pipeline | [Output] Final answer: yes (verified=True)
+INFO planner | [Planner] Question: Is the bird above the cat?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='bird', obj2='cat', rel='above'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['bird', 'cat']
+INFO critic | [Critic] iter=0 | query: 'bird . cat'
+INFO critic | [Critic] relation_true=False | rule=cy(obj1)-cy(obj2)=0.133 < -0.08 | b1=(0.37,0.67) b2=(0.76,0.54) d1=0.302 d2=0.627
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the cat on top of the suitcase?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='suitcase', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=cy diff=-0.061<-0.08 AND IoU=0.359>0.05 | b1=(0.40,0.41) b2=(0.43,0.47) d1=0.647 d2=0.541
+INFO critic | [Critic] Scheduled crop: x1=0.0 y1=0.0 x2=0.9049328446388245 y2=0.9915279924869538 reason="Disputed region around 'cat' and 'suitcase'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=0.9049328446388245 y2=0.9915279924869538 reason="Disputed region around 'cat' and 'suitcase'"
+INFO executor | [Executor] answer=True, claims=['cat', 'suitcase']
+INFO critic | [Critic] iter=1 | query: 'cat . suitcase'
+INFO critic | [Critic] relation_true=False | rule=cy diff=-0.061<-0.08 AND IoU=0.358>0.05 | b1=(0.40,0.41) b2=(0.43,0.47) d1=0.647 d2=0.541
+INFO pipeline | [Arbitrate] vlm_deferred -> yes (geo_confidence=0.197, threshold=0.4)
+INFO planner | [Planner] Question: Is the chair at the right side of the laptop?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='chair', obj2='laptop', rel='right_of'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['chair', 'laptop']
+INFO critic | [Critic] iter=0 | query: 'chair . laptop'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.004 > 0.08 | b1=(0.77,0.40) b2=(0.78,0.71) d1=0.569 d2=0.643
+INFO critic | [Critic] Scheduled crop: x1=0.49453812539577485 y1=0.12333815991878509 x2=1.0 y2=1.0 reason="Disputed region around 'chair' and 'laptop'"
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.49453812539577485 y1=0.12333815991878509 x2=1.0 y2=1.0 reason="Disputed region around 'chair' and 'laptop'"
+INFO executor | [Executor] answer=False, claims=['chair', 'laptop']
+INFO critic | [Critic] iter=1 | query: 'chair . laptop'
+INFO critic | [Critic] relation_true=False | rule=cx(obj1)-cx(obj2)=-0.004 > 0.08 | b1=(0.77,0.42) b2=(0.78,0.71) d1=0.576 d2=0.643
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the dog in front of the suitcase?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='dog', obj2='suitcase', rel='in_front'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['dog', 'suitcase']
+INFO critic | [Critic] iter=0 | query: 'dog . suitcase'
+INFO critic | [Critic] relation_true=False | rule=depth(obj1)-depth(obj2)=0.176 < -0.08 | b1=(0.43,0.63) b2=(0.63,0.63) d1=0.600 d2=0.424
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO planner | [Planner] Question: Is the chair beneath the horse?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='chair', obj2='horse', rel='below'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=True, claims=['chair', 'horse']
+INFO critic | [Critic] iter=0 | query: 'chair . horse'
+WARNING critic | [Critic] Detector missed: 'chair'
+INFO pipeline | [Correction] Advancing to iteration 1
+INFO executor | [Executor] iter=1, backend=openai, crop=x1=0.0 y1=0.0 x2=1.0 y2=1.0 reason="Full-image re-examine after detector miss on 'chair'"
+INFO executor | [Executor] answer=True, claims=['chair', 'horse']
+INFO critic | [Critic] iter=1 | query: 'chair . horse'
+WARNING critic | [Critic] Detector missed: 'chair'
+INFO pipeline | [Arbitrate] vlm_fallback (detector miss) -> yes
+INFO planner | [Planner] Question: Is the cat on top of the microwave?
+INFO httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO planner | [Planner] obj1='cat', obj2='microwave', rel='on'
+INFO executor | [Executor] iter=0, backend=openai, crop=None
+INFO executor | [Executor] answer=False, claims=['cat', 'microwave']
+INFO critic | [Critic] iter=0 | query: 'cat . microwave'
+INFO critic | [Critic] relation_true=False | rule=cy diff=0.332<-0.08 AND IoU=0.061>0.05 | b1=(0.48,0.70) b2=(0.24,0.37) d1=0.804 d2=0.655
+INFO pipeline | [Output] Final answer: no (verified=True)
+INFO eval | [200/200] selective_acc=0.790 abstain=0
+INFO eval | === SUMMARY ===
+INFO eval |   dataset: whatsup
+INFO eval |   n: 200
+INFO eval |   accuracy: 0.79
+INFO eval |   selective_accuracy: 0.79
+INFO eval |   coverage: 1.0
+INFO eval |   abstain_rate: 0.0
+INFO eval |   verification_rate: 0.72
+INFO eval |   avg_iterations: 1.395
+INFO eval |   failure_modes: {}
+INFO eval | Results saved -> ../results/vsr200_fullcoverage_recal_k2.json
+INFO eval | Evidence dump (178 items) -> ../results/vsr200_evidence_recal_k2.json

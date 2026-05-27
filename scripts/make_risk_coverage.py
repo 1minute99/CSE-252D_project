@@ -99,7 +99,7 @@ def aurc(covs: list[float], accs: list[float]) -> float:
 
 
 def main():
-    items = load_items(RES / "vsr200_risk_k2.json")
+    items = load_items(RES / "vsr200_fullcoverage_recal_k2.json")
     full_acc = sum(1 for r in items if r.get("correct")) / len(items)
     print(f"Loaded {len(items)} items; full-coverage accuracy = {full_acc:.3f}")
 

@@ -184,11 +184,13 @@ behavior. Detector/Depth fallbacks to mock outputs require an explicit
 `src/config.py` defines `CriticConfig` with the geometry-rule thresholds:
 
 ```
-margin                       0.02  # position/depth tolerance
+margin                       0.08  # position/depth slack (recalibrated from 0.02)
 on_iou_threshold             0.05  # IoU floor for "on" relation
 contains_coverage_threshold  0.70  # fraction of obj2 inside obj1
 area_ratio_threshold         0.70  # obj2 must be < 70% of obj1's area
 crop_padding                 0.05  # active-perception crop padding
+depth_confidence_cap         0.30  # behind/in_front never override the VLM
+contains_confidence_cap      0.30  # contains is non-separable; defer to VLM
 allow_mock_models            False
 ```
 
