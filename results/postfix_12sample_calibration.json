@@ -1,0 +1,402 @@
+{
+  "baseline": {
+    "accuracy": 0.6667,
+    "macro_f1": 0.381,
+    "per_relation_f1": {
+      "left_of": 1.0,
+      "right_of": 0.0,
+      "contains": 0.6667,
+      "above": 1.0,
+      "on": 0.0,
+      "in_front": 0.0,
+      "behind": 0.0
+    },
+    "per_relation_counts": {
+      "left_of": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "tn": 0
+      },
+      "right_of": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 1
+      },
+      "contains": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 0,
+        "tn": 0
+      },
+      "above": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "tn": 1
+      },
+      "on": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1
+      },
+      "in_front": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1,
+        "tn": 0
+      },
+      "behind": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 2
+      }
+    }
+  },
+  "top_k": [
+    {
+      "config": {
+        "margin": 0.01,
+        "on_iou_threshold": 0.01,
+        "contains_coverage_threshold": 0.4,
+        "area_ratio_threshold": 0.5
+      },
+      "accuracy": 0.75,
+      "macro_f1": 0.4762,
+      "per_relation_f1": {
+        "left_of": 1.0,
+        "right_of": 0.0,
+        "contains": 0.6667,
+        "above": 1.0,
+        "on": 0.0,
+        "in_front": 0.6667,
+        "behind": 0.0
+      },
+      "per_relation_counts": {
+        "left_of": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0
+        },
+        "right_of": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "contains": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "above": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "tn": 1
+        },
+        "in_front": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "behind": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 2
+        }
+      }
+    },
+    {
+      "config": {
+        "margin": 0.01,
+        "on_iou_threshold": 0.01,
+        "contains_coverage_threshold": 0.4,
+        "area_ratio_threshold": 0.7
+      },
+      "accuracy": 0.75,
+      "macro_f1": 0.4762,
+      "per_relation_f1": {
+        "left_of": 1.0,
+        "right_of": 0.0,
+        "contains": 0.6667,
+        "above": 1.0,
+        "on": 0.0,
+        "in_front": 0.6667,
+        "behind": 0.0
+      },
+      "per_relation_counts": {
+        "left_of": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0
+        },
+        "right_of": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "contains": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "above": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "tn": 1
+        },
+        "in_front": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "behind": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 2
+        }
+      }
+    },
+    {
+      "config": {
+        "margin": 0.01,
+        "on_iou_threshold": 0.01,
+        "contains_coverage_threshold": 0.4,
+        "area_ratio_threshold": 0.9
+      },
+      "accuracy": 0.75,
+      "macro_f1": 0.4762,
+      "per_relation_f1": {
+        "left_of": 1.0,
+        "right_of": 0.0,
+        "contains": 0.6667,
+        "above": 1.0,
+        "on": 0.0,
+        "in_front": 0.6667,
+        "behind": 0.0
+      },
+      "per_relation_counts": {
+        "left_of": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0
+        },
+        "right_of": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "contains": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "above": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "tn": 1
+        },
+        "in_front": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "behind": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 2
+        }
+      }
+    },
+    {
+      "config": {
+        "margin": 0.01,
+        "on_iou_threshold": 0.01,
+        "contains_coverage_threshold": 0.55,
+        "area_ratio_threshold": 0.5
+      },
+      "accuracy": 0.75,
+      "macro_f1": 0.4762,
+      "per_relation_f1": {
+        "left_of": 1.0,
+        "right_of": 0.0,
+        "contains": 0.6667,
+        "above": 1.0,
+        "on": 0.0,
+        "in_front": 0.6667,
+        "behind": 0.0
+      },
+      "per_relation_counts": {
+        "left_of": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0
+        },
+        "right_of": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "contains": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "above": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "tn": 1
+        },
+        "in_front": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "behind": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 2
+        }
+      }
+    },
+    {
+      "config": {
+        "margin": 0.01,
+        "on_iou_threshold": 0.01,
+        "contains_coverage_threshold": 0.55,
+        "area_ratio_threshold": 0.7
+      },
+      "accuracy": 0.75,
+      "macro_f1": 0.4762,
+      "per_relation_f1": {
+        "left_of": 1.0,
+        "right_of": 0.0,
+        "contains": 0.6667,
+        "above": 1.0,
+        "on": 0.0,
+        "in_front": 0.6667,
+        "behind": 0.0
+      },
+      "per_relation_counts": {
+        "left_of": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 0
+        },
+        "right_of": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "contains": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "above": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "tn": 1
+        },
+        "on": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "tn": 1
+        },
+        "in_front": {
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "tn": 0
+        },
+        "behind": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "tn": 2
+        }
+      }
+    }
+  ],
+  "grid": {
+    "margin": [
+      0.01,
+      0.02,
+      0.05,
+      0.1
+    ],
+    "on_iou_threshold": [
+      0.01,
+      0.05,
+      0.15,
+      0.3
+    ],
+    "contains_coverage_threshold": [
+      0.4,
+      0.55,
+      0.7,
+      0.85
+    ],
+    "area_ratio_threshold": [
+      0.3,
+      0.5,
+      0.7,
+      0.9
+    ]
+  }
+}
