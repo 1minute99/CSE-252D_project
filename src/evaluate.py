@@ -34,7 +34,10 @@ def run_evaluation(args) -> dict:
 
     api_key = get_openai_api_key(args.openai_key)
     if not api_key:
-        logger.error("OpenAI API key required. Add OPENAI_API_KEY to D:\\files\\.env or your shell env.")
+        logger.error(
+            "OpenAI API key required. Add OPENAI_API_KEY to a .env file in "
+            "the project root or src/, or export it in your shell."
+        )
         sys.exit(1)
     llm = ChatOpenAI(
         model=args.planner_model,
@@ -53,6 +56,7 @@ def run_evaluation(args) -> dict:
     logger.info(f"Evaluating {len(items)} items from {args.dataset}")
 
     results = []
+    evidence_dump: list[dict] = []
     correct = 0
     abstained = 0
     total_iters = 0
@@ -65,7 +69,11 @@ def run_evaluation(args) -> dict:
                 question=item["question"],
                 llm=llm,
                 executor_config=exec_cfg,
-                critic_config={"allow_mock_models": False},
+                critic_config={
+                    "allow_mock_models": False,
+                    "vlm_fallback_on_miss": args.vlm_fallback_on_miss,
+                    "abstain_below_confidence": args.abstain_below_confidence,
+                },
                 max_iterations=args.max_iterations,
                 strict_models=True,
             )
@@ -99,8 +107,36 @@ def run_evaluation(args) -> dict:
                 "verified": graph.verified,
                 "iterations": graph.iterations,
                 "failure_mode": graph.failure_mode,
+                "answer_source": graph.answer_source,
+                "executor_confidence": graph.executor_confidence,
+                "geo_confidence": graph.geo_confidence,
+                "executor_agreed": graph.executor_agreed,
             }
         )
+
+        if args.dump_evidence:
+            # Snapshot the raw geometry from the first evidence record that has
+            # both detections so calibrate_thresholds.py can replay _verify_relation
+            # over a parameter grid without re-spending API calls.
+            replay_evidence = next(
+                (ev for ev in graph.evidence if ev.obj1_bbox and ev.obj2_bbox),
+                None,
+            )
+            if replay_evidence is not None:
+                evidence_dump.append(
+                    {
+                        "idx": idx,
+                        "question": item["question"],
+                        "gt": gt,
+                        "relation": graph.relation,
+                        "obj1": graph.obj1,
+                        "obj2": graph.obj2,
+                        "b1": replay_evidence.obj1_bbox.model_dump(),
+                        "b2": replay_evidence.obj2_bbox.model_dump(),
+                        "d1": replay_evidence.obj1_depth,
+                        "d2": replay_evidence.obj2_depth,
+                    }
+                )
 
         if (idx + 1) % 10 == 0:
             answered = len(results) - abstained
@@ -141,6 +177,14 @@ def run_evaluation(args) -> dict:
             json.dump(output, handle, indent=2)
         logger.info(f"Results saved -> {args.output}")
 
+    if args.dump_evidence and evidence_dump:
+        Path(args.dump_evidence).parent.mkdir(parents=True, exist_ok=True)
+        with open(args.dump_evidence, "w", encoding="utf-8") as handle:
+            json.dump(evidence_dump, handle, indent=2)
+        logger.info(
+            f"Evidence dump ({len(evidence_dump)} items) -> {args.dump_evidence}"
+        )
+
     return output
 
 
@@ -154,7 +198,26 @@ def main():
     parser.add_argument("--planner_model", default="gpt-4o-mini")
     parser.add_argument("--vision_model", default="gpt-4o")
     parser.add_argument("--max_iterations", type=int, default=3, choices=[1, 2, 3])
+    parser.add_argument(
+        "--vlm_fallback_on_miss",
+        action="store_true",
+        help="Full-coverage mode: on detector miss, commit the VLM answer instead of abstaining.",
+    )
+    parser.add_argument(
+        "--abstain_below_confidence",
+        type=float,
+        default=0.0,
+        help="High-precision mode: abstain on committed answers with geometric confidence below this (e.g. 0.40).",
+    )
     parser.add_argument("--output", default="", help="Path to save JSON results")
+    parser.add_argument(
+        "--dump_evidence",
+        default="",
+        help=(
+            "Optional path to save per-item geometric evidence (bboxes + depths). "
+            "Feeds scripts/calibrate_thresholds.py for offline threshold sweeps."
+        ),
+    )
     args = parser.parse_args()
     load_project_env()
     run_evaluation(args)
