@@ -1,0 +1,2002 @@
+[
+  {
+    "image_path": "vsr_0000.jpg",
+    "question": "Is the person behind the couch?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "person",
+    "obj": "couch",
+    "image_link": "http://images.cocodataset.org/train2017/000000348288.jpg"
+  },
+  {
+    "image_path": "vsr_0001.jpg",
+    "question": "Is the person at the right side of the microwave?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "person",
+    "obj": "microwave",
+    "image_link": "http://images.cocodataset.org/train2017/000000536999.jpg"
+  },
+  {
+    "image_path": "vsr_0002.jpg",
+    "question": "Is the pizza above the dining table?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "pizza",
+    "obj": "dining table",
+    "image_link": "http://images.cocodataset.org/train2017/000000114169.jpg"
+  },
+  {
+    "image_path": "vsr_0003.jpg",
+    "question": "Is the banana at the left side of the cat?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "banana",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000259475.jpg"
+  },
+  {
+    "image_path": "vsr_0004.jpg",
+    "question": "Is the tv at the left side of the cat?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "tv",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000037907.jpg"
+  },
+  {
+    "image_path": "vsr_0005.jpg",
+    "question": "Is the bus behind the teddy bear?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "bus",
+    "obj": "teddy bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000355857.jpg"
+  },
+  {
+    "image_path": "vsr_0006.jpg",
+    "question": "Is the car above the cat?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "car",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000329147.jpg"
+  },
+  {
+    "image_path": "vsr_0007.jpg",
+    "question": "Is the umbrella in front of the potted plant?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "umbrella",
+    "obj": "potted plant",
+    "image_link": "http://images.cocodataset.org/train2017/000000482848.jpg"
+  },
+  {
+    "image_path": "vsr_0008.jpg",
+    "question": "Is the oven behind the person?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "oven",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000430643.jpg"
+  },
+  {
+    "image_path": "vsr_0009.jpg",
+    "question": "Is the cup at the right side of the cat?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "cup",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000248461.jpg"
+  },
+  {
+    "image_path": "vsr_0010.jpg",
+    "question": "Is the cat in front of the bicycle?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "cat",
+    "obj": "bicycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000446409.jpg"
+  },
+  {
+    "image_path": "vsr_0011.jpg",
+    "question": "Is the dog on the couch?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "dog",
+    "obj": "couch",
+    "image_link": "http://images.cocodataset.org/train2017/000000069021.jpg"
+  },
+  {
+    "image_path": "vsr_0012.jpg",
+    "question": "Is the orange behind the apple?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "orange",
+    "obj": "apple",
+    "image_link": "http://images.cocodataset.org/train2017/000000079172.jpg"
+  },
+  {
+    "image_path": "vsr_0013.jpg",
+    "question": "Is the dog in front of the bed?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "dog",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000153150.jpg"
+  },
+  {
+    "image_path": "vsr_0014.jpg",
+    "question": "Is the dining table in front of the cat?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "dining table",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000193254.jpg"
+  },
+  {
+    "image_path": "vsr_0015.jpg",
+    "question": "Is the umbrella at the right side of the cat?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "umbrella",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000565110.jpg"
+  },
+  {
+    "image_path": "vsr_0016.jpg",
+    "question": "Is the elephant ahead of the car?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "ahead of",
+    "subj": "elephant",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000453299.jpg"
+  },
+  {
+    "image_path": "vsr_0017.jpg",
+    "question": "Is the car in the dog?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "car",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/val2017/000000151962.jpg"
+  },
+  {
+    "image_path": "vsr_0018.jpg",
+    "question": "Is the umbrella above the person?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "umbrella",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000323448.jpg"
+  },
+  {
+    "image_path": "vsr_0019.jpg",
+    "question": "Is the bed above the backpack?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "bed",
+    "obj": "backpack",
+    "image_link": "http://images.cocodataset.org/train2017/000000323264.jpg"
+  },
+  {
+    "image_path": "vsr_0020.jpg",
+    "question": "Is the chair beneath the horse?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "beneath",
+    "subj": "chair",
+    "obj": "horse",
+    "image_link": "http://images.cocodataset.org/train2017/000000042472.jpg"
+  },
+  {
+    "image_path": "vsr_0021.jpg",
+    "question": "Is the microwave beneath the cat?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "beneath",
+    "subj": "microwave",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000358359.jpg"
+  },
+  {
+    "image_path": "vsr_0022.jpg",
+    "question": "Is the car contains the dog?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "car",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000075283.jpg"
+  },
+  {
+    "image_path": "vsr_0023.jpg",
+    "question": "Is the cat on the bench?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "cat",
+    "obj": "bench",
+    "image_link": "http://images.cocodataset.org/train2017/000000518782.jpg"
+  },
+  {
+    "image_path": "vsr_0024.jpg",
+    "question": "Is the keyboard at the right side of the person?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "keyboard",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000481124.jpg"
+  },
+  {
+    "image_path": "vsr_0025.jpg",
+    "question": "Is the boat in front of the dining table?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "boat",
+    "obj": "dining table",
+    "image_link": "http://images.cocodataset.org/train2017/000000329421.jpg"
+  },
+  {
+    "image_path": "vsr_0026.jpg",
+    "question": "Is the sandwich at the right side of the bowl?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "sandwich",
+    "obj": "bowl",
+    "image_link": "http://images.cocodataset.org/train2017/000000116182.jpg"
+  },
+  {
+    "image_path": "vsr_0027.jpg",
+    "question": "Is the bench above the cat?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "bench",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/val2017/000000320554.jpg"
+  },
+  {
+    "image_path": "vsr_0028.jpg",
+    "question": "Is the truck behind the oven?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "truck",
+    "obj": "oven",
+    "image_link": "http://images.cocodataset.org/train2017/000000197266.jpg"
+  },
+  {
+    "image_path": "vsr_0029.jpg",
+    "question": "Is the teddy bear over the bench?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "over",
+    "subj": "teddy bear",
+    "obj": "bench",
+    "image_link": "http://images.cocodataset.org/train2017/000000292242.jpg"
+  },
+  {
+    "image_path": "vsr_0030.jpg",
+    "question": "Is the truck in the cow?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "truck",
+    "obj": "cow",
+    "image_link": "http://images.cocodataset.org/train2017/000000486506.jpg"
+  },
+  {
+    "image_path": "vsr_0031.jpg",
+    "question": "Is the motorcycle in front of the truck?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "motorcycle",
+    "obj": "truck",
+    "image_link": "http://images.cocodataset.org/train2017/000000120207.jpg"
+  },
+  {
+    "image_path": "vsr_0032.jpg",
+    "question": "Is the banana at the left side of the donut?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "banana",
+    "obj": "donut",
+    "image_link": "http://images.cocodataset.org/train2017/000000535013.jpg"
+  },
+  {
+    "image_path": "vsr_0033.jpg",
+    "question": "Is the suitcase inside the cat?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "inside",
+    "subj": "suitcase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000292232.jpg"
+  },
+  {
+    "image_path": "vsr_0034.jpg",
+    "question": "Is the microwave behind the person?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "microwave",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000264255.jpg"
+  },
+  {
+    "image_path": "vsr_0035.jpg",
+    "question": "Is the bear on the cake?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "bear",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000536517.jpg"
+  },
+  {
+    "image_path": "vsr_0036.jpg",
+    "question": "Is the bowl in the cup?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "bowl",
+    "obj": "cup",
+    "image_link": "http://images.cocodataset.org/train2017/000000392198.jpg"
+  },
+  {
+    "image_path": "vsr_0037.jpg",
+    "question": "Is the couch above the hot dog?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "couch",
+    "obj": "hot dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000581451.jpg"
+  },
+  {
+    "image_path": "vsr_0038.jpg",
+    "question": "Is the dining table in front of the cat?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "dining table",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000548661.jpg"
+  },
+  {
+    "image_path": "vsr_0039.jpg",
+    "question": "Is the microwave behind the person?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "microwave",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000255849.jpg"
+  },
+  {
+    "image_path": "vsr_0040.jpg",
+    "question": "Is the suitcase in the cat?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "suitcase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000064423.jpg"
+  },
+  {
+    "image_path": "vsr_0041.jpg",
+    "question": "Is the dog in front of the bed?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "dog",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000086215.jpg"
+  },
+  {
+    "image_path": "vsr_0042.jpg",
+    "question": "Is the oven beneath the sandwich?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "beneath",
+    "subj": "oven",
+    "obj": "sandwich",
+    "image_link": "http://images.cocodataset.org/val2017/000000046463.jpg"
+  },
+  {
+    "image_path": "vsr_0043.jpg",
+    "question": "Is the suitcase under the cat?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "suitcase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000308549.jpg"
+  },
+  {
+    "image_path": "vsr_0044.jpg",
+    "question": "Is the umbrella at the left side of the cat?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "umbrella",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000029145.jpg"
+  },
+  {
+    "image_path": "vsr_0045.jpg",
+    "question": "Is the laptop in front of the cat?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "laptop",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000407386.jpg"
+  },
+  {
+    "image_path": "vsr_0046.jpg",
+    "question": "Is the apple on top of the orange?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "apple",
+    "obj": "orange",
+    "image_link": "http://images.cocodataset.org/train2017/000000273288.jpg"
+  },
+  {
+    "image_path": "vsr_0047.jpg",
+    "question": "Is the cat on top of the laptop?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "laptop",
+    "image_link": "http://images.cocodataset.org/train2017/000000137412.jpg"
+  },
+  {
+    "image_path": "vsr_0048.jpg",
+    "question": "Is the dining table at the left side of the person?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "dining table",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000451240.jpg"
+  },
+  {
+    "image_path": "vsr_0049.jpg",
+    "question": "Is the cat at the left side of the person?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "cat",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000233005.jpg"
+  },
+  {
+    "image_path": "vsr_0050.jpg",
+    "question": "Is the potted plant right of the bench?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "right of",
+    "subj": "potted plant",
+    "obj": "bench",
+    "image_link": "http://images.cocodataset.org/val2017/000000437514.jpg"
+  },
+  {
+    "image_path": "vsr_0051.jpg",
+    "question": "Is the motorcycle behind the parking meter?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "motorcycle",
+    "obj": "parking meter",
+    "image_link": "http://images.cocodataset.org/train2017/000000115626.jpg"
+  },
+  {
+    "image_path": "vsr_0052.jpg",
+    "question": "Is the person on the bench?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "person",
+    "obj": "bench",
+    "image_link": "http://images.cocodataset.org/train2017/000000230995.jpg"
+  },
+  {
+    "image_path": "vsr_0053.jpg",
+    "question": "Is the truck inside the elephant?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "inside",
+    "subj": "truck",
+    "obj": "elephant",
+    "image_link": "http://images.cocodataset.org/train2017/000000028251.jpg"
+  },
+  {
+    "image_path": "vsr_0054.jpg",
+    "question": "Is the clock at the left side of the bird?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "clock",
+    "obj": "bird",
+    "image_link": "http://images.cocodataset.org/train2017/000000171067.jpg"
+  },
+  {
+    "image_path": "vsr_0055.jpg",
+    "question": "Is the teddy bear in front of the car?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "teddy bear",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000151764.jpg"
+  },
+  {
+    "image_path": "vsr_0056.jpg",
+    "question": "Is the suitcase on the book?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "suitcase",
+    "obj": "book",
+    "image_link": "http://images.cocodataset.org/train2017/000000541725.jpg"
+  },
+  {
+    "image_path": "vsr_0057.jpg",
+    "question": "Is the dining table below the truck?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "below",
+    "subj": "dining table",
+    "obj": "truck",
+    "image_link": "http://images.cocodataset.org/train2017/000000082894.jpg"
+  },
+  {
+    "image_path": "vsr_0058.jpg",
+    "question": "Is the umbrella above the cat?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "umbrella",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000450247.jpg"
+  },
+  {
+    "image_path": "vsr_0059.jpg",
+    "question": "Is the cat on top of the dining table?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "dining table",
+    "image_link": "http://images.cocodataset.org/train2017/000000568171.jpg"
+  },
+  {
+    "image_path": "vsr_0060.jpg",
+    "question": "Is the teddy bear on the bench?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "teddy bear",
+    "obj": "bench",
+    "image_link": "http://images.cocodataset.org/train2017/000000395531.jpg"
+  },
+  {
+    "image_path": "vsr_0061.jpg",
+    "question": "Is the suitcase contains the cat?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "suitcase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000465695.jpg"
+  },
+  {
+    "image_path": "vsr_0062.jpg",
+    "question": "Is the vase at the right side of the cat?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "vase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000152724.jpg"
+  },
+  {
+    "image_path": "vsr_0063.jpg",
+    "question": "Is the parking meter at the left side of the car?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "parking meter",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000422469.jpg"
+  },
+  {
+    "image_path": "vsr_0064.jpg",
+    "question": "Is the bowl contains the cat?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "bowl",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000139416.jpg"
+  },
+  {
+    "image_path": "vsr_0065.jpg",
+    "question": "Is the bed under the suitcase?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "bed",
+    "obj": "suitcase",
+    "image_link": "http://images.cocodataset.org/train2017/000000348816.jpg"
+  },
+  {
+    "image_path": "vsr_0066.jpg",
+    "question": "Is the sink in the cat?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "sink",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000151567.jpg"
+  },
+  {
+    "image_path": "vsr_0067.jpg",
+    "question": "Is the umbrella behind the cat?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "umbrella",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000249952.jpg"
+  },
+  {
+    "image_path": "vsr_0068.jpg",
+    "question": "Is the laptop right of the couch?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "right of",
+    "subj": "laptop",
+    "obj": "couch",
+    "image_link": "http://images.cocodataset.org/train2017/000000275855.jpg"
+  },
+  {
+    "image_path": "vsr_0069.jpg",
+    "question": "Is the truck under the dog?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "truck",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000159075.jpg"
+  },
+  {
+    "image_path": "vsr_0070.jpg",
+    "question": "Is the skateboard behind the bed?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "skateboard",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000512582.jpg"
+  },
+  {
+    "image_path": "vsr_0071.jpg",
+    "question": "Is the airplane behind the car?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "airplane",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000445408.jpg"
+  },
+  {
+    "image_path": "vsr_0072.jpg",
+    "question": "Is the person at the right side of the laptop?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "person",
+    "obj": "laptop",
+    "image_link": "http://images.cocodataset.org/val2017/000000345252.jpg"
+  },
+  {
+    "image_path": "vsr_0073.jpg",
+    "question": "Is the couch below the bird?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "below",
+    "subj": "couch",
+    "obj": "bird",
+    "image_link": "http://images.cocodataset.org/train2017/000000099372.jpg"
+  },
+  {
+    "image_path": "vsr_0074.jpg",
+    "question": "Is the pizza behind the sandwich?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "pizza",
+    "obj": "sandwich",
+    "image_link": "http://images.cocodataset.org/train2017/000000501756.jpg"
+  },
+  {
+    "image_path": "vsr_0075.jpg",
+    "question": "Is the bench over the cat?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "over",
+    "subj": "bench",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000107188.jpg"
+  },
+  {
+    "image_path": "vsr_0076.jpg",
+    "question": "Is the couch in front of the suitcase?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "couch",
+    "obj": "suitcase",
+    "image_link": "http://images.cocodataset.org/train2017/000000053037.jpg"
+  },
+  {
+    "image_path": "vsr_0077.jpg",
+    "question": "Is the dog on the chair?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "dog",
+    "obj": "chair",
+    "image_link": "http://images.cocodataset.org/train2017/000000327498.jpg"
+  },
+  {
+    "image_path": "vsr_0078.jpg",
+    "question": "Is the bed in the person?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "bed",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000369023.jpg"
+  },
+  {
+    "image_path": "vsr_0079.jpg",
+    "question": "Is the cat on top of the tv?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "tv",
+    "image_link": "http://images.cocodataset.org/train2017/000000337095.jpg"
+  },
+  {
+    "image_path": "vsr_0080.jpg",
+    "question": "Is the tv above the bicycle?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "tv",
+    "obj": "bicycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000560436.jpg"
+  },
+  {
+    "image_path": "vsr_0081.jpg",
+    "question": "Is the person at the right side of the cake?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "person",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000046441.jpg"
+  },
+  {
+    "image_path": "vsr_0082.jpg",
+    "question": "Is the truck beneath the cat?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "beneath",
+    "subj": "truck",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000072535.jpg"
+  },
+  {
+    "image_path": "vsr_0083.jpg",
+    "question": "Is the bird at the back of the person?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "at the back of",
+    "subj": "bird",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000371256.jpg"
+  },
+  {
+    "image_path": "vsr_0084.jpg",
+    "question": "Is the backpack contains the cat?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "backpack",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000493316.jpg"
+  },
+  {
+    "image_path": "vsr_0085.jpg",
+    "question": "Is the handbag contains the teddy bear?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "handbag",
+    "obj": "teddy bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000494680.jpg"
+  },
+  {
+    "image_path": "vsr_0086.jpg",
+    "question": "Is the cat at the left side of the teddy bear?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "cat",
+    "obj": "teddy bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000219418.jpg"
+  },
+  {
+    "image_path": "vsr_0087.jpg",
+    "question": "Is the person under the banana?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "person",
+    "obj": "banana",
+    "image_link": "http://images.cocodataset.org/train2017/000000177246.jpg"
+  },
+  {
+    "image_path": "vsr_0088.jpg",
+    "question": "Is the skateboard behind the bed?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "skateboard",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000030895.jpg"
+  },
+  {
+    "image_path": "vsr_0089.jpg",
+    "question": "Is the dining table above the hot dog?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "dining table",
+    "obj": "hot dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000538544.jpg"
+  },
+  {
+    "image_path": "vsr_0090.jpg",
+    "question": "Is the dog under the chair?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "dog",
+    "obj": "chair",
+    "image_link": "http://images.cocodataset.org/train2017/000000146623.jpg"
+  },
+  {
+    "image_path": "vsr_0091.jpg",
+    "question": "Is the tv in front of the teddy bear?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "tv",
+    "obj": "teddy bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000272510.jpg"
+  },
+  {
+    "image_path": "vsr_0092.jpg",
+    "question": "Is the person in front of the parking meter?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "person",
+    "obj": "parking meter",
+    "image_link": "http://images.cocodataset.org/train2017/000000431795.jpg"
+  },
+  {
+    "image_path": "vsr_0093.jpg",
+    "question": "Is the person at the left side of the umbrella?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "person",
+    "obj": "umbrella",
+    "image_link": "http://images.cocodataset.org/train2017/000000080200.jpg"
+  },
+  {
+    "image_path": "vsr_0094.jpg",
+    "question": "Is the person at the left side of the pizza?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "person",
+    "obj": "pizza",
+    "image_link": "http://images.cocodataset.org/val2017/000000027696.jpg"
+  },
+  {
+    "image_path": "vsr_0095.jpg",
+    "question": "Is the laptop at the left side of the person?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "laptop",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000508749.jpg"
+  },
+  {
+    "image_path": "vsr_0096.jpg",
+    "question": "Is the cow left of the car?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "left of",
+    "subj": "cow",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000185360.jpg"
+  },
+  {
+    "image_path": "vsr_0097.jpg",
+    "question": "Is the book on the teddy bear?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "book",
+    "obj": "teddy bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000312298.jpg"
+  },
+  {
+    "image_path": "vsr_0098.jpg",
+    "question": "Is the dog on top of the motorcycle?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "dog",
+    "obj": "motorcycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000089579.jpg"
+  },
+  {
+    "image_path": "vsr_0099.jpg",
+    "question": "Is the toilet in front of the truck?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "toilet",
+    "obj": "truck",
+    "image_link": "http://images.cocodataset.org/train2017/000000127871.jpg"
+  },
+  {
+    "image_path": "vsr_0100.jpg",
+    "question": "Is the umbrella over the cup?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "over",
+    "subj": "umbrella",
+    "obj": "cup",
+    "image_link": "http://images.cocodataset.org/train2017/000000581040.jpg"
+  },
+  {
+    "image_path": "vsr_0101.jpg",
+    "question": "Is the bicycle behind the chair?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "bicycle",
+    "obj": "chair",
+    "image_link": "http://images.cocodataset.org/train2017/000000257036.jpg"
+  },
+  {
+    "image_path": "vsr_0102.jpg",
+    "question": "Is the donut at the right side of the bowl?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "donut",
+    "obj": "bowl",
+    "image_link": "http://images.cocodataset.org/train2017/000000435620.jpg"
+  },
+  {
+    "image_path": "vsr_0103.jpg",
+    "question": "Is the couch under the person?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "couch",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000025423.jpg"
+  },
+  {
+    "image_path": "vsr_0104.jpg",
+    "question": "Is the tv behind the person?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "tv",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000138064.jpg"
+  },
+  {
+    "image_path": "vsr_0105.jpg",
+    "question": "Is the vase behind the cat?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "vase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000261225.jpg"
+  },
+  {
+    "image_path": "vsr_0106.jpg",
+    "question": "Is the dog in front of the motorcycle?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "dog",
+    "obj": "motorcycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000253260.jpg"
+  },
+  {
+    "image_path": "vsr_0107.jpg",
+    "question": "Is the oven contains the cake?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "oven",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000299326.jpg"
+  },
+  {
+    "image_path": "vsr_0108.jpg",
+    "question": "Is the apple above the banana?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "apple",
+    "obj": "banana",
+    "image_link": "http://images.cocodataset.org/train2017/000000204351.jpg"
+  },
+  {
+    "image_path": "vsr_0109.jpg",
+    "question": "Is the cat on top of the car?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000027674.jpg"
+  },
+  {
+    "image_path": "vsr_0110.jpg",
+    "question": "Is the wine glass at the right side of the sandwich?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "wine glass",
+    "obj": "sandwich",
+    "image_link": "http://images.cocodataset.org/train2017/000000268787.jpg"
+  },
+  {
+    "image_path": "vsr_0111.jpg",
+    "question": "Is the dog inside the truck?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "inside",
+    "subj": "dog",
+    "obj": "truck",
+    "image_link": "http://images.cocodataset.org/train2017/000000168317.jpg"
+  },
+  {
+    "image_path": "vsr_0112.jpg",
+    "question": "Is the wine glass at the left side of the pizza?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "wine glass",
+    "obj": "pizza",
+    "image_link": "http://images.cocodataset.org/train2017/000000481886.jpg"
+  },
+  {
+    "image_path": "vsr_0113.jpg",
+    "question": "Is the couch at the right side of the person?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "couch",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000367471.jpg"
+  },
+  {
+    "image_path": "vsr_0114.jpg",
+    "question": "Is the person at the right side of the pizza?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "person",
+    "obj": "pizza",
+    "image_link": "http://images.cocodataset.org/train2017/000000072536.jpg"
+  },
+  {
+    "image_path": "vsr_0115.jpg",
+    "question": "Is the truck contains the cow?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "truck",
+    "obj": "cow",
+    "image_link": "http://images.cocodataset.org/train2017/000000387136.jpg"
+  },
+  {
+    "image_path": "vsr_0116.jpg",
+    "question": "Is the boat behind the bicycle?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "boat",
+    "obj": "bicycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000356622.jpg"
+  },
+  {
+    "image_path": "vsr_0117.jpg",
+    "question": "Is the bench right of the bed?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "right of",
+    "subj": "bench",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000262118.jpg"
+  },
+  {
+    "image_path": "vsr_0118.jpg",
+    "question": "Is the person at the right side of the cake?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "person",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000324156.jpg"
+  },
+  {
+    "image_path": "vsr_0119.jpg",
+    "question": "Is the person above the pizza?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "person",
+    "obj": "pizza",
+    "image_link": "http://images.cocodataset.org/train2017/000000021846.jpg"
+  },
+  {
+    "image_path": "vsr_0120.jpg",
+    "question": "Is the pizza above the oven?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "pizza",
+    "obj": "oven",
+    "image_link": "http://images.cocodataset.org/train2017/000000457599.jpg"
+  },
+  {
+    "image_path": "vsr_0121.jpg",
+    "question": "Is the person at the right side of the dining table?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "person",
+    "obj": "dining table",
+    "image_link": "http://images.cocodataset.org/train2017/000000057639.jpg"
+  },
+  {
+    "image_path": "vsr_0122.jpg",
+    "question": "Is the couch at the right side of the umbrella?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "couch",
+    "obj": "umbrella",
+    "image_link": "http://images.cocodataset.org/train2017/000000428329.jpg"
+  },
+  {
+    "image_path": "vsr_0123.jpg",
+    "question": "Is the suitcase inside the cat?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "inside",
+    "subj": "suitcase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000045882.jpg"
+  },
+  {
+    "image_path": "vsr_0124.jpg",
+    "question": "Is the chair beneath the cat?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "beneath",
+    "subj": "chair",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000281598.jpg"
+  },
+  {
+    "image_path": "vsr_0125.jpg",
+    "question": "Is the cake in front of the oven?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "cake",
+    "obj": "oven",
+    "image_link": "http://images.cocodataset.org/train2017/000000315768.jpg"
+  },
+  {
+    "image_path": "vsr_0126.jpg",
+    "question": "Is the backpack in the cat?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "backpack",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000477673.jpg"
+  },
+  {
+    "image_path": "vsr_0127.jpg",
+    "question": "Is the laptop behind the sandwich?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "laptop",
+    "obj": "sandwich",
+    "image_link": "http://images.cocodataset.org/train2017/000000013140.jpg"
+  },
+  {
+    "image_path": "vsr_0128.jpg",
+    "question": "Is the horse on the cake?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "horse",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000513983.jpg"
+  },
+  {
+    "image_path": "vsr_0129.jpg",
+    "question": "Is the couch on top of the truck?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "couch",
+    "obj": "truck",
+    "image_link": "http://images.cocodataset.org/train2017/000000199458.jpg"
+  },
+  {
+    "image_path": "vsr_0130.jpg",
+    "question": "Is the bench below the umbrella?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "below",
+    "subj": "bench",
+    "obj": "umbrella",
+    "image_link": "http://images.cocodataset.org/train2017/000000416516.jpg"
+  },
+  {
+    "image_path": "vsr_0131.jpg",
+    "question": "Is the cat on top of the chair?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "chair",
+    "image_link": "http://images.cocodataset.org/train2017/000000523536.jpg"
+  },
+  {
+    "image_path": "vsr_0132.jpg",
+    "question": "Is the vase inside the cat?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "inside",
+    "subj": "vase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000261225.jpg"
+  },
+  {
+    "image_path": "vsr_0133.jpg",
+    "question": "Is the refrigerator behind the dog?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "refrigerator",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000333848.jpg"
+  },
+  {
+    "image_path": "vsr_0134.jpg",
+    "question": "Is the cat below the bowl?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "below",
+    "subj": "cat",
+    "obj": "bowl",
+    "image_link": "http://images.cocodataset.org/train2017/000000519910.jpg"
+  },
+  {
+    "image_path": "vsr_0135.jpg",
+    "question": "Is the cake above the oven?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "cake",
+    "obj": "oven",
+    "image_link": "http://images.cocodataset.org/train2017/000000315768.jpg"
+  },
+  {
+    "image_path": "vsr_0136.jpg",
+    "question": "Is the laptop at the left side of the cake?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "laptop",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000512569.jpg"
+  },
+  {
+    "image_path": "vsr_0137.jpg",
+    "question": "Is the pizza at the left side of the dog?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "pizza",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000508555.jpg"
+  },
+  {
+    "image_path": "vsr_0138.jpg",
+    "question": "Is the person behind the bear?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "person",
+    "obj": "bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000497662.jpg"
+  },
+  {
+    "image_path": "vsr_0139.jpg",
+    "question": "Is the bus in front of the motorcycle?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "bus",
+    "obj": "motorcycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000328372.jpg"
+  },
+  {
+    "image_path": "vsr_0140.jpg",
+    "question": "Is the bowl in the hot dog?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "bowl",
+    "obj": "hot dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000428299.jpg"
+  },
+  {
+    "image_path": "vsr_0141.jpg",
+    "question": "Is the keyboard above the dog?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "keyboard",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000570092.jpg"
+  },
+  {
+    "image_path": "vsr_0142.jpg",
+    "question": "Is the oven above the cake?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "oven",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000169660.jpg"
+  },
+  {
+    "image_path": "vsr_0143.jpg",
+    "question": "Is the suitcase above the bed?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "suitcase",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000170442.jpg"
+  },
+  {
+    "image_path": "vsr_0144.jpg",
+    "question": "Is the parking meter at the left side of the car?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "parking meter",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000428769.jpg"
+  },
+  {
+    "image_path": "vsr_0145.jpg",
+    "question": "Is the teddy bear at the left side of the book?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "teddy bear",
+    "obj": "book",
+    "image_link": "http://images.cocodataset.org/train2017/000000127654.jpg"
+  },
+  {
+    "image_path": "vsr_0146.jpg",
+    "question": "Is the car left of the parking meter?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "left of",
+    "subj": "car",
+    "obj": "parking meter",
+    "image_link": "http://images.cocodataset.org/train2017/000000385172.jpg"
+  },
+  {
+    "image_path": "vsr_0147.jpg",
+    "question": "Is the couch in front of the person?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "couch",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000142481.jpg"
+  },
+  {
+    "image_path": "vsr_0148.jpg",
+    "question": "Is the cat on top of the laptop?",
+    "answer": "yes",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "laptop",
+    "image_link": "http://images.cocodataset.org/train2017/000000183537.jpg"
+  },
+  {
+    "image_path": "vsr_0149.jpg",
+    "question": "Is the person at the left side of the bed?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "person",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000303047.jpg"
+  },
+  {
+    "image_path": "vsr_0150.jpg",
+    "question": "Is the bowl below the bird?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "below",
+    "subj": "bowl",
+    "obj": "bird",
+    "image_link": "http://images.cocodataset.org/train2017/000000576705.jpg"
+  },
+  {
+    "image_path": "vsr_0151.jpg",
+    "question": "Is the suitcase in the dog?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "suitcase",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000271588.jpg"
+  },
+  {
+    "image_path": "vsr_0152.jpg",
+    "question": "Is the cake under the truck?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "cake",
+    "obj": "truck",
+    "image_link": "http://images.cocodataset.org/train2017/000000501204.jpg"
+  },
+  {
+    "image_path": "vsr_0153.jpg",
+    "question": "Is the oven right of the cake?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "right of",
+    "subj": "oven",
+    "obj": "cake",
+    "image_link": "http://images.cocodataset.org/train2017/000000524196.jpg"
+  },
+  {
+    "image_path": "vsr_0154.jpg",
+    "question": "Is the couch under the person?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "couch",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000343514.jpg"
+  },
+  {
+    "image_path": "vsr_0155.jpg",
+    "question": "Is the bicycle left of the person?",
+    "answer": "no",
+    "relation": "left_of",
+    "raw_relation": "left of",
+    "subj": "bicycle",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000008794.jpg"
+  },
+  {
+    "image_path": "vsr_0156.jpg",
+    "question": "Is the bench above the banana?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "bench",
+    "obj": "banana",
+    "image_link": "http://images.cocodataset.org/train2017/000000091576.jpg"
+  },
+  {
+    "image_path": "vsr_0157.jpg",
+    "question": "Is the truck behind the motorcycle?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "truck",
+    "obj": "motorcycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000369763.jpg"
+  },
+  {
+    "image_path": "vsr_0158.jpg",
+    "question": "Is the apple above the orange?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "apple",
+    "obj": "orange",
+    "image_link": "http://images.cocodataset.org/train2017/000000508412.jpg"
+  },
+  {
+    "image_path": "vsr_0159.jpg",
+    "question": "Is the cat below the motorcycle?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "below",
+    "subj": "cat",
+    "obj": "motorcycle",
+    "image_link": "http://images.cocodataset.org/train2017/000000340004.jpg"
+  },
+  {
+    "image_path": "vsr_0160.jpg",
+    "question": "Is the laptop at the left side of the teddy bear?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "laptop",
+    "obj": "teddy bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000488977.jpg"
+  },
+  {
+    "image_path": "vsr_0161.jpg",
+    "question": "Is the cow in the tv?",
+    "answer": "yes",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "cow",
+    "obj": "tv",
+    "image_link": "http://images.cocodataset.org/val2017/000000180383.jpg"
+  },
+  {
+    "image_path": "vsr_0162.jpg",
+    "question": "Is the bicycle under the cat?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "bicycle",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000557451.jpg"
+  },
+  {
+    "image_path": "vsr_0163.jpg",
+    "question": "Is the skateboard at the left side of the dog?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "skateboard",
+    "obj": "dog",
+    "image_link": "http://images.cocodataset.org/train2017/000000251368.jpg"
+  },
+  {
+    "image_path": "vsr_0164.jpg",
+    "question": "Is the cup in front of the cow?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "cup",
+    "obj": "cow",
+    "image_link": "http://images.cocodataset.org/train2017/000000298981.jpg"
+  },
+  {
+    "image_path": "vsr_0165.jpg",
+    "question": "Is the hot dog above the chair?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "hot dog",
+    "obj": "chair",
+    "image_link": "http://images.cocodataset.org/train2017/000000325503.jpg"
+  },
+  {
+    "image_path": "vsr_0166.jpg",
+    "question": "Is the chair behind the person?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "chair",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000540765.jpg"
+  },
+  {
+    "image_path": "vsr_0167.jpg",
+    "question": "Is the cake on top of the keyboard?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cake",
+    "obj": "keyboard",
+    "image_link": "http://images.cocodataset.org/train2017/000000345602.jpg"
+  },
+  {
+    "image_path": "vsr_0168.jpg",
+    "question": "Is the suitcase inside the cat?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "inside",
+    "subj": "suitcase",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000490689.jpg"
+  },
+  {
+    "image_path": "vsr_0169.jpg",
+    "question": "Is the couch above the umbrella?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "couch",
+    "obj": "umbrella",
+    "image_link": "http://images.cocodataset.org/train2017/000000503472.jpg"
+  },
+  {
+    "image_path": "vsr_0170.jpg",
+    "question": "Is the cake in front of the person?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "cake",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000348941.jpg"
+  },
+  {
+    "image_path": "vsr_0171.jpg",
+    "question": "Is the car contains the teddy bear?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "contains",
+    "subj": "car",
+    "obj": "teddy bear",
+    "image_link": "http://images.cocodataset.org/train2017/000000458132.jpg"
+  },
+  {
+    "image_path": "vsr_0172.jpg",
+    "question": "Is the cat above the bench?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "cat",
+    "obj": "bench",
+    "image_link": "http://images.cocodataset.org/train2017/000000124850.jpg"
+  },
+  {
+    "image_path": "vsr_0173.jpg",
+    "question": "Is the laptop behind the potted plant?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "laptop",
+    "obj": "potted plant",
+    "image_link": "http://images.cocodataset.org/train2017/000000293249.jpg"
+  },
+  {
+    "image_path": "vsr_0174.jpg",
+    "question": "Is the pizza below the person?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "below",
+    "subj": "pizza",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000200109.jpg"
+  },
+  {
+    "image_path": "vsr_0175.jpg",
+    "question": "Is the bed under the umbrella?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "bed",
+    "obj": "umbrella",
+    "image_link": "http://images.cocodataset.org/train2017/000000348091.jpg"
+  },
+  {
+    "image_path": "vsr_0176.jpg",
+    "question": "Is the cat on top of the suitcase?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "suitcase",
+    "image_link": "http://images.cocodataset.org/train2017/000000137413.jpg"
+  },
+  {
+    "image_path": "vsr_0177.jpg",
+    "question": "Is the person at the left side of the couch?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "person",
+    "obj": "couch",
+    "image_link": "http://images.cocodataset.org/train2017/000000527691.jpg"
+  },
+  {
+    "image_path": "vsr_0178.jpg",
+    "question": "Is the orange at the right side of the bird?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "orange",
+    "obj": "bird",
+    "image_link": "http://images.cocodataset.org/train2017/000000514600.jpg"
+  },
+  {
+    "image_path": "vsr_0179.jpg",
+    "question": "Is the dog at the left side of the car?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "dog",
+    "obj": "car",
+    "image_link": "http://images.cocodataset.org/train2017/000000467187.jpg"
+  },
+  {
+    "image_path": "vsr_0180.jpg",
+    "question": "Is the motorcycle beneath the person?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "beneath",
+    "subj": "motorcycle",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000300631.jpg"
+  },
+  {
+    "image_path": "vsr_0181.jpg",
+    "question": "Is the cake at the left side of the person?",
+    "answer": "yes",
+    "relation": "left_of",
+    "raw_relation": "at the left side of",
+    "subj": "cake",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000074959.jpg"
+  },
+  {
+    "image_path": "vsr_0182.jpg",
+    "question": "Is the truck in the elephant?",
+    "answer": "no",
+    "relation": "contains",
+    "raw_relation": "in",
+    "subj": "truck",
+    "obj": "elephant",
+    "image_link": "http://images.cocodataset.org/train2017/000000166631.jpg"
+  },
+  {
+    "image_path": "vsr_0183.jpg",
+    "question": "Is the person in front of the refrigerator?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "person",
+    "obj": "refrigerator",
+    "image_link": "http://images.cocodataset.org/train2017/000000261305.jpg"
+  },
+  {
+    "image_path": "vsr_0184.jpg",
+    "question": "Is the couch under the person?",
+    "answer": "no",
+    "relation": "below",
+    "raw_relation": "under",
+    "subj": "couch",
+    "obj": "person",
+    "image_link": "http://images.cocodataset.org/train2017/000000147963.jpg"
+  },
+  {
+    "image_path": "vsr_0185.jpg",
+    "question": "Is the cake at the right side of the apple?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "cake",
+    "obj": "apple",
+    "image_link": "http://images.cocodataset.org/train2017/000000071664.jpg"
+  },
+  {
+    "image_path": "vsr_0186.jpg",
+    "question": "Is the cup in front of the pizza?",
+    "answer": "no",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "cup",
+    "obj": "pizza",
+    "image_link": "http://images.cocodataset.org/val2017/000000520871.jpg"
+  },
+  {
+    "image_path": "vsr_0187.jpg",
+    "question": "Is the train above the bus?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "train",
+    "obj": "bus",
+    "image_link": "http://images.cocodataset.org/train2017/000000282940.jpg"
+  },
+  {
+    "image_path": "vsr_0188.jpg",
+    "question": "Is the cow behind the sheep?",
+    "answer": "no",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "cow",
+    "obj": "sheep",
+    "image_link": "http://images.cocodataset.org/train2017/000000459736.jpg"
+  },
+  {
+    "image_path": "vsr_0189.jpg",
+    "question": "Is the umbrella at the right side of the cat?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "umbrella",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000466789.jpg"
+  },
+  {
+    "image_path": "vsr_0190.jpg",
+    "question": "Is the suitcase on the bed?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on",
+    "subj": "suitcase",
+    "obj": "bed",
+    "image_link": "http://images.cocodataset.org/train2017/000000249372.jpg"
+  },
+  {
+    "image_path": "vsr_0191.jpg",
+    "question": "Is the banana behind the orange?",
+    "answer": "yes",
+    "relation": "behind",
+    "raw_relation": "behind",
+    "subj": "banana",
+    "obj": "orange",
+    "image_link": "http://images.cocodataset.org/train2017/000000540164.jpg"
+  },
+  {
+    "image_path": "vsr_0192.jpg",
+    "question": "Is the umbrella above the cat?",
+    "answer": "yes",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "umbrella",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000251360.jpg"
+  },
+  {
+    "image_path": "vsr_0193.jpg",
+    "question": "Is the train right of the bus?",
+    "answer": "yes",
+    "relation": "right_of",
+    "raw_relation": "right of",
+    "subj": "train",
+    "obj": "bus",
+    "image_link": "http://images.cocodataset.org/train2017/000000419439.jpg"
+  },
+  {
+    "image_path": "vsr_0194.jpg",
+    "question": "Is the bird above the cat?",
+    "answer": "no",
+    "relation": "above",
+    "raw_relation": "above",
+    "subj": "bird",
+    "obj": "cat",
+    "image_link": "http://images.cocodataset.org/train2017/000000072556.jpg"
+  },
+  {
+    "image_path": "vsr_0195.jpg",
+    "question": "Is the cat on top of the suitcase?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "suitcase",
+    "image_link": "http://images.cocodataset.org/train2017/000000013574.jpg"
+  },
+  {
+    "image_path": "vsr_0196.jpg",
+    "question": "Is the chair at the right side of the laptop?",
+    "answer": "no",
+    "relation": "right_of",
+    "raw_relation": "at the right side of",
+    "subj": "chair",
+    "obj": "laptop",
+    "image_link": "http://images.cocodataset.org/train2017/000000427726.jpg"
+  },
+  {
+    "image_path": "vsr_0197.jpg",
+    "question": "Is the dog in front of the suitcase?",
+    "answer": "yes",
+    "relation": "in_front",
+    "raw_relation": "in front of",
+    "subj": "dog",
+    "obj": "suitcase",
+    "image_link": "http://images.cocodataset.org/train2017/000000402297.jpg"
+  },
+  {
+    "image_path": "vsr_0198.jpg",
+    "question": "Is the chair beneath the horse?",
+    "answer": "yes",
+    "relation": "below",
+    "raw_relation": "beneath",
+    "subj": "chair",
+    "obj": "horse",
+    "image_link": "http://images.cocodataset.org/train2017/000000572358.jpg"
+  },
+  {
+    "image_path": "vsr_0199.jpg",
+    "question": "Is the cat on top of the microwave?",
+    "answer": "no",
+    "relation": "on",
+    "raw_relation": "on top of",
+    "subj": "cat",
+    "obj": "microwave",
+    "image_link": "http://images.cocodataset.org/train2017/000000506151.jpg"
+  }
+]
