@@ -1,126 +1,246 @@
-import streamlit as st
+"""
+Streamlit demo for the Spatial Evidence Agent.
+
+Lets users upload an image, ask a binary spatial question, and inspect the
+Critic's per-iteration geometric evidence (bboxes, depths, applied rule).
+"""
+
 import os
 import tempfile
-import json
-from PIL import Image
+from pathlib import Path
 
-# Import your SEA modules
-from env_loader import load_project_env
-from pipeline import run_pipeline
-from visualize import annotate_image
+import streamlit as st
 from langchain_openai import ChatOpenAI
 
-# --- Page Config ---
+from env_loader import get_openai_api_key, load_project_env
+from pipeline import run_pipeline
+from visualize import annotate_image
+
+# --- Page Config ---------------------------------------------------------------
 st.set_page_config(page_title="Spatial Evidence Agent", page_icon="👁️", layout="wide")
-st.title("👁️ Spatial Evidence Agent (SEA)")
-st.markdown("Upload an image and ask a binary spatial question to verify relationships using geometric logic.")
-
-# Load environment variables just in case
-load_project_env()
-
-# --- Sidebar Settings ---
-st.sidebar.header("⚙️ Settings")
-backend_choice = st.sidebar.radio(
-    "Choose Backend", 
-    ["Local (Ollama CPU)", "OpenAI (API Key required)"]
+st.title("Spatial Evidence Agent")
+st.caption(
+    "Upload an RGB image and ask a binary spatial question. The Planner parses "
+    "the question, the Executor proposes a yes/no, and the Critic verifies the "
+    "claim with Grounding-DINO + Depth Anything V2."
 )
 
-# Set up the configurations based on the user's choice
-if backend_choice == "Local (Ollama CPU)":
-    st.sidebar.success("Using local Ollama server on CPU.")
-    llm_model = "llava" # Ollama will ignore this, but LangChain needs a string
-    api_key = "ollama"
-    base_url = "http://localhost:11434/v1"
-    vision_model = "llava"
+load_project_env()
+
+# --- Backend descriptors -------------------------------------------------------
+# Two backends, but only one of them is "really" different — the Critic always
+# runs Grounding-DINO + Depth Anything V2 locally on GPU. The choice below only
+# affects the Planner LLM and the Executor VLM.
+BACKEND_OPENAI = "OpenAI API"
+BACKEND_LOCAL_OPENAI_COMPAT = "Local OpenAI-compatible server (Ollama / vLLM / LM Studio)"
+
+# Persist API key across re-runs so users don't retype.
+if "openai_key" not in st.session_state:
+    st.session_state.openai_key = get_openai_api_key()
+
+# --- Sidebar -------------------------------------------------------------------
+st.sidebar.header("Settings")
+backend_choice = st.sidebar.radio(
+    "Backend (Planner + Executor)",
+    [BACKEND_OPENAI, BACKEND_LOCAL_OPENAI_COMPAT],
+    help=(
+        "The Critic always uses local Grounding-DINO + Depth Anything V2. "
+        "This setting only controls which LLM/VLM serves the Planner and "
+        "Executor."
+    ),
+)
+
+if backend_choice == BACKEND_OPENAI:
+    st.session_state.openai_key = st.sidebar.text_input(
+        "OpenAI API Key",
+        type="password",
+        value=st.session_state.openai_key,
+        help="Read from .env at startup if present.",
+    )
+    api_key = st.session_state.openai_key
+    base_url = None
+    planner_model = st.sidebar.text_input("Planner model", value="gpt-4o-mini")
+    vision_model = st.sidebar.text_input("Executor (vision) model", value="gpt-4o")
 else:
-    st.sidebar.warning("Requires an active OpenAI billing balance.")
-    api_key = st.sidebar.text_input("OpenAI API Key", type="password")
-    base_url = "https://api.openai.com/v1"
-    llm_model = "gpt-4o-mini"
-    vision_model = "gpt-4o"
+    st.sidebar.info(
+        "Point this at any OpenAI-compatible local server. Defaults assume "
+        "Ollama at localhost:11434."
+    )
+    base_url = st.sidebar.text_input("Base URL", value="http://localhost:11434/v1")
+    api_key = st.sidebar.text_input("API key (any non-empty value)", value="ollama")
+    planner_model = st.sidebar.text_input("Planner model", value="llava")
+    vision_model = st.sidebar.text_input("Executor (vision) model", value="llava")
 
-max_iterations = st.sidebar.slider("Max Correction Iterations (k)", min_value=1, max_value=3, value=3)
+max_iterations = st.sidebar.slider("Max correction iterations (k)", 1, 3, 3)
 
-# --- Main UI ---
-uploaded_file = st.file_uploader("Upload an Image (JPG/PNG)", type=["jpg", "jpeg", "png"])
-question = st.text_input("Spatial Question", placeholder="e.g., Is the yellow cup to the right of the blue bottle?")
+with st.sidebar.expander("Advanced critic thresholds", expanded=False):
+    margin = st.slider("Position/depth margin", 0.0, 0.20, 0.02, step=0.01)
+    on_iou = st.slider("'on' IoU threshold", 0.0, 0.50, 0.05, step=0.01)
+    contains_cov = st.slider("'contains' coverage threshold", 0.0, 1.0, 0.70, step=0.05)
+    area_ratio = st.slider("'contains' area ratio threshold", 0.0, 1.0, 0.70, step=0.05)
+    crop_padding = st.slider("Active-perception crop padding", 0.0, 0.30, 0.05, step=0.01)
 
-if st.button("🔍 Analyze Image", type="primary"):
+# --- Main pane -----------------------------------------------------------------
+uploaded_file = st.file_uploader("Image (JPG / PNG)", type=["jpg", "jpeg", "png"])
+question = st.text_input(
+    "Spatial question",
+    placeholder="e.g., Is the yellow cup to the right of the blue bottle?",
+)
+
+run_clicked = st.button("Analyze", type="primary")
+
+if run_clicked:
+    # --- Input validation -----------------------------------------------------
     if not uploaded_file:
-        st.error("Please upload an image first!")
-    elif not question:
-        st.error("Please ask a spatial question!")
-    elif backend_choice == "OpenAI" and not api_key:
-        st.error("Please enter your OpenAI API key in the sidebar.")
-    else:
-        with st.spinner("Analyzing spatial evidence... This may take a moment on CPU."):
-            # 1. Save the uploaded file to a temporary location so the pipeline can read it
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as tmp_file:
-                tmp_file.write(uploaded_file.getvalue())
-                temp_image_path = tmp_file.name
+        st.error("Upload an image first.")
+        st.stop()
+    if not question.strip():
+        st.error("Type a spatial question.")
+        st.stop()
+    if backend_choice == BACKEND_OPENAI and not api_key:
+        st.error("OpenAI backend requires an API key in the sidebar.")
+        st.stop()
 
-            try:
-                # 2. Setup the LLM Planner
-                llm = ChatOpenAI(
-                    model=llm_model,
-                    api_key=api_key,
-                    base_url=base_url if backend_choice == "Local (Ollama CPU)" else None,
-                    temperature=0,
-                    max_retries=0,
-                    timeout=60,
-                )
+    # --- Persist upload to a temp path the pipeline can read ------------------
+    suffix = Path(uploaded_file.name).suffix or ".jpg"
+    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp_file:
+        tmp_file.write(uploaded_file.getvalue())
+        temp_image_path = tmp_file.name
+    annotated_img_path = None
 
-                # 3. Setup the Executor Configuration
-                exec_cfg = {
-                    "backend": "openai", # We use 'openai' backend logic for both real OpenAI and Ollama
-                    "openai_key": api_key,
-                    "openai_base": base_url if backend_choice == "Local (Ollama CPU)" else None,
-                    "model": vision_model,
-                }
+    try:
+        with st.status("Running Spatial Evidence Agent", expanded=True) as status:
+            status.write("Building LLM client…")
+            llm = ChatOpenAI(
+                model=planner_model,
+                api_key=api_key or "missing",
+                base_url=base_url,
+                temperature=0,
+                max_retries=0,
+                timeout=60,
+            )
 
-                # 4. Run the Pipeline!
-                graph = run_pipeline(
-                    image_path=temp_image_path,
-                    question=question,
-                    llm=llm,
-                    executor_config=exec_cfg,
-                    critic_config={"allow_mock_models": False},
-                    max_iterations=max_iterations,
-                    strict_models=True,
-                )
+            exec_cfg = {
+                "backend": "openai",  # the local case is also OpenAI-API-shaped
+                "openai_key": api_key,
+                "openai_base": base_url,
+                "model": vision_model,
+            }
+            critic_cfg = {
+                "margin": margin,
+                "on_iou_threshold": on_iou,
+                "contains_coverage_threshold": contains_cov,
+                "area_ratio_threshold": area_ratio,
+                "crop_padding": crop_padding,
+                "allow_mock_models": False,
+            }
 
-                # 5. Generate the Annotated Image
-                annotated_img_path = temp_image_path.replace(".jpg", "_annotated.jpg")
-                annotate_image(temp_image_path, graph, out_path=annotated_img_path)
+            status.write("Pipeline running (planner → executor → critic)…")
+            graph = run_pipeline(
+                image_path=temp_image_path,
+                question=question,
+                llm=llm,
+                executor_config=exec_cfg,
+                critic_config=critic_cfg,
+                max_iterations=max_iterations,
+                strict_models=True,
+            )
 
-                # --- Display Results ---
-                st.divider()
-                
-                # Create two side-by-side columns
-                col1, col2 = st.columns(2)
-                
-                with col1:
-                    st.subheader("🖼️ Annotated Output")
-                    st.image(annotated_img_path, caption=f"Verdict: {graph.answer_str.upper()}", use_container_width=True)
-                
-                with col2:
-                    st.subheader("📊 Spatial Evidence Graph")
-                    
-                    # Color code the final verdict
-                    if graph.verified:
-                        st.success(f"**Verified Answer:** {graph.answer_str.upper()} (Confidence: {graph.confidence})")
+            status.write("Rendering annotated image…")
+            annotated_img_path = temp_image_path + "_annotated.jpg"
+            annotate_image(temp_image_path, graph, out_path=annotated_img_path)
+            status.update(label="Done", state="complete")
+
+        # --- Results ----------------------------------------------------------
+        st.divider()
+        verdict = graph.answer_str.upper()
+        if graph.verified:
+            st.success(f"Verified answer: **{verdict}** (confidence {graph.confidence:.2f})")
+        elif graph.answer_str == "abstain":
+            st.warning(f"Abstained — failure mode: `{graph.failure_mode}`")
+        else:
+            st.info(f"Answer: **{verdict}**")
+
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.subheader("Annotated image")
+            st.image(annotated_img_path, use_container_width=True)
+        with col2:
+            st.subheader("Predicate")
+            st.markdown(
+                f"- **obj1**: `{graph.obj1}`\n"
+                f"- **relation**: `{graph.relation}`\n"
+                f"- **obj2**: `{graph.obj2}`\n"
+                f"- **iterations**: {graph.iterations}\n"
+                f"- **verified**: {graph.verified}\n"
+                f"- **failure_mode**: `{graph.failure_mode or '—'}`"
+            )
+
+        st.subheader("Per-iteration evidence")
+        if not graph.evidence:
+            st.write("(no Critic evidence recorded)")
+        for i, ev in enumerate(graph.evidence, 1):
+            tag = "PASS" if ev.passed else "FAIL"
+            with st.expander(f"Iteration {i} — {tag}", expanded=(i == len(graph.evidence))):
+                st.code(ev.rule_applied or "(no rule applied)", language="text")
+                if ev.failure_reason:
+                    st.write(f"**Failure reason:** `{ev.failure_reason}`")
+                cols = st.columns(2)
+                with cols[0]:
+                    st.markdown("**obj1 detection**")
+                    if ev.obj1_bbox is not None:
+                        b = ev.obj1_bbox
+                        st.write(
+                            f"label `{b.label}`, conf {b.confidence:.2f}, "
+                            f"box [{b.x1:.2f}, {b.y1:.2f}, {b.x2:.2f}, {b.y2:.2f}]"
+                        )
+                        if ev.obj1_depth is not None:
+                            st.write(f"depth = {ev.obj1_depth:.3f}")
                     else:
-                        st.error(f"**Failed to Verify:** {graph.failure_mode}")
-                        
-                    # Display the raw JSON evidence nicely
-                    st.json(graph.model_dump())
+                        st.write("(not detected)")
+                with cols[1]:
+                    st.markdown("**obj2 detection**")
+                    if ev.obj2_bbox is not None:
+                        b = ev.obj2_bbox
+                        st.write(
+                            f"label `{b.label}`, conf {b.confidence:.2f}, "
+                            f"box [{b.x1:.2f}, {b.y1:.2f}, {b.x2:.2f}, {b.y2:.2f}]"
+                        )
+                        if ev.obj2_depth is not None:
+                            st.write(f"depth = {ev.obj2_depth:.3f}")
+                    else:
+                        st.write("(not detected)")
 
-            except Exception as e:
-                st.error(f"Pipeline Error: {e}")
-            
-            finally:
-                # Cleanup temporary files to save space
-                if os.path.exists(temp_image_path):
-                    os.remove(temp_image_path)
-                if 'annotated_img_path' in locals() and os.path.exists(annotated_img_path):
-                    os.remove(annotated_img_path)
+        if graph.crop_history:
+            st.subheader("Active-perception crops")
+            for i, crop in enumerate(graph.crop_history, 1):
+                st.write(
+                    f"{i}. `[{crop.x1:.2f}, {crop.y1:.2f}, {crop.x2:.2f}, {crop.y2:.2f}]` — {crop.reason}"
+                )
+
+        with st.expander("Raw Spatial Evidence Graph (JSON)", expanded=False):
+            st.json(graph.model_dump())
+
+    except Exception as exc:
+        # Surface where the failure came from when the pipeline raises a strict error.
+        message = str(exc)
+        st.error(f"Pipeline error: {message}")
+        if "Planner" in message:
+            st.caption("Hint: the Planner couldn't parse the question. Try simpler phrasing.")
+        elif "Executor" in message:
+            st.caption("Hint: check the backend URL / API key / model name in the sidebar.")
+        elif "checkpoints" in message.lower() or "groundingdino" in message.lower():
+            st.caption(
+                "Hint: place GroundingDINO_SwinT_OGC.py + groundingdino_swint_ogc.pth in src/checkpoints/."
+            )
+        with st.expander("Full traceback", expanded=False):
+            import traceback
+            st.code(traceback.format_exc(), language="text")
+
+    finally:
+        for path in (temp_image_path, annotated_img_path):
+            if path and os.path.exists(path):
+                try:
+                    os.remove(path)
+                except OSError:
+                    pass

@@ -14,15 +14,10 @@ from PIL import Image
 
 import depth
 import detector
+from config import CriticConfig
 from state import BoundingBox, CriticEvidence, CropRegion
 
 logger = logging.getLogger(__name__)
-
-MARGIN = 0.02
-ON_IOU_THRESHOLD = 0.05
-CONTAINS_COVERAGE_THRESHOLD = 0.70
-AREA_RATIO_THRESHOLD = 0.70
-CROP_PADDING = 0.05
 
 
 def _make_bbox(det: dict) -> BoundingBox:
@@ -66,11 +61,17 @@ def _verify_relation(
     b2: BoundingBox,
     d1: float,
     d2: float,
+    cfg: CriticConfig,
 ) -> tuple[bool, dict]:
     dx = b1.cx - b2.cx
     dy = b1.cy - b2.cy
     dz = d1 - d2
     iou = b1.iou(b2)
+
+    margin = cfg.margin
+    on_iou = cfg.on_iou_threshold
+    cov_thr = cfg.contains_coverage_threshold
+    area_thr = cfg.area_ratio_threshold
 
     evidence = {
         "dx": round(dx, 4),
@@ -79,38 +80,65 @@ def _verify_relation(
         "iou": round(iou, 4),
     }
 
-    if relation == "left_of":
-        passed = dx < -MARGIN
-        evidence["rule_applied"] = f"cx(obj1)-cx(obj2)={dx:.3f} < -{MARGIN}"
-    elif relation == "right_of":
-        passed = dx > MARGIN
-        evidence["rule_applied"] = f"cx(obj1)-cx(obj2)={dx:.3f} > {MARGIN}"
-    elif relation == "above":
-        passed = dy < -MARGIN
-        evidence["rule_applied"] = f"cy(obj1)-cy(obj2)={dy:.3f} < -{MARGIN}"
-    elif relation == "below":
-        passed = dy > MARGIN
-        evidence["rule_applied"] = f"cy(obj1)-cy(obj2)={dy:.3f} > {MARGIN}"
-    elif relation == "behind":
-        passed = dz > MARGIN
-        evidence["rule_applied"] = f"depth(obj1)-depth(obj2)={dz:.3f} > {MARGIN}"
-    elif relation == "in_front":
-        passed = dz < -MARGIN
-        evidence["rule_applied"] = f"depth(obj1)-depth(obj2)={dz:.3f} < -{MARGIN}"
+    # Geometric confidence = detection quality × how decisively the measurement
+    # clears zero (signal strength). Depth relations use |dz|, which is smaller
+    # and noisier, so they naturally earn lower confidence — letting the
+    # arbitration step defer those to the VLM, which is stronger on depth.
+    det_conf = min(b1.confidence, b2.confidence)
+    if relation in ("left_of", "right_of"):
+        signal, scale = abs(dx), 0.25
+    elif relation in ("above", "below"):
+        signal, scale = abs(dy), 0.25
+    elif relation in ("behind", "in_front"):
+        signal, scale = abs(dz), 0.20
     elif relation == "on":
-        passed = (dy < -MARGIN) and (iou > ON_IOU_THRESHOLD)
+        signal, scale = abs(dy), 0.20
+    elif relation == "contains":
+        inter_c = _intersection_area(b1, b2)
+        signal, scale = inter_c / max(b2.area, 1e-6), 1.0
+    else:
+        signal, scale = 0.0, 1.0
+    margin_conf = max(0.0, min(1.0, signal / scale))
+    geo_confidence = det_conf * margin_conf
+    if relation in ("behind", "in_front"):
+        # Monocular depth is too unreliable to override the VLM (see
+        # CriticConfig.depth_confidence_cap); keep it below the arbitration
+        # threshold so depth relations defer rather than override.
+        geo_confidence = min(geo_confidence, cfg.depth_confidence_cap)
+    evidence["geo_confidence"] = round(geo_confidence, 4)
+
+    if relation == "left_of":
+        passed = dx < -margin
+        evidence["rule_applied"] = f"cx(obj1)-cx(obj2)={dx:.3f} < -{margin}"
+    elif relation == "right_of":
+        passed = dx > margin
+        evidence["rule_applied"] = f"cx(obj1)-cx(obj2)={dx:.3f} > {margin}"
+    elif relation == "above":
+        passed = dy < -margin
+        evidence["rule_applied"] = f"cy(obj1)-cy(obj2)={dy:.3f} < -{margin}"
+    elif relation == "below":
+        passed = dy > margin
+        evidence["rule_applied"] = f"cy(obj1)-cy(obj2)={dy:.3f} > {margin}"
+    elif relation == "behind":
+        passed = dz > margin
+        evidence["rule_applied"] = f"depth(obj1)-depth(obj2)={dz:.3f} > {margin}"
+    elif relation == "in_front":
+        passed = dz < -margin
+        evidence["rule_applied"] = f"depth(obj1)-depth(obj2)={dz:.3f} < -{margin}"
+    elif relation == "on":
+        passed = (dy < -margin) and (iou > on_iou)
         evidence["rule_applied"] = (
-            f"cy diff={dy:.3f}<-{MARGIN} AND IoU={iou:.3f}>{ON_IOU_THRESHOLD}"
+            f"cy diff={dy:.3f}<-{margin} AND IoU={iou:.3f}>{on_iou}"
         )
     elif relation == "contains":
         inter = _intersection_area(b1, b2)
         coverage = inter / max(b2.area, 1e-6)
         area_ratio = b2.area / max(b1.area, 1e-6)
-        area_ok = area_ratio < AREA_RATIO_THRESHOLD
-        passed = coverage > CONTAINS_COVERAGE_THRESHOLD and area_ok
+        area_ok = area_ratio < area_thr
+        passed = coverage > cov_thr and area_ok
         evidence["rule_applied"] = (
-            f"coverage(obj2 in obj1)={coverage:.3f}>{CONTAINS_COVERAGE_THRESHOLD} "
-            f"AND area(b2)/area(b1)={area_ratio:.2f}<{AREA_RATIO_THRESHOLD}"
+            f"coverage(obj2 in obj1)={coverage:.3f}>{cov_thr} "
+            f"AND area(b2)/area(b1)={area_ratio:.2f}<{area_thr}"
         )
     else:
         passed = False
@@ -119,11 +147,11 @@ def _verify_relation(
     return passed, evidence
 
 
-def _compute_crop(b1: BoundingBox, b2: BoundingBox) -> CropRegion:
-    x1 = max(0.0, min(b1.x1, b2.x1) - CROP_PADDING)
-    y1 = max(0.0, min(b1.y1, b2.y1) - CROP_PADDING)
-    x2 = min(1.0, max(b1.x2, b2.x2) + CROP_PADDING)
-    y2 = min(1.0, max(b1.y2, b2.y2) + CROP_PADDING)
+def _compute_crop(b1: BoundingBox, b2: BoundingBox, padding: float) -> CropRegion:
+    x1 = max(0.0, min(b1.x1, b2.x1) - padding)
+    y1 = max(0.0, min(b1.y1, b2.y1) - padding)
+    x2 = min(1.0, max(b1.x2, b2.x2) + padding)
+    y2 = min(1.0, max(b1.y2, b2.y2) + padding)
     return CropRegion(
         x1=x1,
         y1=y1,
@@ -152,16 +180,14 @@ def _append_evidence(state: Any, evidence: CriticEvidence) -> None:
     state.critic_evidence.append(evidence)
 
 
-def run_critic(state: Any, config: dict | None = None) -> Any:
+def run_critic(state: Any, config: dict | CriticConfig | None = None) -> Any:
     """
     Critic node.
 
-    config:
-      allow_mock_models: if true, detector/depth wrappers can use deterministic
-        fallbacks when real model dependencies or checkpoints are unavailable.
+    Accepts a CriticConfig or a plain dict (forwards-compatible with the
+    earlier {"allow_mock_models": bool} shape).
     """
-    config = config or {}
-    allow_mock_models = bool(config.get("allow_mock_models", False))
+    cfg = CriticConfig.from_mapping(config)
     crop = state.current_crop
     img = _load_image_with_crop(state.image_path, crop)
 
@@ -176,7 +202,7 @@ def run_critic(state: Any, config: dict | None = None) -> Any:
     )
 
     try:
-        detections = detector.detect(img, prompt, allow_mock=allow_mock_models)
+        detections = detector.detect(img, prompt, allow_mock=cfg.allow_mock_models)
         det1 = detector.best_match(detections, obj1_query)
         det2 = detector.best_match(detections, obj2_query)
     except Exception as exc:
@@ -215,9 +241,16 @@ def run_critic(state: Any, config: dict | None = None) -> Any:
     evidence.obj2_bbox = b2
 
     try:
-        depth_map = depth.estimate_depth(img, allow_mock=allow_mock_models)
-        d1 = depth.median_depth_in_box(depth_map, det1["bbox"])
-        d2 = depth.median_depth_in_box(depth_map, det2["bbox"])
+        # Depth must come from the ORIGINAL frame so values from successive
+        # active-perception crops are comparable. estimate_depth_for_path is
+        # cached on image_path so iterations 2/3 don't recompute.
+        depth_map = depth.estimate_depth_for_path(
+            state.image_path, allow_mock=cfg.allow_mock_models
+        )
+        b1_box = [b1.x1, b1.y1, b1.x2, b1.y2]
+        b2_box = [b2.x1, b2.y1, b2.x2, b2.y2]
+        d1 = depth.median_depth_in_box(depth_map, b1_box)
+        d2 = depth.median_depth_in_box(depth_map, b2_box)
     except Exception as exc:
         logger.error(f"[Critic] Depth error: {exc}")
         evidence.passed = False
@@ -229,12 +262,13 @@ def run_critic(state: Any, config: dict | None = None) -> Any:
     evidence.obj1_depth = round(d1, 4)
     evidence.obj2_depth = round(d2, 4)
 
-    passed, geo_ev = _verify_relation(state.relation, b1, b2, d1, d2)
+    passed, geo_ev = _verify_relation(state.relation, b1, b2, d1, d2, cfg)
     evidence.passed = passed
     evidence.dx = geo_ev.get("dx")
     evidence.dy = geo_ev.get("dy")
     evidence.dz = geo_ev.get("dz")
     evidence.iou = geo_ev.get("iou")
+    evidence.geo_confidence = geo_ev.get("geo_confidence", 0.0)
     evidence.rule_applied = geo_ev.get("rule_applied", "")
 
     if not passed:
@@ -250,7 +284,7 @@ def run_critic(state: Any, config: dict | None = None) -> Any:
     )
 
     if not _executor_answer_matches(state) and state.iteration < state.max_iterations - 1:
-        new_crop = _compute_crop(b1, b2)
+        new_crop = _compute_crop(b1, b2, cfg.crop_padding)
         state.crop_history.append(new_crop)
         state.current_crop = new_crop
         logger.info(f"[Critic] Scheduled crop: {new_crop}")

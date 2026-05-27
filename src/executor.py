@@ -292,6 +292,7 @@ def run_executor(state: Any, config: dict) -> Any:
     try:
         parsed = _parse_executor_output(raw)
         state.executor_answer = parsed.answer == "yes"
+        state.executor_confidence = float(parsed.confidence)
         state.executor_claims = _claims_from_output(parsed, state.obj1, state.obj2)
         state.error = ""
     except Exception as exc:

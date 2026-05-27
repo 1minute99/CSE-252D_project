@@ -72,6 +72,36 @@ def estimate_depth(image: Image.Image, allow_mock: bool = False) -> np.ndarray:
         return _mock_depth(image)
 
 
+_LAST_DEPTH_PATH: str | None = None
+_LAST_DEPTH_MAP: np.ndarray | None = None
+
+
+def estimate_depth_for_path(image_path: str, allow_mock: bool = False) -> np.ndarray:
+    """
+    Depth Anything V2 on the **original full image**, memoized across calls
+    with the same path. Bounded to a single cached map so memory stays flat
+    across an evaluation loop.
+
+    Use this when sampling depth values that must be comparable across
+    active-perception iterations (each iteration may operate on a different
+    crop, but depth must come from the original frame).
+    """
+    global _LAST_DEPTH_PATH, _LAST_DEPTH_MAP
+    if _LAST_DEPTH_PATH == image_path and _LAST_DEPTH_MAP is not None:
+        return _LAST_DEPTH_MAP
+    img = Image.open(image_path).convert("RGB")
+    depth_map = estimate_depth(img, allow_mock=allow_mock)
+    _LAST_DEPTH_PATH = image_path
+    _LAST_DEPTH_MAP = depth_map
+    return depth_map
+
+
+def clear_depth_cache() -> None:
+    global _LAST_DEPTH_PATH, _LAST_DEPTH_MAP
+    _LAST_DEPTH_PATH = None
+    _LAST_DEPTH_MAP = None
+
+
 def _mock_depth(image: Image.Image) -> np.ndarray:
     """Mock depth: horizontal gradient (left=near, right=far)."""
     w, h = image.size

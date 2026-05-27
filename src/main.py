@@ -25,7 +25,10 @@ def get_llm(args):
 
     api_key = get_openai_api_key(args.openai_key)
     if not api_key:
-        logger.error("OpenAI API key required. Add OPENAI_API_KEY to D:\\files\\.env or your shell env.")
+        logger.error(
+            "OpenAI API key required. Add OPENAI_API_KEY to a .env file in "
+            "the project root or src/, or export it in your shell."
+        )
         sys.exit(1)
 
     return ChatOpenAI(

@@ -6,10 +6,16 @@
 # Python
 __pycache__/
 *.pyc
+.venv/
+.pytest_cache/
 
 # Model weights / runtime outputs
 checkpoints/
 demo_outputs*/
+
+# Regenerable evaluation artifacts
+data/vsr_images/
+results/ablation/
 
 # macOS
 .DS_Store

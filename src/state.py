@@ -52,6 +52,7 @@ class CriticEvidence(BaseModel):
     iou: Optional[float] = None
     rule_applied: str = ""
     failure_reason: str = ""
+    geo_confidence: float = 0.0     # min(det conf) × margin-clearance, in [0,1]
 
 
 class CropRegion(BaseModel):
@@ -80,6 +81,10 @@ class SpatialEvidenceGraph(BaseModel):
     crop_history: list[CropRegion] = Field(default_factory=list)
     failure_mode: str = ""                  # "detector_miss" | "depth_noise" | "vlm_bias" | ""
     verified: bool = False
+    answer_source: str = ""                 # "agreement" | "geometry_override" | "vlm_deferred" | "geometry_only" | ""
+    executor_confidence: float = 0.0        # VLM self-reported confidence in its yes/no
+    geo_confidence: float = 0.0             # geometric confidence of the final verification
+    executor_agreed: Optional[bool] = None  # did the Executor agree with geometry?
 
 
 class AgentState(BaseModel):
@@ -98,6 +103,7 @@ class AgentState(BaseModel):
 
     # ── Executor output ───────────────────────────────────────────────
     executor_answer: Optional[bool] = None
+    executor_confidence: float = 0.0
     executor_claims: list[str] = Field(default_factory=list)
     executor_raw: str = ""
 
