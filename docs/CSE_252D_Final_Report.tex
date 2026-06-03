@@ -158,6 +158,65 @@ improves effective accuracy. We adopt this principle but, crucially, study
 \emph{which} signal makes abstention selective, finding that geometric
 confidence --- not VLM self-confidence --- ranks errors well.
 
+\begin{figure*}[!t]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  >={Stealth[length=2.5mm,width=2mm]},
+  node distance=10mm and 14mm,
+  agent/.style={draw, rounded corners=3pt, align=center,
+                minimum height=13mm, minimum width=28mm,
+                inner xsep=4pt, inner ysep=4pt, line width=0.7pt},
+  planner/.style={agent, fill=blue!10,    draw=blue!55!black},
+  exec/.style   ={agent, fill=orange!20,  draw=orange!70!black},
+  critic/.style ={agent, fill=red!15,     draw=red!60!black},
+  ctrl/.style   ={agent, fill=violet!12,  draw=violet!60!black},
+  outbox/.style ={agent, fill=green!20,   draw=green!55!black},
+  abst/.style   ={agent, fill=magenta!15, draw=magenta!60!black},
+  flow/.style={->, thick},
+  loop/.style={->, thick, dashed, draw=violet!70!black},
+  edgelbl/.style={font=\scriptsize, inner sep=2pt, fill=white, fill opacity=0.9, text opacity=1},
+]
+
+% Top row: linear pipeline
+\node[planner] (P) {\textbf{Planner}\\\scriptsize GPT-4o-mini\\\scriptsize $(o_1,o_2,r)$};
+\node[exec,    right=of P] (E) {\textbf{Executor}\\\scriptsize GPT-4o VLM\\\scriptsize yes/no + claims};
+\node[critic,  right=of E] (C) {\textbf{Critic}\\\scriptsize GroundingDINO\\\scriptsize + Depth Anything V2};
+\node[outbox,  right=of C] (O) {\textbf{Output}\\\scriptsize SEG, verified};
+
+% Bottom row
+\node[ctrl, below=20mm of E] (R) {\textbf{Correction}\\\scriptsize crop disputed\\\scriptsize region, iter\texttt{++}};
+\node[ctrl, below=20mm of C] (A) {\textbf{Arbitrate}\\\scriptsize geo confidence\\\scriptsize $\geq\tau$?};
+\node[abst, below=20mm of O] (X) {\textbf{Abstain}\\\scriptsize labelled\\\scriptsize failure mode};
+
+% --- Happy path (solid) ---
+\draw[flow] (P) -- node[edgelbl,above]{triple} (E);
+\draw[flow] (E) -- node[edgelbl,above]{claims} (C);
+\draw[flow] (C) -- node[edgelbl,above]{agree} (O);
+
+% --- Correction loop: disagree, budget remaining (dashed, exits Critic SW) ---
+\draw[loop] (C.south west) -- ++(0,-6mm) -| (R.north)
+    node[edgelbl,pos=0.85,above]{disagree, $i{<}k$};
+\draw[loop] (R.west) -- ++(-8mm,0) |- (E.west)
+    node[edgelbl,pos=0.75,above]{re-examine};
+
+% --- Arbitration: disagree, budget exhausted (dashed, exits Critic SE) ---
+\draw[loop] (C.south east) -- ++(0,-6mm) -| (A.north)
+    node[edgelbl,pos=0.85,above]{$i{=}k$};
+
+% --- Arbitrate outputs (solid) ---
+% commit: curve gracefully up and right to Output, well clear of Abstain
+\draw[flow] (A.north east) to[out=45, in=225] node[edgelbl,sloped,above]{commit} (O.south west);
+\draw[flow] (A) -- node[edgelbl,above]{defer / no evid.} (X);
+
+\end{tikzpicture}
+\caption{SEA pipeline. Three specialised agents communicate through a typed
+\texttt{AgentState}. The correction loop zooms into the disputed region for up
+to $k$ re-examinations; when the budget is exhausted, the arbitration node
+commits geometry, defers to the VLM, or abstains based on geometric confidence.}
+\label{fig:arch}
+\end{figure*}
+
 \section{Method}
 SEA answers a binary spatial question $Q$ about image $I$ as follows.
 \begin{enumerate}
@@ -236,65 +295,6 @@ the failure is labelled.
 a learned agent: it increments the iteration counter and sets the crop region
 the Critic computed around the disputed boxes, routing back to the Executor for
 a re-run on the zoomed image.
-
-\begin{figure*}[!t]
-\centering
-\begin{tikzpicture}[
-  font=\small,
-  >={Stealth[length=2.5mm,width=2mm]},
-  node distance=10mm and 14mm,
-  agent/.style={draw, rounded corners=3pt, align=center,
-                minimum height=13mm, minimum width=28mm,
-                inner xsep=4pt, inner ysep=4pt, line width=0.7pt},
-  planner/.style={agent, fill=blue!10,    draw=blue!55!black},
-  exec/.style   ={agent, fill=orange!20,  draw=orange!70!black},
-  critic/.style ={agent, fill=red!15,     draw=red!60!black},
-  ctrl/.style   ={agent, fill=violet!12,  draw=violet!60!black},
-  outbox/.style ={agent, fill=green!20,   draw=green!55!black},
-  abst/.style   ={agent, fill=magenta!15, draw=magenta!60!black},
-  flow/.style={->, thick},
-  loop/.style={->, thick, dashed, draw=violet!70!black},
-  edgelbl/.style={font=\scriptsize, inner sep=2pt, fill=white, fill opacity=0.9, text opacity=1},
-]
-
-% Top row: linear pipeline
-\node[planner] (P) {\textbf{Planner}\\\scriptsize GPT-4o-mini\\\scriptsize $(o_1,o_2,r)$};
-\node[exec,    right=of P] (E) {\textbf{Executor}\\\scriptsize GPT-4o VLM\\\scriptsize yes/no + claims};
-\node[critic,  right=of E] (C) {\textbf{Critic}\\\scriptsize GroundingDINO\\\scriptsize + Depth Anything V2};
-\node[outbox,  right=of C] (O) {\textbf{Output}\\\scriptsize SEG, verified};
-
-% Bottom row
-\node[ctrl, below=20mm of E] (R) {\textbf{Correction}\\\scriptsize crop disputed\\\scriptsize region, iter\texttt{++}};
-\node[ctrl, below=20mm of C] (A) {\textbf{Arbitrate}\\\scriptsize geo confidence\\\scriptsize $\geq\tau$?};
-\node[abst, below=20mm of O] (X) {\textbf{Abstain}\\\scriptsize labelled\\\scriptsize failure mode};
-
-% --- Happy path (solid) ---
-\draw[flow] (P) -- node[edgelbl,above]{triple} (E);
-\draw[flow] (E) -- node[edgelbl,above]{claims} (C);
-\draw[flow] (C) -- node[edgelbl,above]{agree} (O);
-
-% --- Correction loop: disagree, budget remaining (dashed, exits Critic SW) ---
-\draw[loop] (C.south west) -- ++(0,-6mm) -| (R.north)
-    node[edgelbl,pos=0.85,above]{disagree, $i{<}k$};
-\draw[loop] (R.west) -- ++(-8mm,0) |- (E.west)
-    node[edgelbl,pos=0.75,above]{re-examine};
-
-% --- Arbitration: disagree, budget exhausted (dashed, exits Critic SE) ---
-\draw[loop] (C.south east) -- ++(0,-6mm) -| (A.north)
-    node[edgelbl,pos=0.85,above]{$i{=}k$};
-
-% --- Arbitrate outputs (solid) ---
-% commit: curve gracefully up and right to Output, well clear of Abstain
-\draw[flow] (A.north east) to[out=45, in=225] node[edgelbl,sloped,above]{commit} (O.south west);
-\draw[flow] (A) -- node[edgelbl,above]{defer / no evid.} (X);
-
-\end{tikzpicture}
-\caption{SEA pipeline. Three specialised agents communicate through a typed
-\texttt{AgentState}. The correction loop zooms into the disputed region for up
-to $k$ re-examinations; when the budget is exhausted, the arbitration node
-commits geometry, defers to the VLM, or abstains based on geometric confidence.}
-\label{fig:arch}
-\end{figure*}
 
 \subsection{Depth in a Consistent Frame}
 The active-perception loop re-examines a cropped region when the Executor and
@@ -524,11 +524,11 @@ abstain (det.\ miss) & 22 & --- \\
 \end{tabular}
 \end{table}
 
-\textbf{Per-relation behaviour.} Figure~\ref{fig:perrel} and
-Table~\ref{tab:perrel} compare SEA to the baseline per relation. SEA improves
-most on relations where the baseline is weakest --- notably \rel{in\_front}
-and \rel{right\_of} --- and, after recalibration, matches or exceeds the
-baseline on \emph{every} relation, including \rel{contains}, where the
+\textbf{Per-relation behaviour.} Figure~\ref{fig:perrel} compares SEA to the
+baseline per relation. SEA improves most on relations where the baseline is
+weakest --- notably \rel{in\_front} (0.83 vs 0.54) and \rel{right\_of} (0.92
+vs 0.79) --- and, after recalibration, matches or exceeds the baseline on
+\emph{every} relation, including \rel{contains}, where the
 \rel{contains}-defer change removed the prior regression. (Per-relation counts
 are $\sim$25, so individual entries are indicative rather than statistically
 tight.)
@@ -541,27 +541,6 @@ improves markedly on \rel{in\_front} and \rel{right\_of} and matches or beats
 the baseline on every relation.}
 \label{fig:perrel}
 \end{figure}
-
-\begin{table}[!htbp]
-\centering
-\small
-\caption{Per-relation accuracy (full-coverage SEA vs.\ baseline).}
-\label{tab:perrel}
-\begin{tabular}{lcc}
-\toprule
-Relation & SEA & Baseline \\
-\midrule
-\rel{in\_front} & \textbf{0.83} & 0.54 \\
-\rel{right\_of} & \textbf{0.92} & 0.79 \\
-\rel{above}     & \textbf{0.85} & 0.81 \\
-\rel{on}        & \textbf{0.78} & 0.74 \\
-\rel{left\_of}  & \textbf{0.81} & 0.77 \\
-\rel{below}     & \textbf{0.68} & 0.64 \\
-\rel{behind}    & 0.77 & 0.77 \\
-\rel{contains}  & 0.68 & 0.68 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \textbf{Error structure.} Figure~\ref{fig:confusion} shows that, relative to
 the baseline, SEA's gain comes chiefly from \emph{recovering true-positive
