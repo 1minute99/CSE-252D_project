@@ -19,6 +19,9 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 QUAL = ROOT / "results" / "qualitative"
+VSR_IMG = ROOT / "data" / "vsr_images"
+VSR_EVIDENCE = ROOT / "results" / "vsr200_evidence_recal_k2.json"
+VSR_SPLIT = ROOT / "data" / "vsr_strat200.json"
 OUT = ROOT / "results" / "figures"
 
 TARGET_W, TARGET_H = 760, 570          # uniform 4:3 panels
@@ -28,15 +31,59 @@ GREEN = (40, 220, 90)                   # obj1
 RED = (255, 60, 60)                     # obj2
 LINE = (250, 210, 30)                   # centroid connector
 
+# Each scene is either:
+#   ("qual",  scene_dir, seg_name, out_name)              from results/qualitative/
+#   ("vsr",   vsr_idx,                out_name)           from VSR-200 evidence dump
 SCENES = [
-    ("Left_Right", "qual_panel_1.jpg"),
-    ("Inside_Outside", "qual_panel_2.jpg"),
-    ("Behind_Infront", "qual_panel_3.jpg"),
+    ("qual", "Left_Right",     "result_q1.json", "qual_panel_1.jpg"),  # left_of
+    ("vsr",  50,                                 "qual_panel_2.jpg"),  # right_of
+    ("qual", "Above_Below",    "result_q1.json", "qual_panel_3.jpg"),  # above
+    ("vsr",  73,                                 "qual_panel_4.jpg"),  # below
+    ("qual", "Inside_Outside", "result_q1.json", "qual_panel_5.jpg"),  # contains
+    ("qual", "ON",             "result_q1.json", "qual_panel_6.jpg"),  # on (verified no)
+    ("vsr",  31,                                 "qual_panel_7.jpg"),  # in_front
+    ("vsr",  127,                                "qual_panel_8.jpg"),  # behind (verified)
+    ("qual", "Behind_Infront", "result_q1.json", "qual_panel_9.jpg"),  # behind (abstained)
+    # SEA-vs-baseline panels: cases where GPT-4o alone failed but the Critic
+    # produced the correct verdict (used in Figure 11 of the report).
+    ("vsr",  163,                                "sea_vs_baseline_1.jpg"),  # left_of override (skateboard/dog)
+    ("vsr",  192,                                "sea_vs_baseline_2.jpg"),  # above override (umbrella/cat)
+    ("vsr",  81,                                 "sea_vs_baseline_3.jpg"),  # right_of override, negative (person/cake)
 ]
 
+# Cache VSR lookup tables on first use.
+_vsr_cache: dict = {}
 
-def load_seg(scene: str) -> dict:
-    return json.loads((QUAL / scene / "result_q1.json").read_text())
+
+def _load_vsr_tables():
+    if "ev" in _vsr_cache:
+        return
+    _vsr_cache["ev"] = {e["idx"]: e for e in json.loads(VSR_EVIDENCE.read_text())}
+    _vsr_cache["split"] = json.loads(VSR_SPLIT.read_text())
+
+
+def load_qual(scene: str, seg_name: str) -> tuple[Path, dict]:
+    """Returns (image_path, SEG-shaped dict)."""
+    seg = json.loads((QUAL / scene / seg_name).read_text())
+    return QUAL / scene / "orignal_image.jpg", seg
+
+
+def load_vsr(idx: int) -> tuple[Path, dict]:
+    """Adapt a VSR-200 evidence entry to the SEG shape this script consumes."""
+    _load_vsr_tables()
+    ev = _vsr_cache["ev"][idx]
+    split = _vsr_cache["split"][idx]
+    img_path = VSR_IMG / split["image_path"]
+    seg = {
+        "obj1": ev["obj1"],
+        "obj2": ev["obj2"],
+        "relation": ev["relation"],
+        "evidence": [{
+            "obj1_bbox": ev["b1"],
+            "obj2_bbox": ev["b2"],
+        }],
+    }
+    return img_path, seg
 
 
 def expand_to_aspect(box, W, H):
@@ -58,10 +105,9 @@ def expand_to_aspect(box, W, H):
     return [max(0, int(x1)), max(0, int(y1)), min(W, int(x2)), min(H, int(y2))]
 
 
-def render(scene: str, out_name: str):
-    seg = load_seg(scene)
+def render(img_path: Path, seg: dict, out_name: str):
     ev = next((e for e in seg["evidence"] if e.get("obj1_bbox") and e.get("obj2_bbox")), None)
-    img = Image.open(QUAL / scene / "orignal_image.jpg").convert("RGB")
+    img = Image.open(img_path).convert("RGB")
     W, H = img.size
     if ev is None:
         crop_box = [0, 0, W, H]
@@ -101,8 +147,17 @@ def render(scene: str, out_name: str):
 
 
 def main():
-    for scene, out_name in SCENES:
-        render(scene, out_name)
+    for entry in SCENES:
+        kind = entry[0]
+        if kind == "qual":
+            _, scene, seg_name, out_name = entry
+            img_path, seg = load_qual(scene, seg_name)
+        elif kind == "vsr":
+            _, idx, out_name = entry
+            img_path, seg = load_vsr(idx)
+        else:
+            raise ValueError(f"unknown scene kind: {kind}")
+        render(img_path, seg, out_name)
 
 
 if __name__ == "__main__":

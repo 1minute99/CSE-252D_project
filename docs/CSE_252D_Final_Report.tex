@@ -621,12 +621,12 @@ configurations sit above the GPT-4o baseline; the selective point answers
 \end{figure}
 
 \section{Qualitative Results}
-Figure~\ref{fig:qual} shows representative verified outputs. The Critic
-localises both objects, the geometric rule fires with a clear margin, and the
-SEG records the full evidence. Left/right and above/below relations verify
-robustly in a single iteration; containment verifies via the coverage/area
-rule; depth scenes are handled conservatively, deferring to the VLM when the
-depth margin is small.
+Figure~\ref{fig:qual} shows six outputs spanning the rule families. Row~1
+collects verified positives across position and containment relations
+(\rel{left\_of}, \rel{above}, \rel{contains}); row~2 covers the three depth
+modes the system supports: \rel{in\_front} and \rel{behind} verify when the
+$|\Delta d|$ margin is clear, while the bus/car case abstains when it is
+not --- mirroring the policy of Sec.~\ref{sec:recon}.
 
 \begin{figure}[!htbp]
 \centering
@@ -635,17 +635,66 @@ depth margin is small.
 \caption{\scriptsize \rel{left\_of}, verified}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.32\linewidth}
-\includegraphics[width=\linewidth]{../results/figures/qual_panel_2.jpg}
-\caption{\scriptsize \rel{contains}, verified}
+\includegraphics[width=\linewidth]{../results/figures/qual_panel_3.jpg}
+\caption{\scriptsize \rel{above}, verified}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.32\linewidth}
-\includegraphics[width=\linewidth]{../results/figures/qual_panel_3.jpg}
+\includegraphics[width=\linewidth]{../results/figures/qual_panel_5.jpg}
+\caption{\scriptsize \rel{contains}, verified}
+\end{subfigure}
+
+\vspace{1mm}
+
+\begin{subfigure}[t]{0.32\linewidth}
+\includegraphics[width=\linewidth]{../results/figures/qual_panel_7.jpg}
+\caption{\scriptsize \rel{in\_front}, verified}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}
+\includegraphics[width=\linewidth]{../results/figures/qual_panel_8.jpg}
+\caption{\scriptsize \rel{behind}, verified}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}
+\includegraphics[width=\linewidth]{../results/figures/qual_panel_9.jpg}
 \caption{\scriptsize \rel{behind}, abstained}
 \end{subfigure}
-\caption{Annotated outputs. Green/red boxes are GroundingDINO detections for
-$\obj{obj}_1$/$\obj{obj}_2$; the applied rule and its value are stored in the
-SEG.}
+\caption{Annotated outputs on six distinct scenes. Green/red boxes are
+GroundingDINO detections for $\obj{obj}_1$/$\obj{obj}_2$; the applied rule and
+its value are stored in the SEG. Row~1: verified positives on position and
+containment. Row~2: depth verifies cleanly when the margin is large; on the
+bus/car case the system abstains.}
 \label{fig:qual}
+\end{figure}
+
+\textbf{Where geometry corrects the VLM.} Of the 200 items, SEA at full
+coverage answers correctly on 22 questions on which the GPT-4o baseline is
+wrong. Figure~\ref{fig:wins} shows three such cases, all decided by the
+geometric \emph{override} path. In (a) and (b), GPT-4o misses a true relation
+that a clean centroid margin makes obvious; in (c), GPT-4o asserts a relation
+that geometry refuses --- the centroid ordering is inconsistent with
+\rel{right\_of}, so the Critic flips the verdict to \emph{no}. These are
+exactly the cases the confidence-based reconciliation policy is designed to
+catch: when a strong geometric signal disagrees with the VLM, deferring to the
+detector pays off.
+
+\begin{figure}[!htbp]
+\centering
+\begin{subfigure}[t]{0.32\linewidth}
+\includegraphics[width=\linewidth]{../results/figures/sea_vs_baseline_1.jpg}
+\caption{\scriptsize \rel{left\_of}, skateboard/dog\\ GT yes \quad VLM $\times$ \quad SEA $\checkmark$}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}
+\includegraphics[width=\linewidth]{../results/figures/sea_vs_baseline_2.jpg}
+\caption{\scriptsize \rel{above}, umbrella/cat\\ GT yes \quad VLM $\times$ \quad SEA $\checkmark$}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.32\linewidth}
+\includegraphics[width=\linewidth]{../results/figures/sea_vs_baseline_3.jpg}
+\caption{\scriptsize \rel{right\_of}, person/cake\\ GT no \quad VLM $\times$ \quad SEA $\checkmark$}
+\end{subfigure}
+\caption{Cases where the GPT-4o baseline is wrong but SEA is right via the
+geometric override path. (a, b) recover true positives the VLM missed;
+(c) refuses a hallucinated positive when the centroid ordering contradicts the
+relation.}
+\label{fig:wins}
 \end{figure}
 
 \section{Discussion}
