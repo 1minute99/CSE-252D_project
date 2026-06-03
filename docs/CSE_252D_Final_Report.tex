@@ -11,10 +11,22 @@
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, calc, fit}
 \setlist{leftmargin=1.2em,itemsep=1pt,topsep=2pt}
 \captionsetup{font=small,labelfont=bf}
 \setlength{\parindent}{1.2em}
 \pagestyle{plain}
+
+% --- Float placement: allow floats to land near their references rather
+% than piling up at page tops. ---
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
 
 \newcommand{\obj}[1]{\textit{#1}}
 \newcommand{\rel}[1]{\texttt{#1}}
@@ -174,7 +186,7 @@ Table~\ref{tab:dsl}. A slack threshold $\delta=0.02$ in normalised image
 coordinates prevents spurious failures when objects are nearly aligned;
 centroids $c_x, c_y$ and depths $d$ live in $[0,1]$.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering
 \small
 \caption{Spatial Predicate DSL. Coordinates normalised to $[0,1]$.}
@@ -225,15 +237,64 @@ a learned agent: it increments the iteration counter and sets the crop region
 the Critic computed around the disputed boxes, routing back to the Executor for
 a re-run on the zoomed image.
 
-\begin{figure}[t]
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=\linewidth]{architecture.png}
+\begin{tikzpicture}[
+  font=\small,
+  >={Stealth[length=2.5mm,width=2mm]},
+  node distance=10mm and 14mm,
+  agent/.style={draw, rounded corners=3pt, align=center,
+                minimum height=13mm, minimum width=28mm,
+                inner xsep=4pt, inner ysep=4pt, line width=0.7pt},
+  planner/.style={agent, fill=blue!10,    draw=blue!55!black},
+  exec/.style   ={agent, fill=orange!20,  draw=orange!70!black},
+  critic/.style ={agent, fill=red!15,     draw=red!60!black},
+  ctrl/.style   ={agent, fill=violet!12,  draw=violet!60!black},
+  outbox/.style ={agent, fill=green!20,   draw=green!55!black},
+  abst/.style   ={agent, fill=magenta!15, draw=magenta!60!black},
+  flow/.style={->, thick},
+  loop/.style={->, thick, dashed, draw=violet!70!black},
+  edgelbl/.style={font=\scriptsize, inner sep=2pt, fill=white, fill opacity=0.9, text opacity=1},
+]
+
+% Top row: linear pipeline
+\node[planner] (P) {\textbf{Planner}\\\scriptsize GPT-4o-mini\\\scriptsize $(o_1,o_2,r)$};
+\node[exec,    right=of P] (E) {\textbf{Executor}\\\scriptsize GPT-4o VLM\\\scriptsize yes/no + claims};
+\node[critic,  right=of E] (C) {\textbf{Critic}\\\scriptsize GroundingDINO\\\scriptsize + Depth Anything V2};
+\node[outbox,  right=of C] (O) {\textbf{Output}\\\scriptsize SEG, verified};
+
+% Bottom row
+\node[ctrl, below=20mm of E] (R) {\textbf{Correction}\\\scriptsize crop disputed\\\scriptsize region, iter\texttt{++}};
+\node[ctrl, below=20mm of C] (A) {\textbf{Arbitrate}\\\scriptsize geo confidence\\\scriptsize $\geq\tau$?};
+\node[abst, below=20mm of O] (X) {\textbf{Abstain}\\\scriptsize labelled\\\scriptsize failure mode};
+
+% --- Happy path (solid) ---
+\draw[flow] (P) -- node[edgelbl,above]{triple} (E);
+\draw[flow] (E) -- node[edgelbl,above]{claims} (C);
+\draw[flow] (C) -- node[edgelbl,above]{agree} (O);
+
+% --- Correction loop: disagree, budget remaining (dashed, exits Critic SW) ---
+\draw[loop] (C.south west) -- ++(0,-6mm) -| (R.north)
+    node[edgelbl,pos=0.85,above]{disagree, $i{<}k$};
+\draw[loop] (R.west) -- ++(-8mm,0) |- (E.west)
+    node[edgelbl,pos=0.75,above]{re-examine};
+
+% --- Arbitration: disagree, budget exhausted (dashed, exits Critic SE) ---
+\draw[loop] (C.south east) -- ++(0,-6mm) -| (A.north)
+    node[edgelbl,pos=0.85,above]{$i{=}k$};
+
+% --- Arbitrate outputs (solid) ---
+% commit: curve gracefully up and right to Output, well clear of Abstain
+\draw[flow] (A.north east) to[out=45, in=225] node[edgelbl,sloped,above]{commit} (O.south west);
+\draw[flow] (A) -- node[edgelbl,above]{defer / no evid.} (X);
+
+\end{tikzpicture}
 \caption{SEA pipeline. Three specialised agents communicate through a typed
 \texttt{AgentState}. The correction loop zooms into the disputed region for up
-to $k$ re-examinations; a confidence-based reconciliation step then commits or
-abstains.}
+to $k$ re-examinations; when the budget is exhausted, the arbitration node
+commits geometry, defers to the VLM, or abstains based on geometric confidence.}
 \label{fig:arch}
-\end{figure}
+\end{figure*}
 
 \subsection{Depth in a Consistent Frame}
 The active-perception loop re-examines a cropped region when the Executor and
@@ -286,7 +347,7 @@ distribution: depth and \rel{contains} relations sit below the arbitration
 threshold by design, so SEA defers them to the VLM rather than overruling it
 --- a choice the data in Sec.~\ref{sec:analysis} validates.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig8_geoconf_by_relation.pdf}
 \caption{Mean geometric confidence by relation. Depth relations (blue) and the
@@ -369,7 +430,7 @@ when there is no geometric evidence --- SEA's committed answers reach
 accurate than the VLM} while every answer carries explicit geometric evidence.
 Figure~\ref{fig:headline} visualises both operating points.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering
 \small
 \caption{Main results on the VSR-200 split. All SEA operating points exceed
@@ -389,7 +450,7 @@ SEA (high precision, $\tau{=}0.40$) & --- & \textbf{0.847} & 0.295 \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig2_with_without_abstain.pdf}
 \caption{SEA vs.\ the GPT-4o baseline. The full-coverage model improves raw
@@ -409,7 +470,7 @@ position slack and deferring the non-separable \rel{contains} relation
 confirming that the gain is policy-driven --- geometry is used to
 \emph{route}, not to overrule.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering
 \small
 \caption{Reconciliation-policy ablation (VSR-200, $k=2$). Each row adds one
@@ -428,7 +489,7 @@ Abstain on disagreement        & 0.490 & 0.650 \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig1_journey.pdf}
 \caption{Accuracy across reconciliation-policy design steps. Each change moves
@@ -445,7 +506,7 @@ and geometry, which are reliable; the rest are high-confidence geometry
 commits or VLM deferrals. Every committed bucket answers at $\ge 0.80$,
 confirming that the routing sends questions to a trustworthy signal.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering
 \small
 \caption{Answer-source attribution (selective mode). Abstentions arise only
@@ -472,7 +533,7 @@ baseline on \emph{every} relation, including \rel{contains}, where the
 are $\sim$25, so individual entries are indicative rather than statistically
 tight.)
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig7_per_relation_final.pdf}
 \caption{Per-relation accuracy, full-coverage SEA vs.\ GPT-4o baseline. SEA
@@ -481,7 +542,7 @@ the baseline on every relation.}
 \label{fig:perrel}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering
 \small
 \caption{Per-relation accuracy (full-coverage SEA vs.\ baseline).}
@@ -509,7 +570,7 @@ the VLM alone (69 vs.\ 59 true positives) at \emph{lower} false-positive cost
 (16 vs.\ 20). Verification thus reduces the VLM's tendency to wrongly deny
 relations that are in fact present.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig9_confusion.pdf}
 \caption{Yes/No confusion. SEA (left) recovers 10 more true ``yes'' answers
@@ -525,7 +586,7 @@ test which per-item signal best ranks errors by sorting items
 most-confident-first and sweeping the abstain threshold
 (Figure~\ref{fig:riskcov}).
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig5_risk_coverage.pdf}
 \caption{Risk--coverage. Sorting by geometric confidence and abstaining on the
@@ -546,7 +607,7 @@ likely wrong without itself answering better. It reframes the role of
 deterministic geometry in VLM pipelines: its value is verification and
 calibrated confidence, not raw answer accuracy.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig6_confidence_informativeness.pdf}
 \caption{Empirical accuracy vs.\ confidence bin. Geometric confidence (left)
@@ -571,7 +632,7 @@ baseline in the coverage/accuracy plane: all SEA points dominate the baseline,
 and lowering coverage along the geometric-confidence threshold trades coverage
 for verified, higher-precision answers.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\linewidth]{../results/figures/paper/paper_fig4_accuracy_vs_coverage.pdf}
 \caption{Operating points in the coverage/accuracy plane. Both SEA
@@ -588,19 +649,19 @@ robustly in a single iteration; containment verifies via the coverage/area
 rule; depth scenes are handled conservatively, deferring to the VLM when the
 depth margin is small.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
-\begin{subfigure}{0.32\linewidth}
+\begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{../results/figures/qual_panel_1.jpg}
 \caption{\scriptsize \rel{left\_of}, verified}
 \end{subfigure}\hfill
-\begin{subfigure}{0.32\linewidth}
+\begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{../results/figures/qual_panel_2.jpg}
 \caption{\scriptsize \rel{contains}, verified}
 \end{subfigure}\hfill
-\begin{subfigure}{0.32\linewidth}
+\begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{../results/figures/qual_panel_3.jpg}
-\caption{\scriptsize \rel{behind}, depth scene}
+\caption{\scriptsize \rel{behind}, abstained}
 \end{subfigure}
 \caption{Annotated outputs. Green/red boxes are GroundingDINO detections for
 $\obj{obj}_1$/$\obj{obj}_2$; the applied rule and its value are stored in the
