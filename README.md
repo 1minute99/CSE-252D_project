@@ -10,6 +10,18 @@ The core finding: deterministic geometry is a poor *answerer* but an excellent
 uses geometry to decide **when to trust the VLM, when to commit geometry, and
 when to abstain**.
 
+## Demo
+
+The active-perception loop in action — when the Executor and the geometric
+check disagree, the Critic crops the disputed region, the VLM re-examines the
+zoom, and the answer is committed only once they agree:
+
+![Active-perception loop](results/demo/active_perception.gif)
+
+The full pipeline walkthrough (Planner → Executor → Critic → verified answer
+over several relations) is in [`results/demo/sea_demo.mp4`](results/demo/sea_demo.mp4),
+regenerated with `python scripts/make_demo_video.py`.
+
 ## Results (VSR-200)
 
 Evaluated on a stratified 200-sample split of the published
