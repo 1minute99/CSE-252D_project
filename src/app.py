@@ -12,6 +12,7 @@ from pathlib import Path
 import streamlit as st
 from langchain_openai import ChatOpenAI
 
+from config import CriticConfig
 from env_loader import get_openai_api_key, load_project_env
 from pipeline import run_pipeline
 from visualize import annotate_image
@@ -40,6 +41,7 @@ if "openai_key" not in st.session_state:
 
 # --- Sidebar -------------------------------------------------------------------
 st.sidebar.header("Settings")
+default_critic_cfg = CriticConfig()
 backend_choice = st.sidebar.radio(
     "Backend (Planner + Executor)",
     [BACKEND_OPENAI, BACKEND_LOCAL_OPENAI_COMPAT],
@@ -74,11 +76,29 @@ else:
 max_iterations = st.sidebar.slider("Max correction iterations (k)", 1, 3, 3)
 
 with st.sidebar.expander("Advanced critic thresholds", expanded=False):
-    margin = st.slider("Position/depth margin", 0.0, 0.20, 0.02, step=0.01)
-    on_iou = st.slider("'on' IoU threshold", 0.0, 0.50, 0.05, step=0.01)
-    contains_cov = st.slider("'contains' coverage threshold", 0.0, 1.0, 0.70, step=0.05)
-    area_ratio = st.slider("'contains' area ratio threshold", 0.0, 1.0, 0.70, step=0.05)
-    crop_padding = st.slider("Active-perception crop padding", 0.0, 0.30, 0.05, step=0.01)
+    margin = st.slider("Position/depth margin", 0.0, 0.20, default_critic_cfg.margin, step=0.01)
+    on_iou = st.slider("'on' IoU threshold", 0.0, 0.50, default_critic_cfg.on_iou_threshold, step=0.01)
+    contains_cov = st.slider(
+        "'contains' coverage threshold",
+        0.0,
+        1.0,
+        default_critic_cfg.contains_coverage_threshold,
+        step=0.05,
+    )
+    area_ratio = st.slider(
+        "'contains' area ratio threshold",
+        0.0,
+        1.0,
+        default_critic_cfg.area_ratio_threshold,
+        step=0.05,
+    )
+    crop_padding = st.slider(
+        "Active-perception crop padding",
+        0.0,
+        0.30,
+        default_critic_cfg.crop_padding,
+        step=0.01,
+    )
 
 # --- Main pane -----------------------------------------------------------------
 uploaded_file = st.file_uploader("Image (JPG / PNG)", type=["jpg", "jpeg", "png"])
