@@ -3,7 +3,9 @@ Spatial Evidence Graph State
 Core state object passed between all agents in the pipeline.
 """
 
-from typing import Optional, Any
+from __future__ import annotations
+
+from typing import Optional, Any, List
 from pydantic import BaseModel, Field
 
 
@@ -76,9 +78,9 @@ class SpatialEvidenceGraph(BaseModel):
     answer: Optional[bool] = None           # True=yes, False=no, None=abstain
     answer_str: str = ""                    # "yes" / "no" / "abstain"
     confidence: float = 0.0
-    evidence: list[CriticEvidence] = Field(default_factory=list)
+    evidence: List[CriticEvidence] = Field(default_factory=list)
     iterations: int = 0
-    crop_history: list[CropRegion] = Field(default_factory=list)
+    crop_history: List[CropRegion] = Field(default_factory=list)
     failure_mode: str = ""                  # "detector_miss" | "depth_noise" | "vlm_bias" | ""
     verified: bool = False
     answer_source: str = ""                 # "agreement" | "geometry_override" | "vlm_deferred" | "geometry_only" | ""
@@ -104,18 +106,18 @@ class AgentState(BaseModel):
     # ── Executor output ───────────────────────────────────────────────
     executor_answer: Optional[bool] = None
     executor_confidence: float = 0.0
-    executor_claims: list[str] = Field(default_factory=list)
+    executor_claims: List[str] = Field(default_factory=list)
     executor_raw: str = ""
 
     # ── Critic output ─────────────────────────────────────────────────
     critic_passed: bool = False
-    critic_evidence: list[CriticEvidence] = Field(default_factory=list)
+    critic_evidence: List[CriticEvidence] = Field(default_factory=list)
 
     # ── Loop control ──────────────────────────────────────────────────
     iteration: int = 0
     max_iterations: int = 3
     current_crop: Optional[CropRegion] = None
-    crop_history: list[CropRegion] = Field(default_factory=list)
+    crop_history: List[CropRegion] = Field(default_factory=list)
 
     # ── Final output ──────────────────────────────────────────────────
     graph: SpatialEvidenceGraph = Field(default_factory=SpatialEvidenceGraph)
