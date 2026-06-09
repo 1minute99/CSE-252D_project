@@ -128,6 +128,21 @@ Operating modes (abstention policy knobs):
 `scripts/calibrate_thresholds.py` can replay verification offline for threshold
 sweeps **without re-spending API calls**.
 
+Held-out calibration checks whether threshold tuning generalizes beyond the
+same evidence used to select thresholds:
+
+```bash
+python scripts/heldout_calibrate_thresholds.py \
+  --evidence results/vsr200_evidence_recal_k2.json \
+  --seed 1 \
+  --report results/heldout_seed1.json
+
+python scripts/summarize_heldout_calibration.py results/heldout_seed*.json
+```
+
+Across seeds 1--5, dev-selected thresholds did not improve held-out macro-F1
+on average, so SEA keeps the conservative `CriticConfig` defaults.
+
 Dataset split format:
 
 ```json
